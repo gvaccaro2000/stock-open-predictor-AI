@@ -42,7 +42,7 @@ jobs:
           # Without ANTHROPIC_API_KEY the run still works, using price signals only.
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}   # optional, extra news coverage
-        run: python -m predictor.run --universe sp500 --top 25 --news-candidates 60
+        run: python -m predictor.run --universe us1500 --top 25 --news-candidates 80
 
       - name: Commit results
         run: |

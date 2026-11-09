@@ -121,3 +121,31 @@ def test_full_payload_has_new_fields():
     assert pick["levels"]["prev_high"] is not None and pick["atr"] is not None
     assert pick["rel_strength_pct"] is not None
     import json; json.dumps(p)   # must be valid JSON (no NaN objects)
+
+
+def test_parse_members_handles_symbol_or_ticker_columns():
+    from predictor import universe
+    a = pd.DataFrame({"Symbol": ["BRK.B", "AAPL"] * 30, "Security": ["Berkshire", "Apple"] * 30, "GICS Sector": ["Financials", "Information Technology"] * 30})
+    b = pd.DataFrame({"Ticker": ["NVDA", "ASML"] * 30, "Company": ["Nvidia", "ASML Holding"] * 30})
+    small = pd.DataFrame({"Symbol": ["X"], "Security": ["x"]})
+    pa = universe.parse_members([small, a])
+    assert "BRK-B" in set(pa["ticker"]) and pa.iloc[0]["sector"] == "Financials"
+    pb = universe.parse_members([b])
+    assert set(pb["ticker"]) == {"NVDA", "ASML"} and pb["sector"].isna().all()
+
+
+def test_liquidity_filter():
+    cheap = make_daily(2.0, 0.0, seed=1)                 # $2 stock -> dropped
+    thin = make_daily(100, 0.0, seed=2); thin["Volume"] = 1_000.0   # $100k/day -> dropped
+    ok = make_daily(100, 0.0, seed=3)                     # ~$150M/day -> kept
+    kept = data.liquid({"CHEAP": cheap, "THIN": thin, "OK": ok})
+    assert set(kept) == {"OK"}
+
+
+def test_price_history_is_90_calendar_days():
+    from predictor import report
+    df = make_daily(100, 0.001, n=150)
+    h = report.price_history(df)
+    days = (pd.Timestamp(h["end"]) - pd.Timestamp(h["start"])).days
+    assert 85 <= days <= 90 and 55 <= len(h["closes"]) <= 66
+    assert h["closes"][-1] == round(float(df["Close"].iloc[-1]), 2)

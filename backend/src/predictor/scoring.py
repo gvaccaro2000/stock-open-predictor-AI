@@ -122,7 +122,7 @@ def _is_true(feat: str, positive: bool, row: pd.Series) -> bool:
         "premarket_confirmation": (gap > 0 and busy, gap < 0 and busy),
         "rel_strength_pct": (v > 0.3, v < -0.3),
         "level_signal": (v > 0, v < 0),
-        "momentum_5d_pct": (v > 1.0, v < 0),
+        "momentum_5d_pct": (v > 2.0, v < 0),
         "trend_vs_ma50_pct": (v > 0, v < 0),
         "rel_volume_1d": (v > 1, v < 1),
         "overextension": (False, v > 0),

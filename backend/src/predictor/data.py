@@ -75,14 +75,50 @@ def _split_by_ticker(df: pd.DataFrame, tickers: list[str]) -> dict[str, pd.DataF
     return out
 
 
-def fetch_daily(tickers: list[str], period: str = "6mo", now: datetime | None = None) -> dict[str, pd.DataFrame]:
+CHUNK = 200  # tickers per Yahoo request; big lists in one go get rate-limited
+
+
+def _download(tickers: list[str], **kw) -> dict[str, pd.DataFrame]:
+    """yf.download in chunks, with one retry per chunk."""
+    import time as _time
+
     import yfinance as yf
 
+    out: dict[str, pd.DataFrame] = {}
+    for i in range(0, len(tickers), CHUNK):
+        chunk = tickers[i:i + CHUNK]
+        for attempt in (1, 2):
+            try:
+                df = yf.download(chunk, group_by="ticker", progress=False, threads=True, **kw)
+                got = _split_by_ticker(df, chunk)
+                out.update(got)
+                if got or attempt == 2:
+                    break
+            except Exception as exc:
+                log.warning("Download chunk %d failed (attempt %d): %s", i // CHUNK + 1, attempt, exc)
+            _time.sleep(3)
+        _time.sleep(0.5)
+    return out
+
+
+def fetch_daily(tickers: list[str], period: str = "6mo", now: datetime | None = None) -> dict[str, pd.DataFrame]:
     now = now or datetime.now(NY)
     log.info("Downloading daily bars for %d tickers", len(tickers))
-    df = yf.download(tickers, period=period, interval="1d", group_by="ticker",
-                     auto_adjust=True, progress=False, threads=True)
-    return drop_today_bar(_split_by_ticker(df, tickers), now)
+    daily = _download(tickers, period=period, interval="1d", auto_adjust=True)
+    return drop_today_bar(daily, now)
+
+
+def liquid(daily: dict[str, pd.DataFrame], min_price: float = 3.0, min_dollar_vol: float = 5e6) -> dict[str, pd.DataFrame]:
+    """Drop stocks that are too cheap or too rarely traded for reliable signals."""
+    out = {}
+    for t, df in daily.items():
+        c, v = df["Close"].dropna(), df["Volume"].fillna(0)
+        if len(c) < 21:
+            continue
+        dollar_vol = float((c.iloc[-20:] * v.reindex(c.index).iloc[-20:]).mean())
+        if float(c.iloc[-1]) >= min_price and dollar_vol >= min_dollar_vol:
+            out[t] = df
+    return out
 
 
 def drop_today_bar(daily: dict[str, pd.DataFrame], now: datetime) -> dict[str, pd.DataFrame]:
@@ -95,13 +131,10 @@ def drop_today_bar(daily: dict[str, pd.DataFrame], now: datetime) -> dict[str, p
 
 
 def fetch_premarket(tickers: list[str], now: datetime | None = None) -> dict[str, Premarket]:
-    import yfinance as yf
-
     now = now or datetime.now(NY)
     log.info("Downloading extended-hours bars for %d tickers", len(tickers))
-    df = yf.download(tickers, period="10d", interval="5m", prepost=True, group_by="ticker",
-                     auto_adjust=True, progress=False, threads=True)
-    return extract_extended(_split_by_ticker(df, tickers), now)
+    bars = _download(tickers, period="10d", interval="5m", prepost=True, auto_adjust=True)
+    return extract_extended(bars, now)
 
 
 def _window(session: str, now: datetime) -> tuple[time, time]:

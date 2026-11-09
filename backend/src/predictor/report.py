@@ -17,7 +17,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from .universe import company_name, sector
+from .universe import company_name, sector, size
 
 SCHEMA_VERSION = 1
 DISCLAIMER = (
@@ -48,8 +48,24 @@ def run_window(t: datetime) -> str:
     return "overnight"
 
 
+HISTORY_DAYS = 90   # calendar days shown in the charts
+
+
+def price_history(df: pd.DataFrame | None, days: int = HISTORY_DAYS) -> dict | None:
+    """Daily closes for the last `days` calendar days (~63 trading days), for the charts."""
+    if df is None or df.empty:
+        return None
+    c = df["Close"].dropna()
+    c = c[c.index >= c.index[-1] - pd.Timedelta(days=days)]
+    if len(c) < 5:
+        return None
+    return {"start": c.index[0].date().isoformat(), "end": c.index[-1].date().isoformat(),
+            "closes": [round(float(x), 2) for x in c]}
+
+
 def build_payload(scored: pd.DataFrame, generated_at: datetime, top_n: int = 25,
-                  news: dict | None = None, news_checked: int = 0, market: dict | None = None) -> dict:
+                  news: dict | None = None, news_checked: int = 0, market: dict | None = None,
+                  daily: dict[str, pd.DataFrame] | None = None) -> dict:
     """`news` maps ticker -> sentiment.NewsAssessment; `news_checked` = how many stocks we read news for."""
     news = news or {}
     has_premarket = bool(scored["premarket_gap_pct"].notna().any())
@@ -69,6 +85,8 @@ def build_payload(scored: pd.DataFrame, generated_at: datetime, top_n: int = 25,
             "rsi_14": _num(r["rsi_14"], 1),
             "rel_volume_1d": _num(r["rel_volume_1d"]),
             "sector": sector(ticker),
+            "size": size(ticker),
+            "history": price_history((daily or {}).get(ticker)),
             "premarket_rvol": _num(r.get("premarket_rvol"), 1),
             "premarket_dollar_vol": _num(r.get("premarket_dollar_vol"), 0),
             "rel_strength_pct": _num(r.get("rel_strength_pct")),

@@ -48,26 +48,70 @@ SAMPLE_SECTORS = {
 NAMES: dict[str, str] = dict(SAMPLE_NAMES)
 SECTORS: dict[str, str] = dict(SAMPLE_SECTORS)
 
-SP500_URL = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
+# Wikipedia lists of index members. Each page has a table with a ticker column
+# ("Symbol" or "Ticker"), a name column and usually a "GICS Sector" column.
+INDEX_PAGES = {
+    "sp500": ("https://en.wikipedia.org/wiki/List_of_S%26P_500_companies", "Large cap"),
+    "sp400": ("https://en.wikipedia.org/wiki/List_of_S%26P_400_companies", "Mid cap"),
+    "sp600": ("https://en.wikipedia.org/wiki/List_of_S%26P_600_companies", "Small cap"),
+    "nasdaq100": ("https://en.wikipedia.org/wiki/Nasdaq-100", "Large cap"),
+}
+SIZES: dict[str, str] = {}
+
+
+def _fetch_html(url: str) -> str:
+    req = urllib.request.Request(url, headers={"User-Agent": "stock-open-predictor/0.2"})
+    with urllib.request.urlopen(req, timeout=25) as resp:
+        return resp.read().decode("utf-8")
+
+
+def parse_members(tables: list[pd.DataFrame]) -> pd.DataFrame:
+    """Find the constituents table and normalise it to columns: ticker, name, sector."""
+    for t in tables:
+        cols = {str(c).strip(): c for c in t.columns}
+        tick = next((cols[c] for c in ("Symbol", "Ticker", "Ticker symbol") if c in cols), None)
+        name = next((cols[c] for c in ("Security", "Company", "Company Name") if c in cols), None)
+        if tick is None or name is None or len(t) < 50:
+            continue
+        sec = cols.get("GICS Sector")
+        out = pd.DataFrame({
+            "ticker": t[tick].astype(str).str.strip().str.replace(".", "-", regex=False),
+            "name": t[name].astype(str).str.strip(),
+            "sector": t[sec].astype(str).str.strip() if sec is not None else None,
+        })
+        return out[out["ticker"].str.fullmatch(r"[A-Z][A-Z0-9-]{0,6}")]
+    raise ValueError("no constituents table found")
+
+
+def load_index(key: str) -> list[str]:
+    url, size = INDEX_PAGES[key]
+    members = parse_members(pd.read_html(io.StringIO(_fetch_html(url))))
+    for r in members.itertuples():
+        NAMES.setdefault(r.ticker, r.name)
+        if isinstance(r.sector, str) and r.sector not in ("", "nan"):
+            SECTORS.setdefault(r.ticker, r.sector)
+        SIZES.setdefault(r.ticker, size)
+    return members["ticker"].tolist()
+
+
+def load_indexes(keys: list[str]) -> list[str]:
+    """Union of several index lists; an index that fails to load is skipped."""
+    tickers: list[str] = []
+    for k in keys:
+        try:
+            got = load_index(k)
+            log.info("Loaded %d members of %s", len(got), k)
+            tickers += got
+        except Exception as exc:  # network down, page layout changed, ...
+            log.warning("Could not load %s (%s)", k, exc)
+    if not tickers:
+        log.warning("No index lists loaded; using the sample list")
+        return SAMPLE
+    return sorted(set(tickers))
 
 
 def sp500() -> list[str]:
-    """Current S&P 500 constituents from Wikipedia (falls back to SAMPLE)."""
-    try:
-        req = urllib.request.Request(SP500_URL, headers={"User-Agent": "stock-open-predictor/0.1"})
-        with urllib.request.urlopen(req, timeout=20) as resp:
-            html = resp.read().decode("utf-8")
-        table = pd.read_html(io.StringIO(html))[0]
-        # Yahoo uses "-" instead of "." (e.g. BRK.B -> BRK-B)
-        table["Symbol"] = table["Symbol"].str.replace(".", "-", regex=False)
-        if "Security" in table.columns:
-            NAMES.update(dict(zip(table["Symbol"], table["Security"])))
-        if "GICS Sector" in table.columns:
-            SECTORS.update(dict(zip(table["Symbol"], table["GICS Sector"])))
-        return sorted(table["Symbol"].tolist())
-    except Exception as exc:  # network down, page layout changed, ...
-        log.warning("Could not load S&P 500 list (%s); using sample list", exc)
-        return SAMPLE
+    return load_indexes(["sp500"])
 
 
 def clean_name(name: str) -> str:
@@ -87,9 +131,15 @@ def get_universe(name: str) -> list[str]:
         return SAMPLE
     if name == "sp500":
         return sp500()
+    if name == "us1500":   # S&P 500 + MidCap 400 + SmallCap 600 + Nasdaq-100 (~1,500 stocks)
+        return load_indexes(["sp500", "sp400", "sp600", "nasdaq100"])
     # Allow a comma-separated custom list: --universe AAPL,MSFT
     return [t.strip().upper() for t in name.split(",") if t.strip()]
 
 
 def sector(ticker: str) -> str | None:
     return SECTORS.get(ticker)
+
+
+def size(ticker: str) -> str | None:
+    return SIZES.get(ticker)

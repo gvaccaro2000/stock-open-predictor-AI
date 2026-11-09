@@ -33,6 +33,14 @@ export type Pick = {
   why_short?: string; // very short version for list rows
   reasons: Reason[];
   news?: NewsInfo | null;
+  sector?: string | null;
+  size?: string | null; // Large cap / Mid cap / Small cap
+  history?: { start: string; end: string; closes: number[] } | null; // last 90 days
+  levels?: Record<string, number | null>;
+  atr?: number | null;
+  gap_atr?: number | null;
+  premarket_rvol?: number | null;
+  rel_strength_pct?: number | null;
 };
 
 export type Report = {

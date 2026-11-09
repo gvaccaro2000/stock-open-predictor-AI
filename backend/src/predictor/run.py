@@ -19,7 +19,8 @@ DEFAULT_OUT = REPO_ROOT / "docs" / "data"
 
 def main(argv: list[str] | None = None) -> None:
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--universe", default="sp500", help="sample | sp500 | AAPL,MSFT,...")
+    p.add_argument("--universe", default="us1500",
+                   help="sample | sp500 | us1500 (S&P 1500 + Nasdaq-100) | AAPL,MSFT,...")
     p.add_argument("--top", type=int, default=25, help="how many picks to publish")
     p.add_argument("--out", type=Path, default=DEFAULT_OUT)
     p.add_argument("--news-candidates", type=int, default=60,
@@ -36,9 +37,11 @@ def main(argv: list[str] | None = None) -> None:
     etfs = list(data.MARKET_ETFS) + list(data.SECTOR_ETFS.values())
     all_t = tickers + [e for e in etfs if e not in tickers]
     daily_all = data.fetch_daily(all_t, now=now)
-    pre_all = data.fetch_premarket(all_t, now=now)
-    daily = {t: d for t, d in daily_all.items() if t in tickers}
-    pre = {t: x for t, x in pre_all.items() if t in tickers}
+    daily = data.liquid({t: d for t, d in daily_all.items() if t in tickers})
+    log.info("%d of %d stocks pass the price/liquidity filter", len(daily), len(tickers))
+    wanted = list(daily) + [e for e in etfs if e in daily_all]
+    pre_all = data.fetch_premarket(wanted, now=now)   # intraday only for stocks we keep
+    pre = {t: x for t, x in pre_all.items() if t in daily}
     log.info("Got daily data for %d, extended-hours data for %d (session: %s)",
              len(daily), len(pre), data.session_for(now))
     if not daily:
@@ -69,7 +72,7 @@ def main(argv: list[str] | None = None) -> None:
         if assessments:
             scored = scoring.score(feats, news=assessments, news_checked=set(candidates))
 
-    payload = report.build_payload(scored, generated_at=now, top_n=args.top, market=ctx,
+    payload = report.build_payload(scored, generated_at=now, top_n=args.top, market=ctx, daily=daily,
                                    news=assessments, news_checked=len(candidates) if assessments else 0)
     path = report.write(payload, args.out)
 

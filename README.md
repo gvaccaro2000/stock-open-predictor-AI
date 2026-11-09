@@ -42,7 +42,7 @@ cd backend
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
 python -m predictor.run --universe sample      # small ticker list, fast
-python -m predictor.run --universe sp500       # full S&P 500
+python -m predictor.run --universe us1500      # S&P 1500 + Nasdaq-100 (default)
 pytest
 ```
 
@@ -59,6 +59,7 @@ npx expo start      # scan the QR code with the Expo Go app on your iPhone
 - [x] Phase 2b — Pre-open technicals: market context (SPY/QQQ/IWM, VIX, 10y), same-time pre-market
       relative volume, liquidity, sector relative strength, ATR & extension, key levels (PDH/PDL/PDC,
       pre-market high/low, 20-day high), unexplained-move flag
+- [x] Phase 2c — ~1,500-stock universe with liquidity filter; 90-day charts per pick
 - [ ] Phase 3 — Historical dataset, ML model, backtesting & live accuracy tracking
 - [ ] Phase 4 — Supabase backend, push notifications, watchlists, App Store
 
