@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Open Signals · Stocks to watch at the US open</title>
+<meta name="description" content="Every US trading morning: the stocks showing the strongest signs of rising when the market opens, explained in plain English.">
+<meta name="theme-color" content="#F6F4EF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121412" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Open Signals">
+<meta property="og:title" content="Open Signals">
+<meta property="og:description" content="Stocks to watch at the US market open, explained in plain English.">
+<meta property="og:image" content="icons/icon-512.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>
+  :root {
+    --bg: #F6F4EF; --card: #FFFFFF; --text: #1B1C1A; --muted: #6B6A63; --line: #E7E3DA;
+    --brand: #0F5D46; --brand-soft: #E3EFE9; --up: #0E7A4A; --up-soft: #E2F3EA;
+    --down: #B93C26; --down-soft: #FBE9E4; --warn: #8A5A00; --warn-soft: #FFF3D6;
+    --shadow: 0 1px 2px rgba(30,28,20,.05), 0 4px 16px rgba(30,28,20,.06);
+    --radius: 18px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121412; --card: #1C1F1C; --text: #EEF0EC; --muted: #9DA39B; --line: #2C312C;
+      --brand: #5FD3A6; --brand-soft: #1D3229; --up: #5FD39A; --up-soft: #183326;
+      --down: #FF8A73; --down-soft: #3A1F19; --warn: #F2C467; --warn-soft: #362C14;
+      --shadow: none;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 17px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 560px; margin: 0 auto; padding: calc(env(safe-area-inset-top) + 20px) 18px calc(env(safe-area-inset-bottom) + 40px); }
+  button { font: inherit; color: inherit; }
+  a { color: var(--brand); }
+
+  header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand img { width: 36px; height: 36px; border-radius: 9px; }
+  .brand b { font-size: 19px; letter-spacing: -.01em; }
+  .share-btn {
+    border: 1px solid var(--line); background: var(--card); border-radius: 999px;
+    padding: 8px 14px; font-size: 15px; font-weight: 600; cursor: pointer;
+  }
+  h1 { font-size: 30px; line-height: 1.15; letter-spacing: -.02em; margin: 22px 0 6px; }
+  .lede { color: var(--muted); margin: 0 0 18px; }
+
+  .status {
+    display: flex; gap: 12px; align-items: center; background: var(--card); border-radius: var(--radius);
+    padding: 14px 16px; box-shadow: var(--shadow); margin-bottom: 12px;
+  }
+  .status .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--up); flex: none; }
+  .status .dot.wait { background: var(--warn); }
+  .status small { display: block; color: var(--muted); font-size: 14px; }
+  .notice { background: var(--warn-soft); color: var(--warn); border-radius: 14px; padding: 12px 14px; font-size: 15px; margin-bottom: 12px; }
+
+  h2 { font-size: 20px; margin: 28px 0 12px; letter-spacing: -.01em; }
+  h2 span { color: var(--muted); font-weight: 500; font-size: 15px; margin-left: 6px; }
+
+  .card {
+    display: block; width: 100%; text-align: left; border: 0; cursor: pointer;
+    background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 16px; margin-bottom: 12px; transition: transform .12s ease;
+  }
+  .card:active { transform: scale(.985); }
+  .card-top { display: flex; align-items: flex-start; gap: 12px; }
+  .rank {
+    flex: none; width: 34px; height: 34px; border-radius: 10px; background: var(--brand-soft);
+    color: var(--brand); display: grid; place-items: center; font-weight: 700; font-size: 16px;
+  }
+  .who { flex: 1; min-width: 0; }
+  .who .name { font-weight: 700; font-size: 18px; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .who .tick { color: var(--muted); font-size: 14px; }
+  .move { flex: none; font-weight: 700; font-size: 15px; padding: 5px 10px; border-radius: 999px; font-variant-numeric: tabular-nums; }
+  .move.up { background: var(--up-soft); color: var(--up); }
+  .move.down { background: var(--down-soft); color: var(--down); }
+  .move.flat { background: var(--line); color: var(--muted); }
+  .why { margin: 12px 0 10px 46px; color: var(--text); font-size: 15.5px; }
+  .strength { margin-left: 46px; display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); }
+  .bars { display: flex; gap: 3px; }
+  .bars i { width: 16px; height: 6px; border-radius: 3px; background: var(--line); }
+  .bars i.on { background: var(--brand); }
+
+  .compact { display: flex; align-items: center; gap: 12px; padding: 13px 16px; }
+  .compact .why, .compact .strength { display: none; }
+  .more-btn {
+    width: 100%; border: 1px dashed var(--line); background: transparent; border-radius: 14px;
+    padding: 13px; font-weight: 600; color: var(--brand); cursor: pointer;
+  }
+
+  details { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 4px 16px; margin-bottom: 12px; }
+  summary { cursor: pointer; padding: 13px 0; font-weight: 650; list-style: none; display: flex; justify-content: space-between; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; color: var(--muted); font-weight: 400; font-size: 22px; line-height: 1; }
+  details[open] summary::after { content: "–"; }
+  details p, details ol { margin: 0 0 14px; color: var(--text); font-size: 15.5px; }
+  details ol { padding-left: 20px; }
+  details li { margin-bottom: 8px; }
+
+  .install { display: none; align-items: flex-start; gap: 12px; background: var(--brand-soft); border-radius: 14px; padding: 12px 14px; font-size: 15px; margin-top: 14px; }
+  .install.show { display: flex; }
+  .install button { margin-left: auto; border: 0; background: none; font-size: 20px; color: var(--muted); cursor: pointer; line-height: 1; }
+
+  .fine { color: var(--muted); font-size: 13px; line-height: 1.5; margin-top: 26px; }
+  .skeleton { height: 110px; border-radius: var(--radius); background: var(--card); margin-bottom: 12px; opacity: .6; animation: pulse 1.2s ease-in-out infinite alternate; }
+  @keyframes pulse { to { opacity: .3; } }
+  .error { background: var(--down-soft); color: var(--down); border-radius: 14px; padding: 14px; }
+
+  /* Bottom sheet */
+  .scrim { position: fixed; inset: 0; background: rgba(0,0,0,.35); opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 10; }
+  .scrim.open { opacity: 1; pointer-events: auto; }
+  .sheet {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 11; max-width: 560px; margin: 0 auto;
+    background: var(--bg); border-radius: 22px 22px 0 0; max-height: 88vh; overflow-y: auto;
+    padding: 10px 20px calc(env(safe-area-inset-bottom) + 24px);
+    transform: translateY(100%); transition: transform .28s cubic-bezier(.2,.8,.2,1);
+  }
+  .sheet.open { transform: translateY(0); }
+  .grab { width: 40px; height: 5px; border-radius: 3px; background: var(--line); margin: 0 auto 14px; }
+  .sheet h3 { font-size: 26px; margin: 0; letter-spacing: -.02em; }
+  .sheet .sub { color: var(--muted); margin: 2px 0 16px; }
+  .reason { display: flex; gap: 10px; align-items: flex-start; background: var(--card); border-radius: 14px; padding: 12px 14px; margin-bottom: 8px; font-size: 15.5px; }
+  .reason .ic { flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; font-weight: 800; }
+  .reason .ic.pos { background: var(--up-soft); color: var(--up); }
+  .reason .ic.neg { background: var(--warn-soft); color: var(--warn); }
+  .facts { background: var(--card); border-radius: 14px; padding: 4px 14px; margin: 16px 0; }
+  .facts div { display: flex; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 15.5px; }
+  .facts div:last-child { border-bottom: 0; }
+  .facts span { color: var(--muted); }
+  .facts b { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .sheet-actions { display: flex; gap: 10px; }
+  .sheet-actions a, .sheet-actions button {
+    flex: 1; text-align: center; text-decoration: none; border-radius: 14px; padding: 13px; font-weight: 650; cursor: pointer; border: 0;
+  }
+  .primary { background: var(--brand); color: var(--bg) !important; }
+  .secondary { background: var(--card); color: var(--text); }
+  .toast { position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom) + 24px); transform: translateX(-50%) translateY(20px); background: var(--text); color: var(--bg); padding: 10px 16px; border-radius: 999px; font-size: 15px; opacity: 0; transition: .2s; z-index: 20; pointer-events: none; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="brand"><img src="icons/icon-192.png" alt=""><b>Open Signals</b></div>
+    <button class="share-btn" id="shareBtn" type="button">Share</button>
+  </header>
+
+  <h1 id="title">Stocks to watch at today's open</h1>
+  <p class="lede">Each US trading morning, we scan the 500 biggest US companies and list the ones showing the strongest signs of rising when the market opens.</p>
+
+  <div id="status"></div>
+  <div id="notice"></div>
+
+  <section id="list" aria-live="polite">
+    <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+  </section>
+
+  <h2>How does this work?</h2>
+  <details>
+    <summary>What we look at</summary>
+    <ol>
+      <li><b>Early trading.</b> Some trading happens before the market officially opens. If a stock is already rising then, it often opens higher.</li>
+      <li><b>How busy it is.</b> A move with lots of buyers behind it is more convincing than one with just a few trades.</li>
+      <li><b>Recent direction.</b> Stocks that have been rising this week or this season tend to keep some of that energy.</li>
+      <li><b>Warning signs.</b> If a stock has shot up very fast, we're more cautious about it.</li>
+    </ol>
+    <p>We combine these into one <b>signal strength</b> score and show the top stocks, with the main reasons in plain words.</p>
+  </details>
+  <details>
+    <summary>What "signal strength" means</summary>
+    <p>It shows how many of our signals point the same way, and how strongly. <b>Strong</b> means several clear signs line up at once; <b>moderate</b> means the signs are there but weaker. It is <b>not</b> a promise that the price will go up. Even strong signals are often wrong.</p>
+  </details>
+  <details>
+    <summary>When are new picks ready?</summary>
+    <p id="whenText">Every US trading day (Monday to Friday, except US holidays), about an hour before the market opens.</p>
+  </details>
+
+  <div class="install" id="install">
+    <div>📱 <b>Use it like an app:</b> tap the Share button <span aria-hidden="true">⎋</span> in Safari, then <b>“Add to Home Screen”</b>.</div>
+    <button type="button" id="installClose" aria-label="Dismiss">×</button>
+  </div>
+
+  <p class="fine" id="disclaimer">For information and education only. This is not financial advice and not a recommendation to buy or sell anything. Stock prices can fall as well as rise, and past patterns do not guarantee future results. Always do your own research.</p>
+</main>
+
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+  const DATA_URL = 'data/today.json';
+  const SHOW_FIRST = 10;
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  let report = null, showAll = false;
+
+  // ---------- time helpers: convert New York clock times to the visitor's time ----------
+  function nyOffsetMinutes(date) {
+    const parts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', hour12: false,
+      year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).formatToParts(date);
+    const p = Object.fromEntries(parts.map((x) => [x.type, x.value]));
+    const asUTC = Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour % 24, +p.minute);
+    return Math.round((asUTC - date.getTime()) / 60000);
+  }
+  function nyDateParts(date) {
+    const p = Object.fromEntries(new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York',
+      year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short' }).formatToParts(date).map((x) => [x.type, x.value]));
+    return { y: +p.year, m: +p.month, d: +p.day, wd: p.weekday };
+  }
+  function nyTime(y, m, d, hh, mm) { // a New York wall-clock time -> real Date
+    const guess = new Date(Date.UTC(y, m - 1, d, hh, mm));
+    return new Date(guess.getTime() - nyOffsetMinutes(guess) * 60000);
+  }
+  function nextOpen(now) {
+    for (let i = 0; i < 8; i++) {
+      const day = new Date(now.getTime() + i * 86400000);
+      const p = nyDateParts(day);
+      if (p.wd === 'Sat' || p.wd === 'Sun') continue;
+      const open = nyTime(p.y, p.m, p.d, 9, 30);
+      if (open > now) return open;
+    }
+    return null;
+  }
+  const fmtTime = (d) => d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const fmtDay = (d) => d.toLocaleDateString([], { weekday: 'long', day: 'numeric', month: 'long' });
+  function fmtDuration(ms) {
+    const m = Math.max(0, Math.round(ms / 60000)), h = Math.floor(m / 60);
+    if (h >= 24) return `${Math.floor(h / 24)} day${h >= 48 ? 's' : ''}`;
+    return h ? `${h}h ${m % 60}m` : `${m} min`;
+  }
+
+  // ---------- plain-language helpers ----------
+  // raw_score = weighted sum of how unusual each signal is (about -3 to +3).
+  function strength(p) {
+    const x = p.raw_score ?? (p.score - 50) / 40;
+    if (x >= 1.2) return { label: 'Strong signal', bars: 5 };
+    if (x >= 0.8) return { label: 'Good signal', bars: 4 };
+    if (x >= 0.5) return { label: 'Moderate signal', bars: 3 };
+    return { label: 'Weak signal', bars: 2 };
+  }
+  function moveChip(pct) {
+    if (pct == null) return '<span class="move flat">No early trades</span>';
+    const cls = pct > 0.05 ? 'up' : pct < -0.05 ? 'down' : 'flat';
+    return `<span class="move ${cls}">${pct > 0 ? '+' : ''}${pct.toFixed(1)}%</span>`;
+  }
+  const money = (x) => (x == null ? '—' : '$' + x.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+  const displayName = (p) => p.name || p.ticker;
+
+  // ---------- rendering ----------
+  function renderStatus() {
+    const now = new Date();
+    const gen = new Date(report.generated_at);
+    const open = nextOpen(now);
+    // Fresh = made in the hours just before the upcoming open (not for one that already happened).
+    const isFresh = open && gen <= open && open - gen < 7 * 3600000;
+    const title = isFresh ? "Stocks to watch at today's open" : 'Latest stocks to watch';
+    $('title').textContent = title;
+
+    const opensLine = open ? `US market opens in ${fmtDuration(open - now)} (${fmtTime(open)} your time)` : '';
+    $('status').innerHTML = `
+      <div class="status">
+        <span class="dot ${isFresh ? '' : 'wait'}"></span>
+        <div><b>${isFresh ? "Today's picks are ready" : `Picks from ${esc(fmtDay(gen))}`}</b>
+          <small>Updated ${esc(fmtTime(gen))} your time${opensLine ? ' · ' + esc(opensLine) : ''}</small></div>
+      </div>`;
+
+    const op = open ? nyDateParts(open) : null;
+    const runAt = op ? nyTime(op.y, op.m, op.d, 8, 30) : null;
+    if (runAt) $('whenText').textContent =
+      `Every US trading day (Monday to Friday, except US holidays), about an hour before the market opens. For you that's around ${fmtTime(runAt)}.`;
+
+    let note = '';
+    if (!isFresh && report.model !== 'demo' && runAt)
+      note = `New picks for the next open arrive ${now < runAt ? 'around ' + esc(fmtTime(runAt)) + ' your time' + (runAt - now > 20 * 3600000 ? ' on ' + esc(fmtDay(runAt)) : '') : 'shortly'}.`;
+    else if (report.model === 'demo') note = 'You are looking at example data. Real picks appear after the first morning update.';
+    else if (report.run_window && report.run_window !== 'premarket')
+      note = `These picks were made outside the usual morning update, so treat them as a test. Fresh picks arrive ${runAt ? 'around ' + esc(fmtTime(runAt)) + ' your time' : 'before the next open'}.`;
+    else if (!report.has_premarket_data) note = 'There was no early trading data this morning, so picks are based on recent days only.';
+    $('notice').innerHTML = note ? `<div class="notice">${note}</div>` : '';
+  }
+
+  function cardHTML(p, i, compact) {
+    const s = strength(p);
+    const why = p.reasons.find((r) => r.impact === 'positive')?.text || 'No single stand-out reason';
+    return `
+      <button class="card ${compact ? 'compact' : ''}" type="button" data-i="${i}"
+              aria-label="${esc(displayName(p))}, number ${p.rank}, ${s.label}">
+        <div class="card-top" style="flex:1;width:100%">
+          <span class="rank">${p.rank}</span>
+          <div class="who"><div class="name">${esc(displayName(p))}</div>${p.name ? `<div class="tick">${esc(p.ticker)}</div>` : ''}</div>
+          ${moveChip(p.premarket_gap_pct)}
+        </div>
+        <div class="why">${esc(why)}</div>
+        <div class="strength"><span class="bars">${[1,2,3,4,5].map((n) => `<i class="${n <= s.bars ? 'on' : ''}"></i>`).join('')}</span>${s.label}</div>
+      </button>`;
+  }
+
+  function renderList() {
+    const picks = report.picks;
+    if (!picks.length) { $('list').innerHTML = '<p class="lede">No picks today.</p>'; return; }
+    const top = picks.slice(0, 3), rest = picks.slice(3, showAll ? picks.length : SHOW_FIRST);
+    let html = `<h2>Top 3 <span>tap for details</span></h2>` + top.map((p, i) => cardHTML(p, i, false)).join('');
+    if (rest.length) html += `<h2>Also worth watching</h2>` + rest.map((p, i) => cardHTML(p, i + 3, true)).join('');
+    if (!showAll && picks.length > SHOW_FIRST)
+      html += `<button class="more-btn" type="button" id="moreBtn">Show ${picks.length - SHOW_FIRST} more</button>`;
+    $('list').innerHTML = html;
+    $('list').querySelectorAll('.card').forEach((el) => el.addEventListener('click', () => openSheet(picks[+el.dataset.i])));
+    $('moreBtn')?.addEventListener('click', () => { showAll = true; renderList(); });
+  }
+
+  // ---------- detail sheet ----------
+  function openSheet(p) {
+    const s = strength(p);
+    const reasons = p.reasons.length ? p.reasons : [{ text: 'No single stand-out reason today.', impact: 'positive' }];
+    $('sheet').innerHTML = `
+      <div class="grab"></div>
+      <h3 id="sheetTitle">${esc(displayName(p))}</h3>
+      <p class="sub">${p.name ? esc(p.ticker) + ' · ' : ''}Number ${p.rank} today · ${s.label}</p>
+      ${reasons.map((r) => `<div class="reason"><span class="ic ${r.impact === 'positive' ? 'pos' : 'neg'}">${r.impact === 'positive' ? '✓' : '!'}</span><span>${esc(r.text)}</span></div>`).join('')}
+      <div class="facts">
+        <div><span>Price when market closed</span><b>${money(p.prev_close)}</b></div>
+        <div><span>Price in early trading</span><b>${money(p.premarket_price)}</b></div>
+        <div><span>Change so far</span><b>${p.premarket_gap_pct == null ? '—' : (p.premarket_gap_pct > 0 ? '+' : '') + p.premarket_gap_pct.toFixed(1) + '%'}</b></div>
+        <div><span>Change over 5 days</span><b>${p.momentum_5d_pct == null ? '—' : (p.momentum_5d_pct > 0 ? '+' : '') + p.momentum_5d_pct.toFixed(1) + '%'}</b></div>
+      </div>
+      <div class="sheet-actions">
+        <a class="primary" href="https://finance.yahoo.com/quote/${encodeURIComponent(p.ticker)}" target="_blank" rel="noopener">See the chart ↗</a>
+        <button class="secondary" type="button" id="closeSheet">Close</button>
+      </div>
+      <p class="fine">Not financial advice. A signal is a hint based on patterns, not a prediction you can rely on.</p>`;
+    $('closeSheet').addEventListener('click', closeSheet);
+    $('scrim').classList.add('open'); $('sheet').classList.add('open');
+    $('sheet').scrollTop = 0;
+  }
+  function closeSheet() { $('scrim').classList.remove('open'); $('sheet').classList.remove('open'); }
+  $('scrim').addEventListener('click', closeSheet);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSheet(); });
+
+  // ---------- share + install hint ----------
+  function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
+  $('shareBtn').addEventListener('click', async () => {
+    const url = location.href.split('#')[0].split('?')[0];
+    const data = { title: 'Open Signals', text: 'Stocks to watch at the US market open, explained simply:', url };
+    try {
+      if (navigator.share) { await navigator.share(data); return; }
+      await navigator.clipboard.writeText(url); toast('Link copied — paste it anywhere');
+    } catch (e) { if (e && e.name !== 'AbortError') toast(url); }
+  });
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const standalone = window.navigator.standalone || matchMedia('(display-mode: standalone)').matches;
+  let dismissed = false; try { dismissed = localStorage.getItem('installHintDismissed') === '1'; } catch (e) {}
+  if (isIOS && !standalone && !dismissed) $('install').classList.add('show');
+  $('installClose').addEventListener('click', () => {
+    $('install').classList.remove('show'); try { localStorage.setItem('installHintDismissed', '1'); } catch (e) {}
+  });
+
+  // ---------- load ----------
+  async function load() {
+    try {
+      const res = await fetch(`${DATA_URL}?t=${Date.now()}`, { cache: 'no-store' });
+      if (!res.ok) throw new Error(res.status);
+      report = await res.json();
+      renderStatus(); renderList();
+    } catch (e) {
+      $('list').innerHTML = `<div class="error">We couldn't load today's picks. Check your internet connection and pull down to refresh.</div>`;
+    }
+  }
+  load();
+  setInterval(() => report && renderStatus(), 60000);        // keep the countdown ticking
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) load(); });
+})();
+</script>
+</body>
+</html>

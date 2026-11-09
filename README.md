@@ -17,13 +17,20 @@ a price rise at the market open — and tracks how often it is right.
  4. Publish  docs/data/today.json (GitHub Pages)
 ```
 
+## Use it
+
+**👉 https://gvaccaro2000.github.io/stock-open-predictor-AI/**
+
+Open the link on any phone or computer. On iPhone: Safari → Share → *Add to Home Screen*
+to use it like an app.
+
 ## Repo layout
 
 | Folder | What it contains |
 |---|---|
 | `backend/` | Python pipeline: data fetching, features, scoring, report |
 | `app/` | Expo iPhone/Android app |
-| `docs/data/` | Published output (`today.json`), served by GitHub Pages |
+| `docs/` | Shareable web app (`index.html`) + published data (`data/today.json`), served by GitHub Pages |
 | `.github/workflows/` | Scheduled daily job |
 
 ## Quick start

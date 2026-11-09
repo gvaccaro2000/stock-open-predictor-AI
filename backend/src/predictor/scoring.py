@@ -24,19 +24,20 @@ WEIGHTS: dict[str, float] = {
     "rsi_14": -0.05,
 }
 
+# Written for people with no finance background: no jargon, numbers only where helpful.
 REASON_TEXT = {
-    "premarket_gap_pct": ("Trading up {premarket_gap_pct:+.1f}% premarket",
-                          "Trading down {premarket_gap_pct:+.1f}% premarket"),
-    "premarket_confirmation": ("Premarket move backed by heavy volume",
-                               "Premarket weakness on heavy volume"),
-    "momentum_5d_pct": ("Strong 5-day momentum ({momentum_5d_pct:+.1f}%)",
-                        "Weak 5-day momentum ({momentum_5d_pct:+.1f}%)"),
-    "trend_vs_ma50_pct": ("Above its 50-day average ({trend_vs_ma50_pct:+.1f}%)",
-                          "Below its 50-day average ({trend_vs_ma50_pct:+.1f}%)"),
-    "rel_volume_1d": ("Busier than usual yesterday ({rel_volume_1d:.1f}x its normal volume)",
-                      "Quieter than usual yesterday ({rel_volume_1d:.1f}x its normal volume)"),
-    "rsi_14": ("Not overbought (RSI {rsi_14:.0f})",
-               "Overbought, pullback risk (RSI {rsi_14:.0f})"),
+    "premarket_gap_pct": ("Already up {premarket_gap_pct:+.1f}% in early trading before the market opens",
+                          "Down {premarket_gap_pct:+.1f}% in early trading before the market opens"),
+    "premarket_confirmation": ("Lots of people are trading it this morning, so the early move looks solid",
+                               "Heavy early selling this morning"),
+    "momentum_5d_pct": ("Has been rising this week ({momentum_5d_pct:+.1f}% in 5 days)",
+                        "Has been falling this week ({momentum_5d_pct:+.1f}% in 5 days)"),
+    "trend_vs_ma50_pct": ("On an upward trend over the last few months",
+                          "On a downward trend over the last few months"),
+    "rel_volume_1d": ("More people than usual traded it yesterday",
+                      "Fewer people than usual traded it yesterday"),
+    "rsi_14": ("Hasn't climbed too far, too fast",
+               "Has climbed a lot recently, so it may need a breather"),
 }
 
 

@@ -21,6 +21,21 @@ SAMPLE = [
     "AMD", "CRM", "ORCL", "ADBE", "PEP", "KO", "BAC", "CVX", "MRK", "INTC",
 ]
 
+SAMPLE_NAMES = {
+    "AAPL": "Apple", "MSFT": "Microsoft", "NVDA": "Nvidia", "AMZN": "Amazon",
+    "GOOGL": "Alphabet (Google)", "META": "Meta Platforms", "TSLA": "Tesla",
+    "AVGO": "Broadcom", "JPM": "JPMorgan Chase", "V": "Visa", "UNH": "UnitedHealth",
+    "XOM": "ExxonMobil", "LLY": "Eli Lilly", "JNJ": "Johnson & Johnson",
+    "WMT": "Walmart", "MA": "Mastercard", "PG": "Procter & Gamble",
+    "HD": "Home Depot", "COST": "Costco", "NFLX": "Netflix", "AMD": "AMD",
+    "CRM": "Salesforce", "ORCL": "Oracle", "ADBE": "Adobe", "PEP": "PepsiCo",
+    "KO": "Coca-Cola", "BAC": "Bank of America", "CVX": "Chevron", "MRK": "Merck",
+    "INTC": "Intel",
+}
+
+# Filled in when the S&P 500 list is loaded: ticker -> company name.
+NAMES: dict[str, str] = dict(SAMPLE_NAMES)
+
 SP500_URL = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
 
 
@@ -32,10 +47,17 @@ def sp500() -> list[str]:
             html = resp.read().decode("utf-8")
         table = pd.read_html(io.StringIO(html))[0]
         # Yahoo uses "-" instead of "." (e.g. BRK.B -> BRK-B)
-        return sorted(table["Symbol"].str.replace(".", "-", regex=False).tolist())
+        table["Symbol"] = table["Symbol"].str.replace(".", "-", regex=False)
+        if "Security" in table.columns:
+            NAMES.update(dict(zip(table["Symbol"], table["Security"])))
+        return sorted(table["Symbol"].tolist())
     except Exception as exc:  # network down, page layout changed, ...
         log.warning("Could not load S&P 500 list (%s); using sample list", exc)
         return SAMPLE
+
+
+def company_name(ticker: str) -> str | None:
+    return NAMES.get(ticker)
 
 
 def get_universe(name: str) -> list[str]:

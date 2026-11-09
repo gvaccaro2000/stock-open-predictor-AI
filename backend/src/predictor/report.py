@@ -17,6 +17,8 @@ from pathlib import Path
 
 import pandas as pd
 
+from .universe import company_name
+
 SCHEMA_VERSION = 1
 DISCLAIMER = (
     "Statistical signals for research and education only. Not financial advice. "
@@ -51,7 +53,9 @@ def build_payload(scored: pd.DataFrame, generated_at: datetime, top_n: int = 25)
         picks.append({
             "rank": rank,
             "ticker": ticker,
+            "name": company_name(ticker),
             "score": int(r["score"]),
+            "raw_score": _num(r["raw_score"], 3),
             "prev_close": _num(r["prev_close"]),
             "premarket_price": _num(r["premarket_price"]),
             "premarket_gap_pct": _num(r["premarket_gap_pct"]),

@@ -9,7 +9,9 @@ export type Reason = {
 export type Pick = {
   rank: number;
   ticker: string;
-  score: number; // 0-100 signal strength, relative to the other stocks today
+  name?: string | null; // company name, e.g. "Apple"
+  score: number; // 0-100 percentile rank vs the other stocks today
+  raw_score?: number | null; // weighted signal sum, roughly -3..+3
   prev_close: number | null;
   premarket_price: number | null;
   premarket_gap_pct: number | null;
