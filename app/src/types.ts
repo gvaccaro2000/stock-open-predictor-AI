@@ -1,0 +1,32 @@
+// Mirrors backend/src/predictor/report.py (SCHEMA_VERSION = 1).
+// If the backend JSON format changes, update this file too.
+
+export type Reason = {
+  text: string;
+  impact: 'positive' | 'negative';
+};
+
+export type Pick = {
+  rank: number;
+  ticker: string;
+  score: number; // 0-100 signal strength, relative to the other stocks today
+  prev_close: number | null;
+  premarket_price: number | null;
+  premarket_gap_pct: number | null;
+  momentum_5d_pct: number | null;
+  trend_vs_ma50_pct: number | null;
+  rsi_14: number | null;
+  rel_volume_1d: number | null;
+  reasons: Reason[];
+};
+
+export type Report = {
+  schema_version: number;
+  generated_at: string;
+  trading_date: string;
+  universe_size: number;
+  has_premarket_data: boolean;
+  model: string;
+  disclaimer: string;
+  picks: Pick[];
+};

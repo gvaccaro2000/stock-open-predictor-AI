@@ -1,0 +1,393 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-09T08:30:00-05:00",
+  "trading_date": "2026-11-09",
+  "universe_size": 30,
+  "has_premarket_data": true,
+  "model": "demo",
+  "disclaimer": "DEMO DATA (synthetic prices) \u2014 real picks appear after the first scheduled run. Statistical signals for research and education only. Not financial advice. Past patterns do not guarantee future results.",
+  "picks": [
+    {
+      "rank": 1,
+      "ticker": "MRK",
+      "score": 100,
+      "prev_close": 167.55,
+      "premarket_price": 168.02,
+      "premarket_gap_pct": 0.28,
+      "momentum_5d_pct": 4.41,
+      "trend_vs_ma50_pct": 6.35,
+      "rsi_14": 61.1,
+      "rel_volume_1d": 1.3,
+      "reasons": [
+        {
+          "text": "Strong 5-day momentum (+4.4%)",
+          "impact": "positive"
+        },
+        {
+          "text": "Trading up +0.3% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Premarket move backed by heavy volume",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "ticker": "INTC",
+      "score": 97,
+      "prev_close": 459.31,
+      "premarket_price": 468.14,
+      "premarket_gap_pct": 1.92,
+      "momentum_5d_pct": -1.98,
+      "trend_vs_ma50_pct": 2.23,
+      "rsi_14": 50.9,
+      "rel_volume_1d": 1.18,
+      "reasons": [
+        {
+          "text": "Trading up +1.9% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Premarket move backed by heavy volume",
+          "impact": "positive"
+        },
+        {
+          "text": "Weak 5-day momentum (-2.0%)",
+          "impact": "negative"
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "ticker": "PEP",
+      "score": 93,
+      "prev_close": 116.94,
+      "premarket_price": 118.12,
+      "premarket_gap_pct": 1.01,
+      "momentum_5d_pct": 2.28,
+      "trend_vs_ma50_pct": 1.44,
+      "rsi_14": 61.9,
+      "rel_volume_1d": 0.91,
+      "reasons": [
+        {
+          "text": "Trading up +1.0% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Strong 5-day momentum (+2.3%)",
+          "impact": "positive"
+        },
+        {
+          "text": "Premarket move backed by heavy volume",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "ticker": "MA",
+      "score": 90,
+      "prev_close": 409.66,
+      "premarket_price": 412.93,
+      "premarket_gap_pct": 0.8,
+      "momentum_5d_pct": -0.64,
+      "trend_vs_ma50_pct": 6.66,
+      "rsi_14": 65.3,
+      "rel_volume_1d": 1.34,
+      "reasons": [
+        {
+          "text": "Trading up +0.8% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Above its 50-day average (+6.7%)",
+          "impact": "positive"
+        },
+        {
+          "text": "Premarket move backed by heavy volume",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "ticker": "WMT",
+      "score": 87,
+      "prev_close": 128.18,
+      "premarket_price": 128.92,
+      "premarket_gap_pct": 0.58,
+      "momentum_5d_pct": 0.96,
+      "trend_vs_ma50_pct": 0.43,
+      "rsi_14": 53.5,
+      "rel_volume_1d": 0.97,
+      "reasons": [
+        {
+          "text": "Trading up +0.6% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Premarket move backed by heavy volume",
+          "impact": "positive"
+        },
+        {
+          "text": "Strong 5-day momentum (+1.0%)",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 6,
+      "ticker": "NVDA",
+      "score": 83,
+      "prev_close": 69.28,
+      "premarket_price": 69.87,
+      "premarket_gap_pct": 0.85,
+      "momentum_5d_pct": 0.04,
+      "trend_vs_ma50_pct": -5.19,
+      "rsi_14": 40.4,
+      "rel_volume_1d": 1.28,
+      "reasons": [
+        {
+          "text": "Trading up +0.9% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Premarket move backed by heavy volume",
+          "impact": "positive"
+        },
+        {
+          "text": "Below its 50-day average (-5.2%)",
+          "impact": "negative"
+        }
+      ]
+    },
+    {
+      "rank": 7,
+      "ticker": "GOOGL",
+      "score": 80,
+      "prev_close": 83.87,
+      "premarket_price": 84.74,
+      "premarket_gap_pct": 1.03,
+      "momentum_5d_pct": -1.74,
+      "trend_vs_ma50_pct": -3.68,
+      "rsi_14": 37.5,
+      "rel_volume_1d": 1.25,
+      "reasons": [
+        {
+          "text": "Trading up +1.0% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Premarket move backed by heavy volume",
+          "impact": "positive"
+        },
+        {
+          "text": "Below its 50-day average (-3.7%)",
+          "impact": "negative"
+        }
+      ]
+    },
+    {
+      "rank": 8,
+      "ticker": "V",
+      "score": 77,
+      "prev_close": 431.5,
+      "premarket_price": 434.74,
+      "premarket_gap_pct": 0.75,
+      "momentum_5d_pct": -2.0,
+      "trend_vs_ma50_pct": 5.69,
+      "rsi_14": 57.3,
+      "rel_volume_1d": 0.99,
+      "reasons": [
+        {
+          "text": "Trading up +0.8% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Premarket move backed by heavy volume",
+          "impact": "positive"
+        },
+        {
+          "text": "Above its 50-day average (+5.7%)",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 9,
+      "ticker": "MSFT",
+      "score": 73,
+      "prev_close": 511.74,
+      "premarket_price": 512.74,
+      "premarket_gap_pct": 0.2,
+      "momentum_5d_pct": 0.33,
+      "trend_vs_ma50_pct": 4.17,
+      "rsi_14": 63.0,
+      "rel_volume_1d": 1.15,
+      "reasons": [
+        {
+          "text": "Trading up +0.2% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Premarket move backed by heavy volume",
+          "impact": "positive"
+        },
+        {
+          "text": "Above its 50-day average (+4.2%)",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 10,
+      "ticker": "UNH",
+      "score": 70,
+      "prev_close": 279.6,
+      "premarket_price": 281.14,
+      "premarket_gap_pct": 0.55,
+      "momentum_5d_pct": -0.2,
+      "trend_vs_ma50_pct": 0.0,
+      "rsi_14": 50.9,
+      "rel_volume_1d": 1.02,
+      "reasons": [
+        {
+          "text": "Trading up +0.5% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Premarket move backed by heavy volume",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 11,
+      "ticker": "KO",
+      "score": 67,
+      "prev_close": 517.01,
+      "premarket_price": 519.71,
+      "premarket_gap_pct": 0.52,
+      "momentum_5d_pct": -2.1,
+      "trend_vs_ma50_pct": -2.22,
+      "rsi_14": 32.0,
+      "rel_volume_1d": 1.32,
+      "reasons": [
+        {
+          "text": "Trading up +0.5% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Premarket move backed by heavy volume",
+          "impact": "positive"
+        },
+        {
+          "text": "Weak 5-day momentum (-2.1%)",
+          "impact": "negative"
+        }
+      ]
+    },
+    {
+      "rank": 12,
+      "ticker": "CVX",
+      "score": 63,
+      "prev_close": 213.11,
+      "premarket_price": 213.3,
+      "premarket_gap_pct": 0.09,
+      "momentum_5d_pct": -0.34,
+      "trend_vs_ma50_pct": -1.41,
+      "rsi_14": 47.0,
+      "rel_volume_1d": 1.22,
+      "reasons": [
+        {
+          "text": "Premarket move backed by heavy volume",
+          "impact": "positive"
+        },
+        {
+          "text": "Trading up +0.1% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Unusual volume yesterday (1.2x normal)",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 13,
+      "ticker": "AVGO",
+      "score": 60,
+      "prev_close": 169.45,
+      "premarket_price": 169.74,
+      "premarket_gap_pct": 0.17,
+      "momentum_5d_pct": -1.35,
+      "trend_vs_ma50_pct": -5.88,
+      "rsi_14": 31.2,
+      "rel_volume_1d": 1.26,
+      "reasons": [
+        {
+          "text": "Trading up +0.2% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Premarket move backed by heavy volume",
+          "impact": "positive"
+        },
+        {
+          "text": "Below its 50-day average (-5.9%)",
+          "impact": "negative"
+        }
+      ]
+    },
+    {
+      "rank": 14,
+      "ticker": "NFLX",
+      "score": 57,
+      "prev_close": 175.43,
+      "premarket_price": 176.28,
+      "premarket_gap_pct": 0.48,
+      "momentum_5d_pct": -2.51,
+      "trend_vs_ma50_pct": 1.61,
+      "rsi_14": 51.0,
+      "rel_volume_1d": 0.72,
+      "reasons": [
+        {
+          "text": "Trading up +0.5% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Premarket move backed by heavy volume",
+          "impact": "positive"
+        },
+        {
+          "text": "Weak 5-day momentum (-2.5%)",
+          "impact": "negative"
+        }
+      ]
+    },
+    {
+      "rank": 15,
+      "ticker": "XOM",
+      "score": 53,
+      "prev_close": 487.88,
+      "premarket_price": 485.75,
+      "premarket_gap_pct": -0.44,
+      "momentum_5d_pct": 0.77,
+      "trend_vs_ma50_pct": 2.08,
+      "rsi_14": 56.0,
+      "rel_volume_1d": 0.98,
+      "reasons": [
+        {
+          "text": "Strong 5-day momentum (+0.8%)",
+          "impact": "positive"
+        },
+        {
+          "text": "Above its 50-day average (+2.1%)",
+          "impact": "positive"
+        }
+      ]
+    }
+  ]
+}
