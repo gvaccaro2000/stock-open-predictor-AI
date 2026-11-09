@@ -69,6 +69,8 @@ def score(features: pd.DataFrame, n_reasons: int = 3) -> pd.DataFrame:
     df["reasons"] = [
         _reasons(df.loc[t], contrib.loc[t], n_reasons) for t in df.index
     ]
+    df["summary"] = [summary(df.loc[t], contrib.loc[t]) for t in df.index]
+    df["why_short"] = [short_why(df.loc[t], contrib.loc[t]) for t in df.index]
     return df.sort_values("raw_score", ascending=False)
 
 
@@ -91,3 +93,80 @@ def _reasons(row: pd.Series, contrib: pd.Series, n: int) -> list[dict]:
             "impact": "positive" if c > 0 else "negative",
         })
     return out
+
+
+# Short clauses used to build a one or two sentence "why" for each stock.
+_UP_CLAUSE = {
+    "premarket_gap_pct": "up {premarket_gap_pct:.1f}% before the open",
+    "premarket_confirmation": "on heavy early trading",
+    "momentum_5d_pct": "after a strong week ({momentum_5d_pct:+.1f}%)",
+    "trend_vs_ma50_pct": "in a steady uptrend for months",
+    "rel_volume_1d": "with busy trading yesterday",
+    "rsi_14": "without looking overheated",
+}
+_CAUTION = {
+    "premarket_gap_pct": "it is trading lower before the open",
+    "momentum_5d_pct": "it fell over the past week",
+    "trend_vs_ma50_pct": "its longer-term trend is down",
+    "rsi_14": "it has already climbed a lot recently",
+    "premarket_confirmation": "early selling is heavy",
+}
+
+
+def summary(row: pd.Series, contrib: pd.Series) -> str:
+    """One or two plain-English sentences explaining why the stock scores well."""
+    pos = [f for f in contrib.sort_values(ascending=False).index
+           if contrib[f] > 0.05 and np.isfinite(row.get(f, np.nan))]
+    if "rel_volume_1d" in pos and not row["rel_volume_1d"] > 1:
+        pos.remove("rel_volume_1d")
+    if "premarket_gap_pct" in pos and not row["premarket_gap_pct"] > 0:
+        pos.remove("premarket_gap_pct")
+    clauses = [_UP_CLAUSE[f].format(**row.to_dict()) for f in pos[:3]]
+    if not clauses:
+        text = "Several small positive signs, none stand-out on its own."
+    else:
+        first = clauses[0][0].upper() + clauses[0][1:]
+        if len(clauses) == 1:
+            text = first + "."
+        else:
+            text = first + ", " + " and ".join(clauses[1:]).replace(" and on", " on") + "."
+    neg = contrib.sort_values().index[0]
+    if contrib[neg] < -0.15 and neg in _CAUTION:
+        text += f" Caution: {_CAUTION[neg]}."
+    return text
+
+
+# Very short version for the list view, where the expected % is already shown.
+_SHORT = {
+    "premarket_confirmation": "heavy early trading behind the move",
+    "momentum_5d_pct": "a strong week ({momentum_5d_pct:+.1f}%)",
+    "trend_vs_ma50_pct": "a steady uptrend for months",
+    "rel_volume_1d": "busy trading yesterday",
+    "rsi_14": "no sign of overheating",
+}
+_SHORT_CAUTION = {
+    "momentum_5d_pct": "fell last week",
+    "trend_vs_ma50_pct": "longer-term trend is down",
+    "rsi_14": "already up a lot recently",
+    "premarket_confirmation": "heavy early selling",
+    "premarket_gap_pct": "trading lower before the open",
+}
+
+
+def short_why(row: pd.Series, contrib: pd.Series) -> str:
+    pos = [f for f in contrib.sort_values(ascending=False).index
+           if f in _SHORT and contrib[f] > 0.05 and np.isfinite(row.get(f, np.nan))]
+    if "rel_volume_1d" in pos and not row["rel_volume_1d"] > 1:
+        pos.remove("rel_volume_1d")
+    parts = [_SHORT[f].format(**row.to_dict()) for f in pos[:2]]
+    if parts:
+        text = " and ".join(parts)
+        text = text[0].upper() + text[1:] + "."
+    elif row.get("premarket_gap_pct", 0) > 0:
+        text = "Rising before the open."
+    else:
+        text = "Several small positive signs."
+    neg = contrib.sort_values().index[0]
+    if contrib[neg] < -0.15 and neg in _SHORT_CAUTION:
+        text += f" Caution: {_SHORT_CAUTION[neg]}."
+    return text

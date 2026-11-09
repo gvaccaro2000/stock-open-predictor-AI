@@ -63,6 +63,8 @@ def build_payload(scored: pd.DataFrame, generated_at: datetime, top_n: int = 25)
             "trend_vs_ma50_pct": _num(r["trend_vs_ma50_pct"]),
             "rsi_14": _num(r["rsi_14"], 1),
             "rel_volume_1d": _num(r["rel_volume_1d"]),
+            "summary": r["summary"],
+            "why_short": r["why_short"],
             "reasons": r["reasons"],
         })
     return {

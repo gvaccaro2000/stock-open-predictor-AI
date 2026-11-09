@@ -19,6 +19,8 @@ export type Pick = {
   trend_vs_ma50_pct: number | null;
   rsi_14: number | null;
   rel_volume_1d: number | null;
+  summary?: string;   // 1-2 sentence explanation
+  why_short?: string; // very short version for list rows
   reasons: Reason[];
 };
 

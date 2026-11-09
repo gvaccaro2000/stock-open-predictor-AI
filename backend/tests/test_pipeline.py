@@ -57,6 +57,8 @@ def test_strong_gapper_ranks_first(tmp_path):
     scored = scoring.score(features.build_features(daily, pre))
     assert scored.index[0] == "T7"
     assert scored.iloc[0]["reasons"][0]["impact"] == "positive"
+    assert scored.iloc[0]["summary"].startswith("Up 6.0% before the open")
+    assert scored.iloc[0]["why_short"].startswith("Heavy early trading behind the move")
 
     payload = report.build_payload(scored, datetime(2026, 11, 9, 8, 30, tzinfo=NY), top_n=5)
     assert payload["picks"][0]["ticker"] == "T7" and len(payload["picks"]) == 5
