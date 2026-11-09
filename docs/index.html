@@ -136,7 +136,10 @@
   details ol { padding-left: 18px; } details li { margin-bottom: 8px; }
   details b { color: var(--text); }
 
-  .install { display: none; margin-top: 22px; background: var(--fill); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; gap: 12px; align-items: flex-start; }
+  .install-actions { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .install-actions button { background: var(--btn); color: var(--btn-text) !important; border-radius: 999px; padding: 8px 14px; font-weight: 600; font-size: 14px; }
+  .install ol { margin: 6px 0 0; padding-left: 18px; } .install li { margin: 2px 0; }
+  .install { display: none; margin-top: 12px; background: var(--fill); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; gap: 12px; align-items: flex-start; }
   .install.show { display: flex; }
   .install button { margin-left: auto; color: var(--muted); font-size: 20px; line-height: 1; }
   .fine { color: var(--muted); font-size: 12.5px; line-height: 1.5; margin-top: 26px; }
@@ -201,6 +204,14 @@
     </button>
   </div>
 
+  <div class="install" id="install" role="note">
+    <div style="flex:1">
+      <div id="installText"></div>
+      <div class="install-actions" id="installActions"></div>
+    </div>
+    <button type="button" id="installClose" aria-label="Dismiss">×</button>
+  </div>
+
   <section class="hero">
     <div class="label">US market opens in</div>
     <div class="big num" id="countdown">—</div>
@@ -238,7 +249,7 @@
         <li><b>Beating its sector.</b> Is the stock rising more than similar companies, or just moving with them?</li>
         <li><b>Key price levels.</b> Breaking above yesterday's high is a good sign; sitting just under a recent high can act as a ceiling.</li>
         <li><b>How big the move is for this stock.</b> Every stock has a normal daily range. A move far beyond it is flagged as already stretched.</li>
-        <li><b>Recent direction.</b> Rising this week or this season, without having shot up too fast.</li>
+        <li><b>Recent direction.</b> Rising this week or this season, without having shot up too fast, and where the price sits against its 50- and 200-day averages.</li>
       </ol>
       <p>Every trading morning we scan about 1,500 US companies (the S&amp;P 500, the S&amp;P MidCap 400 and SmallCap 600, plus the Nasdaq-100), skip the ones that are too small or rarely traded to give reliable signals, and show the ones where these signs line up best.</p>
     </details>
@@ -252,10 +263,7 @@
     </details>
   </section>
 
-  <div class="install" id="install">
-    <div><b>Use it like an app.</b> In Safari, tap the Share button, then “Add to Home Screen”.</div>
-    <button type="button" id="installClose" aria-label="Dismiss">×</button>
-  </div>
+
 
   <p class="fine">For information and education only. Not financial advice and not a recommendation to buy or sell. Prices can fall as well as rise, and past patterns do not guarantee future results.</p>
 </main>
@@ -569,10 +577,46 @@
       await navigator.clipboard.writeText(url); toast('Link copied');
     } catch (e) { if (e && e.name !== 'AbortError') toast(url); }
   });
-  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  // "Add to Home Screen" help, tailored to the browser the visitor is using.
+  const ua = navigator.userAgent;
+  const isIOS = /iphone|ipad|ipod/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  const isAndroid = /android/i.test(ua);
   const standalone = window.navigator.standalone || matchMedia('(display-mode: standalone)').matches;
   let dismissed = false; try { dismissed = localStorage.getItem('installHintDismissed') === '1'; } catch (e) {}
-  if (isIOS && !standalone && !dismissed) $('install').classList.add('show');
+  const appUrl = location.href.split('#')[0].split('?')[0];
+  let deferredPrompt = null;
+  const share = '<b>Share</b> button (square with an arrow ↑)';
+  const steps = (items) => '<ol>' + items.map((x) => `<li>${x}</li>`).join('') + '</ol>';
+  function installHelp() {
+    if (isIOS) {
+      if (/CriOS/.test(ua)) return steps([`Tap the ${share} at the top right, next to the address bar.`, 'Tap <b>“Add to Home Screen”</b> (scroll down or tap “More” if needed).', 'Tap <b>Add</b>.']);
+      if (/FxiOS/.test(ua)) return steps(['Tap the <b>☰ menu</b> at the bottom right, then <b>Share</b>.', 'Tap <b>“Add to Home Screen”</b>, then <b>Add</b>.']);
+      if (/EdgiOS/.test(ua)) return steps([`Tap the ${share}.`, 'Tap <b>“Add to Home Screen”</b>, then <b>Add</b>.']);
+      if (/Safari/.test(ua)) return steps([`Tap the ${share} at the bottom of the screen.`, 'Scroll down and tap <b>“Add to Home Screen”</b>.', 'Tap <b>Add</b>.']);
+      return { inApp: true }; // Claude, Gmail, WhatsApp, Instagram... built-in browsers can't install apps
+    }
+    if (isAndroid) return steps(['Tap the <b>⋮ menu</b> at the top right.', 'Tap <b>“Add to Home screen”</b> or <b>“Install app”</b>.']);
+    return null;
+  }
+  function showInstall() {
+    const h = installHelp();
+    if (!h || standalone || dismissed) return;
+    if (h.inApp) {
+      $('installText').innerHTML = '<b>Get it as an app on your iPhone.</b> This built-in browser can’t add apps to your home screen. Open this page in <b>Chrome</b> or <b>Safari</b> first: tap the compass or “Open in browser” icon, or copy the link and paste it there.';
+      $('installActions').innerHTML = '<button type="button" id="copyLink">Copy link</button>';
+      $('copyLink').addEventListener('click', async () => {
+        try { await navigator.clipboard.writeText(appUrl); toast('Link copied — paste it in Chrome or Safari'); }
+        catch (e) { toast(appUrl); }
+      });
+    } else {
+      $('installText').innerHTML = '<b>Get it as an app on your phone</b> — free, no App Store needed:' + h;
+      $('installActions').innerHTML = deferredPrompt ? '<button type="button" id="installNow">Install app</button>' : '';
+      $('installNow')?.addEventListener('click', async () => { deferredPrompt.prompt(); deferredPrompt = null; $('install').classList.remove('show'); });
+    }
+    $('install').classList.add('show');
+  }
+  window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; showInstall(); });
+  showInstall();
   $('installClose').addEventListener('click', () => { $('install').classList.remove('show'); try { localStorage.setItem('installHintDismissed', '1'); } catch (e) {} });
 
   // ---------- load ----------
