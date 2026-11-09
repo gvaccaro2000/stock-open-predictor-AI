@@ -32,6 +32,18 @@ def _num(x, digits: int = 2):
     return None if math.isnan(x) or math.isinf(x) else round(x, digits)
 
 
+def run_window(t: datetime) -> str:
+    """Signals are only meaningful when computed in the premarket session."""
+    if t.weekday() >= 5:
+        return "weekend"
+    hm = (t.hour, t.minute)
+    if (4, 0) <= hm < (9, 30):
+        return "premarket"
+    if (9, 30) <= hm < (16, 0):
+        return "market_hours"
+    return "outside_premarket"
+
+
 def build_payload(scored: pd.DataFrame, generated_at: datetime, top_n: int = 25) -> dict:
     has_premarket = bool(scored["premarket_gap_pct"].notna().any())
     picks = []
@@ -55,6 +67,7 @@ def build_payload(scored: pd.DataFrame, generated_at: datetime, top_n: int = 25)
         "trading_date": generated_at.date().isoformat(),
         "universe_size": int(len(scored)),
         "has_premarket_data": has_premarket,
+        "run_window": run_window(generated_at),
         "model": "rules-v1",
         "disclaimer": DISCLAIMER,
         "picks": picks,

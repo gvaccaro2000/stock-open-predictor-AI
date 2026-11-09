@@ -68,3 +68,9 @@ def test_works_without_premarket_data():
     daily = {f"T{i}": make_daily(100, 0.001 * i, seed=i) for i in range(10)}
     scored = scoring.score(features.build_features(daily, {}))
     assert len(scored) == 10 and scored["score"].between(0, 100).all()
+
+
+def test_run_window():
+    assert report.run_window(datetime(2026, 11, 9, 8, 30, tzinfo=NY)) == "premarket"
+    assert report.run_window(datetime(2026, 11, 9, 15, 50, tzinfo=NY)) == "market_hours"
+    assert report.run_window(datetime(2026, 11, 8, 8, 30, tzinfo=NY)) == "weekend"

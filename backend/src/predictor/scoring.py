@@ -33,8 +33,8 @@ REASON_TEXT = {
                         "Weak 5-day momentum ({momentum_5d_pct:+.1f}%)"),
     "trend_vs_ma50_pct": ("Above its 50-day average ({trend_vs_ma50_pct:+.1f}%)",
                           "Below its 50-day average ({trend_vs_ma50_pct:+.1f}%)"),
-    "rel_volume_1d": ("Unusual volume yesterday ({rel_volume_1d:.1f}x normal)",
-                      "Quiet trading yesterday ({rel_volume_1d:.1f}x normal)"),
+    "rel_volume_1d": ("Busier than usual yesterday ({rel_volume_1d:.1f}x its normal volume)",
+                      "Quieter than usual yesterday ({rel_volume_1d:.1f}x its normal volume)"),
     "rsi_14": ("Not overbought (RSI {rsi_14:.0f})",
                "Overbought, pullback risk (RSI {rsi_14:.0f})"),
 }
@@ -74,9 +74,14 @@ def score(features: pd.DataFrame, n_reasons: int = 3) -> pd.DataFrame:
 def _reasons(row: pd.Series, contrib: pd.Series, n: int) -> list[dict]:
     """The n features that moved this stock's score the most, as readable text."""
     out = []
-    for feat in contrib.abs().sort_values(ascending=False).index[:n]:
+    for feat in contrib.abs().sort_values(ascending=False).index:
+        if len(out) >= n:
+            break
         c = float(contrib[feat])
         if abs(c) < 0.05 or not np.isfinite(row.get(feat, np.nan)):
+            continue
+        # Only call volume "busier"/"quieter" if it really is above/below 1x.
+        if feat == "rel_volume_1d" and (row[feat] > 1) != (c > 0):
             continue
         pos, neg = REASON_TEXT[feat]
         # For a negative-weight feature, a positive contribution means a LOW value.

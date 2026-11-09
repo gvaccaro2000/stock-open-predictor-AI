@@ -26,6 +26,8 @@ export type Report = {
   trading_date: string;
   universe_size: number;
   has_premarket_data: boolean;
+  // Optional so older files without it still load.
+  run_window?: 'premarket' | 'market_hours' | 'outside_premarket' | 'weekend';
   model: string;
   disclaimer: string;
   picks: Pick[];

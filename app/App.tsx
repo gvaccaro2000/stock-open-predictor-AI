@@ -70,13 +70,9 @@ function TodayScreen() {
               </Text>
             )}
             {error && <Text style={styles.error}>{error}. Pull down to retry.</Text>}
-            {report && (report.model === 'demo' || !report.has_premarket_data) && (
+            {report && bannerText(report) && (
               <View style={styles.banner}>
-                <Text style={styles.bannerText}>
-                  {report.model === 'demo'
-                    ? 'Demo data — real picks appear after the first morning run.'
-                    : 'No premarket data yet — scores use previous-day signals only.'}
-                </Text>
+                <Text style={styles.bannerText}>{bannerText(report)}</Text>
               </View>
             )}
           </View>
@@ -89,6 +85,14 @@ function TodayScreen() {
       <PickDetail pick={selected} disclaimer={report?.disclaimer ?? ''} onClose={() => setSelected(null)} />
     </SafeAreaView>
   );
+}
+
+function bannerText(r: Report): string | null {
+  if (r.model === 'demo') return 'Demo data — real picks appear after the first morning run.';
+  if (r.run_window && r.run_window !== 'premarket')
+    return 'Test run outside premarket hours — signals are not meaningful. The real run is at 8:30 New York time on trading days.';
+  if (!r.has_premarket_data) return 'No premarket data yet — scores use previous-day signals only.';
+  return null;
 }
 
 const styles = StyleSheet.create({
