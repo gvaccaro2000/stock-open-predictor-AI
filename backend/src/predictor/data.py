@@ -1,6 +1,6 @@
 """Stage 2 — data: download prices.
 
-  * daily bars (last ~6 months): trend, momentum, volatility (ATR), key levels
+  * daily bars (last ~18 months): trend, 50/200-day averages, momentum, volatility (ATR), key levels
   * extended-hours bars (5-minute): the price *before* the regular session
       - morning run (before 9:30 ET): today's pre-market (4:00-9:30)
       - evening run (after 16:00 ET): today's after-hours (16:00-20:00)
@@ -101,7 +101,7 @@ def _download(tickers: list[str], **kw) -> dict[str, pd.DataFrame]:
     return out
 
 
-def fetch_daily(tickers: list[str], period: str = "6mo", now: datetime | None = None) -> dict[str, pd.DataFrame]:
+def fetch_daily(tickers: list[str], period: str = "18mo", now: datetime | None = None) -> dict[str, pd.DataFrame]:
     now = now or datetime.now(NY)
     log.info("Downloading daily bars for %d tickers", len(tickers))
     daily = _download(tickers, period=period, interval="1d", auto_adjust=True)

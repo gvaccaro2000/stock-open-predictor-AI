@@ -149,3 +149,14 @@ def test_price_history_is_90_calendar_days():
     days = (pd.Timestamp(h["end"]) - pd.Timestamp(h["start"])).days
     assert 85 <= days <= 90 and 55 <= len(h["closes"]) <= 66
     assert h["closes"][-1] == round(float(df["Close"].iloc[-1]), 2)
+
+
+def test_price_history_includes_moving_averages():
+    from predictor import report
+    df = make_daily(100, 0.001, n=300)
+    h = report.price_history(df)
+    assert len(h["ma50"]) == len(h["closes"]) == len(h["ma200"])
+    assert None not in h["ma200"]                       # 300 days of data: MA200 defined in window
+    assert abs(h["ma50"][-1] - round(float(df["Close"].iloc[-50:].mean()), 2)) < 0.011
+    short = report.price_history(make_daily(100, 0.001, n=120))
+    assert short["ma200"][-1] is None and short["ma50"][-1] is not None   # not enough history

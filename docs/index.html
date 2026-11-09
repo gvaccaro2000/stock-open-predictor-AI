@@ -21,12 +21,14 @@
     --bg: #FFFFFF; --text: #0A0A0A; --muted: #8A8A8E; --soft: #5C5C60; --line: #EDEDEF;
     --fill: #F4F4F5; --up: #00A36C; --down: #E5484D; --warn: #9A6700;
     --btn: #0A0A0A; --btn-text: #FFFFFF;
+    --ma50: #E8930C; --ma200: #6E56CF;
   }
   @media (prefers-color-scheme: dark) {
     :root {
       --bg: #000000; --text: #F5F5F7; --muted: #8E8E93; --soft: #AEAEB2; --line: #1C1C1E;
       --fill: #141416; --up: #2FD48C; --down: #FF6B6B; --warn: #F2C467;
       --btn: #F5F5F7; --btn-text: #000000;
+      --ma50: #F5B041; --ma200: #A78BFA;
     }
   }
   * { box-sizing: border-box; }
@@ -109,6 +111,10 @@
   .spark { display: block; width: 100%; height: 30px; margin-bottom: 5px; }
   .spark svg, .chart svg { display: block; width: 100%; height: 100%; overflow: visible; }
   .cols .chart-h { display: none; }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; color: var(--muted); font-size: 12.5px; margin: 6px 0 2px; }
+  .legend i { display: inline-block; width: 14px; height: 0; border-top: 2px solid; vertical-align: middle; margin-right: 5px; }
+  .legend i.p { border-color: var(--text); } .legend i.m50 { border-color: var(--ma50); }
+  .legend i.m200 { border-color: var(--ma200); border-top-style: dashed; }
   .chart { height: 170px; margin: 6px 0 2px; }
   .chart-meta { display: flex; justify-content: space-between; color: var(--muted); font-size: 12.5px; }
   .chart-change { font-size: 15px; margin: 2px 0 4px; color: var(--soft); }
@@ -210,6 +216,7 @@
   </section>
 
   <div class="section-head"><h2>Top picks</h2><span id="scanned"></span></div>
+  <div class="legend" aria-hidden="true"><span>Charts:</span><span><i class="p" style="border-color:var(--up)"></i>price, last 90 days (green = up, red = down)</span><span><i class="m50"></i>50-day average</span><span><i class="m200"></i>200-day average</span></div>
   <div class="cols" aria-hidden="true"><span>Ticker</span><span>Name</span><span class="r">Expected</span><span class="why-h"><span class="chart-h">Last 90 days</span><span>Why</span></span></div>
   <section id="list" aria-live="polite">
     <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
@@ -374,7 +381,8 @@
     const c = p.history?.closes;
     if (!c || c.length < 5) return '';
     const last = p.premarket_price ?? c[c.length - 1];
-    const vals = [...c, last];
+    const m50 = p.history.ma50 || [], m200 = p.history.ma200 || [];
+    const vals = [...c, last, ...m50.filter((v) => v != null), ...m200.filter((v) => v != null)];
     const pad = big ? 6 : 2;
     const lo = Math.min(...vals), hi = Math.max(...vals), span = hi - lo || 1;
     const x = (i) => pad + (i / (c.length)) * (w - 2 * pad);
@@ -385,6 +393,14 @@
     const area = `${line}L${x(c.length - 1).toFixed(1)},${h - pad}L${x(0).toFixed(1)},${h - pad}Z`;
     const ex = x(c.length), ey = y(last), lx = x(c.length - 1), ly = y(c[c.length - 1]);
     const id = 'g' + p.ticker.replace(/[^A-Z0-9]/gi, '') + (big ? 'b' : 's');
+    const maPath = (arr) => {
+      let d = '', pen = false;
+      arr.forEach((v, i) => { if (v == null) { pen = false; return; } d += `${pen ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`; pen = true; });
+      return d;
+    };
+    const sw = big ? 1.6 : 1;
+    const mas = `<path d="${maPath(m200)}" fill="none" stroke="var(--ma200)" stroke-width="${sw}" stroke-dasharray="${big ? '5 3' : '3 2'}" vector-effect="non-scaling-stroke" opacity=".9"/>
+      <path d="${maPath(m50)}" fill="none" stroke="var(--ma50)" stroke-width="${sw}" vector-effect="non-scaling-stroke" opacity=".9"/>`;
     let extra = '';
     if (big) {
       const yc = y(c[c.length - 1]);
@@ -392,7 +408,7 @@
     }
     return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" role="img" aria-label="Price over the last 90 days, ${up ? 'up' : 'down'}">
       <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${col}" stop-opacity=".18"/><stop offset="1" stop-color="${col}" stop-opacity="0"/></linearGradient></defs>
-      ${extra}<path d="${area}" fill="url(#${id})"/>
+      ${extra}<path d="${area}" fill="url(#${id})"/>${mas}
       <path d="${line}" fill="none" stroke="${col}" stroke-width="${big ? 2 : 1.5}" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>
       ${p.premarket_price != null ? `<path d="M${lx.toFixed(1)},${ly.toFixed(1)}L${ex.toFixed(1)},${ey.toFixed(1)}" stroke="${col}" stroke-width="1.5" stroke-dasharray="2 2" vector-effect="non-scaling-stroke"/>` : ''}
       <circle cx="${ex.toFixed(1)}" cy="${ey.toFixed(1)}" r="${big ? 3.5 : 2.5}" fill="${col}" vector-effect="non-scaling-stroke"/>
@@ -408,7 +424,20 @@
       <div class="chart-change num"><b class="${dir(chg)}">${pct(chg)}</b> since ${esc(d(p.history.start))}</div>
       <div class="chart">${chartSVG(p, { w: 340, h: 170, big: true })}</div>
       <div class="chart-meta num"><span>${esc(d(p.history.start))}</span><span>low ${money(Math.min(...c))} · high ${money(Math.max(...c))}</span><span>now</span></div>
-      <p class="ai-note">Dashed line: yesterday's close. Dot: price ${report.run_window === 'after_hours' ? 'after hours' : 'before the open'}.</p>`;
+      <div class="legend"><span><i class="p" style="border-color:${chg >= 0 ? 'var(--up)' : 'var(--down)'}"></i>Price</span><span><i class="m50"></i>50-day average</span><span><i class="m200"></i>200-day average</span></div>
+      <p class="ai-note">${maNote(p, last)}Grey dotted line: yesterday's close. Dot: price ${report.run_window === 'after_hours' ? 'after hours' : 'before the open'}.</p>`;
+  }
+  // Plain-English reading of where the price sits vs. its averages.
+  function maNote(p, last) {
+    const a = p.history.ma50_now, b = p.history.ma200_now;
+    if (a == null && b == null) return '';
+    const vs = (m) => (last >= m ? 'above' : 'below');
+    if (a != null && b != null) {
+      const trend = a > b ? 'The 50-day average is above the 200-day, which usually means a longer-term uptrend. ' :
+                            'The 50-day average is below the 200-day, which usually means a longer-term downtrend. ';
+      return `The price is ${vs(a)} its 50-day and ${vs(b)} its 200-day average. ${trend}`;
+    }
+    return `The price is ${vs(a ?? b)} its ${a != null ? '50' : '200'}-day average. `;
   }
 
   // ---------- market ----------
@@ -455,6 +484,9 @@
     if (p.gap_atr != null) rows.push(["Today's move vs. normal", `${Math.abs(p.gap_atr).toFixed(1)}× a normal day`]);
     if (p.premarket_rvol != null) rows.push(['Early trading vs. normal morning', `${p.premarket_rvol.toFixed(1)}× as busy`]);
     if (p.rel_strength_pct != null) rows.push([`vs. its sector${p.sector ? ' (' + esc(p.sector) + ')' : ''}`, `${p.rel_strength_pct > 0 ? '+' : ''}${p.rel_strength_pct.toFixed(1)} points`]);
+    const now = p.premarket_price ?? p.prev_close, h = p.history || {};
+    if (h.ma50_now) rows.push(['vs. 50-day average', pct((now / h.ma50_now - 1) * 100)]);
+    if (h.ma200_now) rows.push(['vs. 200-day average', pct((now / h.ma200_now - 1) * 100)]);
     rows.push(['Last 5 days', pct(p.momentum_5d_pct)]);
     return `<h4>Key numbers</h4><div class="facts num">` + rows.map(([a, b]) => `<div><span>${a}</span><b>${b}</b></div>`).join('') + `</div>`;
   }

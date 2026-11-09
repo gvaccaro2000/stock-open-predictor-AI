@@ -55,12 +55,17 @@ def price_history(df: pd.DataFrame | None, days: int = HISTORY_DAYS) -> dict | N
     """Daily closes for the last `days` calendar days (~63 trading days), for the charts."""
     if df is None or df.empty:
         return None
-    c = df["Close"].dropna()
-    c = c[c.index >= c.index[-1] - pd.Timedelta(days=days)]
+    full = df["Close"].dropna()
+    ma50 = full.rolling(50).mean()      # computed on the full history, then cut to the window,
+    ma200 = full.rolling(200).mean()    # so the averages are correct from the first day shown
+    keep = full.index >= full.index[-1] - pd.Timedelta(days=days)
+    c = full[keep]
     if len(c) < 5:
         return None
+    r = lambda s: [None if pd.isna(x) else round(float(x), 2) for x in s[keep]]
     return {"start": c.index[0].date().isoformat(), "end": c.index[-1].date().isoformat(),
-            "closes": [round(float(x), 2) for x in c]}
+            "closes": [round(float(x), 2) for x in c], "ma50": r(ma50), "ma200": r(ma200),
+            "ma50_now": _num(ma50.iloc[-1]), "ma200_now": _num(ma200.iloc[-1])}
 
 
 def build_payload(scored: pd.DataFrame, generated_at: datetime, top_n: int = 25,

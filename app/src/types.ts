@@ -35,7 +35,7 @@ export type Pick = {
   news?: NewsInfo | null;
   sector?: string | null;
   size?: string | null; // Large cap / Mid cap / Small cap
-  history?: { start: string; end: string; closes: number[] } | null; // last 90 days
+  history?: { start: string; end: string; closes: number[]; ma50?: (number | null)[]; ma200?: (number | null)[]; ma50_now?: number | null; ma200_now?: number | null } | null; // last 90 days
   levels?: Record<string, number | null>;
   atr?: number | null;
   gap_atr?: number | null;
