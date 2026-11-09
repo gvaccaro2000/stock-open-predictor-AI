@@ -52,7 +52,7 @@ def test_strong_gapper_ranks_first(tmp_path):
     daily = {f"T{i}": make_daily(100, 0.0, seed=i) for i in range(20)}
     pre = {t: Premarket(float(df["Close"].iloc[-1]), 10_000, "x") for t, df in daily.items()}
     # T7 gaps up 6% on heavy premarket volume
-    pre["T7"] = Premarket(float(daily["T7"]["Close"].iloc[-1]) * 1.06, 400_000, "x")
+    pre["T7"] = Premarket(float(daily["T7"]["Close"].iloc[-1]) * 1.06, 400_000, "x", rvol=3.0)
 
     scored = scoring.score(features.build_features(daily, pre))
     assert scored.index[0] == "T7"
