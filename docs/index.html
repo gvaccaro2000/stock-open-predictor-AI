@@ -57,7 +57,7 @@
   .section-head { display: flex; justify-content: space-between; align-items: baseline; margin: 14px 0 4px; }
   .section-head h2 { font-size: 22px; font-weight: 700; letter-spacing: -.02em; margin: 0; }
   .section-head span { color: var(--muted); font-size: 14px; }
-  .cols, .row { display: grid; grid-template-columns: minmax(0, 1.05fr) 72px minmax(0, 1.6fr); column-gap: 14px; align-items: center; }
+  .cols, .row { display: grid; grid-template-columns: 54px minmax(0, 1fr) 62px minmax(0, 1.5fr); column-gap: 10px; align-items: center; }
   .cols { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; padding: 10px 0 8px; border-bottom: 1px solid var(--line); }
   .cols .r { text-align: right; }
   .row { width: 100%; text-align: left; padding: 14px 0; border-bottom: 1px solid var(--line); }
@@ -68,8 +68,9 @@
     display: grid; place-items: center; font-weight: 700; font-size: 12px; letter-spacing: -.02em;
   }
   .stock-text { min-width: 0; }
-  .ticker { font-weight: 650; font-size: 16px; }
-  .name { color: var(--muted); font-size: 12.5px; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .ticker { font-weight: 700; font-size: 15px; }
+  .name { font-size: 14px; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: break-word; }
+  .row .logo { display: none; }
   .pct { text-align: right; }
   .pct b { display: block; font-size: 16px; font-weight: 650; }
   .pct b.up { color: var(--up); } .pct b.down { color: var(--down); } .pct b.flat { color: var(--muted); }
@@ -136,7 +137,10 @@
   .toast { position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom) + 24px); transform: translateX(-50%) translateY(20px); background: var(--btn); color: var(--btn-text); padding: 10px 16px; border-radius: 999px; font-size: 14.5px; opacity: 0; transition: .2s; z-index: 20; pointer-events: none; }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  @media (min-width: 560px) { .cols, .row { grid-template-columns: minmax(0, 1fr) 90px minmax(0, 1.9fr); column-gap: 20px; } }
+  @media (min-width: 560px) {
+    .cols, .row { grid-template-columns: 112px minmax(0, 1.1fr) 84px minmax(0, 1.8fr); column-gap: 18px; }
+    .row .logo { display: grid; }
+  }
 </style>
 </head>
 <body>
@@ -156,7 +160,7 @@
   </section>
 
   <div class="section-head"><h2>Top picks</h2><span id="scanned"></span></div>
-  <div class="cols" aria-hidden="true"><span>Stock</span><span class="r">Expected</span><span>Why</span></div>
+  <div class="cols" aria-hidden="true"><span>Ticker</span><span>Name</span><span class="r">Expected</span><span>Why</span></div>
   <section id="list" aria-live="polite">
     <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
   </section>
@@ -250,6 +254,10 @@
   // In the list the % is already shown, so drop the leading "Up 4.1% before the open".
   function shortWhy(p) {
     if (p.why_short) return p.why_short;
+    if (!p.summary) { // older files: use the non-pre-market reasons
+      const other = p.reasons.filter((r) => r.impact === 'positive' && !/premarket|before the market opens/i.test(r.text)).map((r) => r.text);
+      return other.length ? other.slice(0, 2).join('. ') + '.' : 'Rising before the open.';
+    }
     let t = why(p).replace(/^Up [\d.]+% before the open(, |\. ?|$)/, '');
     if (!t) return 'Rising before the open.';
     return t[0].toUpperCase() + t.slice(1);
@@ -289,8 +297,9 @@
       <button class="row" type="button" data-i="${i}" aria-label="${esc(p.name || p.ticker)}, expected ${pct(p.premarket_gap_pct)}. ${esc(why(p))}">
         <div class="stock">
           <span class="logo" aria-hidden="true">${monogram(p.ticker)}</span>
-          <div class="stock-text"><div class="ticker">${esc(p.ticker)}</div>${p.name ? `<div class="name">${esc(p.name)}</div>` : ''}</div>
+          <div class="ticker">${esc(p.ticker)}</div>
         </div>
+        <div class="name">${esc(p.name || '—')}</div>
         <div class="pct num"><b class="${d}">${pct(p.premarket_gap_pct)}</b><small>${s.label}</small></div>
         <div class="why">${esc(shortWhy(p))}</div>
       </button>`;

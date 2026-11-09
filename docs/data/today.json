@@ -31,7 +31,8 @@
           "text": "Strong 5-day momentum (+8.2%)",
           "impact": "positive"
         }
-      ]
+      ],
+      "name": "Take-Two Interactive"
     },
     {
       "rank": 2,
@@ -57,7 +58,8 @@
           "text": "Strong 5-day momentum (+3.2%)",
           "impact": "positive"
         }
-      ]
+      ],
+      "name": "Humana"
     },
     {
       "rank": 3,
@@ -83,7 +85,8 @@
           "text": "Strong 5-day momentum (+5.5%)",
           "impact": "positive"
         }
-      ]
+      ],
+      "name": "First Solar"
     },
     {
       "rank": 4,
@@ -105,7 +108,8 @@
           "text": "Unusual volume yesterday (0.9x normal)",
           "impact": "positive"
         }
-      ]
+      ],
+      "name": "Hershey"
     },
     {
       "rank": 5,
@@ -131,7 +135,8 @@
           "text": "Unusual volume yesterday (1.0x normal)",
           "impact": "positive"
         }
-      ]
+      ],
+      "name": "Airbnb"
     },
     {
       "rank": 6,
@@ -153,7 +158,8 @@
           "text": "Weak 5-day momentum (-4.1%)",
           "impact": "negative"
         }
-      ]
+      ],
+      "name": "GoDaddy"
     },
     {
       "rank": 7,
@@ -179,7 +185,8 @@
           "text": "Weak 5-day momentum (-1.6%)",
           "impact": "negative"
         }
-      ]
+      ],
+      "name": "Roper Technologies"
     },
     {
       "rank": 8,
@@ -205,7 +212,8 @@
           "text": "Unusual volume yesterday (2.1x normal)",
           "impact": "positive"
         }
-      ]
+      ],
+      "name": "Axon Enterprise"
     },
     {
       "rank": 9,
@@ -231,7 +239,8 @@
           "text": "Weak 5-day momentum (-5.7%)",
           "impact": "negative"
         }
-      ]
+      ],
+      "name": "Capital One"
     },
     {
       "rank": 10,
@@ -257,7 +266,8 @@
           "text": "Unusual volume yesterday (0.8x normal)",
           "impact": "positive"
         }
-      ]
+      ],
+      "name": "Corpay"
     },
     {
       "rank": 11,
@@ -283,7 +293,8 @@
           "text": "Unusual volume yesterday (0.9x normal)",
           "impact": "positive"
         }
-      ]
+      ],
+      "name": "Fiserv"
     },
     {
       "rank": 12,
@@ -309,7 +320,8 @@
           "text": "Strong 5-day momentum (+5.2%)",
           "impact": "positive"
         }
-      ]
+      ],
+      "name": "W. W. Grainger"
     },
     {
       "rank": 13,
@@ -331,7 +343,8 @@
           "text": "Unusual volume yesterday (0.7x normal)",
           "impact": "positive"
         }
-      ]
+      ],
+      "name": "Paychex"
     },
     {
       "rank": 14,
@@ -357,7 +370,8 @@
           "text": "Weak 5-day momentum (-2.0%)",
           "impact": "negative"
         }
-      ]
+      ],
+      "name": "Accenture"
     },
     {
       "rank": 15,
@@ -383,7 +397,8 @@
           "text": "Above its 50-day average (+12.2%)",
           "impact": "positive"
         }
-      ]
+      ],
+      "name": "Stryker"
     },
     {
       "rank": 16,
@@ -409,7 +424,8 @@
           "text": "Strong 5-day momentum (+3.0%)",
           "impact": "positive"
         }
-      ]
+      ],
+      "name": "Centene"
     },
     {
       "rank": 17,
@@ -435,7 +451,8 @@
           "text": "Unusual volume yesterday (0.8x normal)",
           "impact": "positive"
         }
-      ]
+      ],
+      "name": "Amazon"
     },
     {
       "rank": 18,
@@ -461,7 +478,8 @@
           "text": "Weak 5-day momentum (-1.5%)",
           "impact": "negative"
         }
-      ]
+      ],
+      "name": "Chubb"
     },
     {
       "rank": 19,
@@ -487,7 +505,8 @@
           "text": "Below its 50-day average (-9.8%)",
           "impact": "negative"
         }
-      ]
+      ],
+      "name": "Boeing"
     },
     {
       "rank": 20,
@@ -513,7 +532,8 @@
           "text": "Below its 50-day average (-2.4%)",
           "impact": "negative"
         }
-      ]
+      ],
+      "name": "International Flavors & Fragrances"
     },
     {
       "rank": 21,
@@ -539,7 +559,8 @@
           "text": "Above its 50-day average (+14.4%)",
           "impact": "positive"
         }
-      ]
+      ],
+      "name": "Rollins"
     },
     {
       "rank": 22,
@@ -565,7 +586,8 @@
           "text": "Above its 50-day average (+9.6%)",
           "impact": "positive"
         }
-      ]
+      ],
+      "name": "Verisk"
     },
     {
       "rank": 23,
@@ -591,7 +613,8 @@
           "text": "Unusual volume yesterday (0.8x normal)",
           "impact": "positive"
         }
-      ]
+      ],
+      "name": "Newmont"
     },
     {
       "rank": 24,
@@ -617,7 +640,8 @@
           "text": "Above its 50-day average (+10.9%)",
           "impact": "positive"
         }
-      ]
+      ],
+      "name": "Franklin Resources"
     },
     {
       "rank": 25,
@@ -643,7 +667,8 @@
           "text": "Not overbought (RSI 39)",
           "impact": "positive"
         }
-      ]
+      ],
+      "name": "HP Inc."
     }
   ]
 }
