@@ -160,3 +160,11 @@ def test_price_history_includes_moving_averages():
     assert abs(h["ma50"][-1] - round(float(df["Close"].iloc[-50:].mean()), 2)) < 0.011
     short = report.price_history(make_daily(100, 0.001, n=120))
     assert short["ma200"][-1] is None and short["ma50"][-1] is not None   # not enough history
+
+
+def test_no_busier_claim_without_measured_rvol():
+    daily, pre = _universe()
+    for t, x in pre.items():
+        pre[t] = Premarket(x.last_price, x.volume, "x", rvol=float("nan"))
+    sc = scoring.score(features.build_features(daily, pre))
+    assert not any("busier" in (r["summary"] + r["why_short"]) for _, r in sc.iterrows())

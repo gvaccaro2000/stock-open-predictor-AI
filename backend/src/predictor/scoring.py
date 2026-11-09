@@ -116,7 +116,8 @@ def _is_true(feat: str, positive: bool, row: pd.Series) -> bool:
     v = row.get(feat, np.nan)
     gap = row.get("premarket_gap_pct", np.nan)
     rvol = row.get("premarket_rvol", np.nan)
-    busy = (rvol > 1.3) if isinstance(rvol, float) and math.isfinite(rvol) else True
+    # Only call early trading "busier than usual" if we could actually measure it.
+    busy = bool(rvol > 1.3) if isinstance(rvol, float) and math.isfinite(rvol) else False
     checks = {
         "premarket_gap_pct": (v > 0, v < 0),
         "premarket_confirmation": (gap > 0 and busy, gap < 0 and busy),
