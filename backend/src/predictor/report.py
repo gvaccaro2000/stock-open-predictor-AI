@@ -17,7 +17,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from .universe import company_name
+from .universe import company_name, sector
 
 SCHEMA_VERSION = 1
 DISCLAIMER = (
@@ -35,7 +35,7 @@ def _num(x, digits: int = 2):
 
 
 def run_window(t: datetime) -> str:
-    """Signals are only meaningful when computed in the premarket session."""
+    """Which trading session the "early" price comes from."""
     if t.weekday() >= 5:
         return "weekend"
     hm = (t.hour, t.minute)
@@ -43,11 +43,13 @@ def run_window(t: datetime) -> str:
         return "premarket"
     if (9, 30) <= hm < (16, 0):
         return "market_hours"
-    return "outside_premarket"
+    if (16, 0) <= hm < (20, 0):
+        return "after_hours"
+    return "overnight"
 
 
 def build_payload(scored: pd.DataFrame, generated_at: datetime, top_n: int = 25,
-                  news: dict | None = None, news_checked: int = 0) -> dict:
+                  news: dict | None = None, news_checked: int = 0, market: dict | None = None) -> dict:
     """`news` maps ticker -> sentiment.NewsAssessment; `news_checked` = how many stocks we read news for."""
     news = news or {}
     has_premarket = bool(scored["premarket_gap_pct"].notna().any())
@@ -66,6 +68,21 @@ def build_payload(scored: pd.DataFrame, generated_at: datetime, top_n: int = 25,
             "trend_vs_ma50_pct": _num(r["trend_vs_ma50_pct"]),
             "rsi_14": _num(r["rsi_14"], 1),
             "rel_volume_1d": _num(r["rel_volume_1d"]),
+            "sector": sector(ticker),
+            "premarket_rvol": _num(r.get("premarket_rvol"), 1),
+            "premarket_dollar_vol": _num(r.get("premarket_dollar_vol"), 0),
+            "rel_strength_pct": _num(r.get("rel_strength_pct")),
+            "atr": _num(r.get("atr_14")),
+            "gap_atr": _num(r.get("gap_atr"), 2),
+            "levels": {
+                "prev_close": _num(r.get("prev_close")),
+                "prev_high": _num(r.get("prev_high")),
+                "prev_low": _num(r.get("prev_low")),
+                "pm_high": _num(r.get("pm_high")),
+                "pm_low": _num(r.get("pm_low")),
+                "high_20d": _num(r.get("high_20d")),
+                "low_20d": _num(r.get("low_20d")),
+            },
             "summary": r["summary"],
             "why_short": r["why_short"],
             "reasons": r["reasons"],
@@ -78,7 +95,8 @@ def build_payload(scored: pd.DataFrame, generated_at: datetime, top_n: int = 25,
         "universe_size": int(len(scored)),
         "has_premarket_data": has_premarket,
         "run_window": run_window(generated_at),
-        "model": "rules-v2-news" if news else "rules-v1",
+        "model": "rules-v3" + ("-news" if news else ""),
+        "market": market,
         "news_enabled": bool(news),
         "news_checked": news_checked,
         "disclaimer": DISCLAIMER,

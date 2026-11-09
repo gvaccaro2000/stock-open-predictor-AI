@@ -56,6 +56,9 @@ npx expo start      # scan the QR code with the Expo Go app on your iPhone
 ## Roadmap
 - [x] Phase 1 — Price-based features, rule-based score, daily JSON, Expo app
 - [x] Phase 2 — Overnight company news analysed with the Claude API (needs `ANTHROPIC_API_KEY` secret)
+- [x] Phase 2b — Pre-open technicals: market context (SPY/QQQ/IWM, VIX, 10y), same-time pre-market
+      relative volume, liquidity, sector relative strength, ATR & extension, key levels (PDH/PDL/PDC,
+      pre-market high/low, 20-day high), unexplained-move flag
 - [ ] Phase 3 — Historical dataset, ML model, backtesting & live accuracy tracking
 - [ ] Phase 4 — Supabase backend, push notifications, watchlists, App Store
 

@@ -92,7 +92,7 @@ def test_news_moves_ranking_and_explanation():
 
     payload = report.build_payload(scored, datetime(2026, 11, 10, 8, 30, tzinfo=NY), top_n=20,
                                    news={underdog: good}, news_checked=20)
-    assert payload["news_enabled"] and payload["model"] == "rules-v2-news"
+    assert payload["news_enabled"] and payload["model"] == "rules-v3-news"
     pick = next(p for p in payload["picks"] if p["ticker"] == underdog)
     assert pick["news"]["label"] == "positive"
 

@@ -34,8 +34,19 @@ SAMPLE_NAMES = {
     "INTC": "Intel",
 }
 
-# Filled in when the S&P 500 list is loaded: ticker -> company name.
+IT, FIN, HC, CD, CS, EN, CM = ("Information Technology", "Financials", "Health Care",
+                               "Consumer Discretionary", "Consumer Staples", "Energy",
+                               "Communication Services")
+SAMPLE_SECTORS = {
+    "AAPL": IT, "MSFT": IT, "NVDA": IT, "AVGO": IT, "AMD": IT, "CRM": IT, "ORCL": IT, "ADBE": IT, "INTC": IT,
+    "AMZN": CD, "TSLA": CD, "HD": CD, "GOOGL": CM, "META": CM, "NFLX": CM,
+    "JPM": FIN, "V": FIN, "MA": FIN, "BAC": FIN, "UNH": HC, "LLY": HC, "JNJ": HC, "MRK": HC,
+    "XOM": EN, "CVX": EN, "WMT": CS, "PG": CS, "COST": CS, "PEP": CS, "KO": CS,
+}
+
+# Filled in when the S&P 500 list is loaded: ticker -> company name / GICS sector.
 NAMES: dict[str, str] = dict(SAMPLE_NAMES)
+SECTORS: dict[str, str] = dict(SAMPLE_SECTORS)
 
 SP500_URL = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
 
@@ -51,6 +62,8 @@ def sp500() -> list[str]:
         table["Symbol"] = table["Symbol"].str.replace(".", "-", regex=False)
         if "Security" in table.columns:
             NAMES.update(dict(zip(table["Symbol"], table["Security"])))
+        if "GICS Sector" in table.columns:
+            SECTORS.update(dict(zip(table["Symbol"], table["GICS Sector"])))
         return sorted(table["Symbol"].tolist())
     except Exception as exc:  # network down, page layout changed, ...
         log.warning("Could not load S&P 500 list (%s); using sample list", exc)
@@ -76,3 +89,7 @@ def get_universe(name: str) -> list[str]:
         return sp500()
     # Allow a comma-separated custom list: --universe AAPL,MSFT
     return [t.strip().upper() for t in name.split(",") if t.strip()]
+
+
+def sector(ticker: str) -> str | None:
+    return SECTORS.get(ticker)
