@@ -1,56 +1,356 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-09T08:30:00-05:00",
+  "generated_at": "2026-11-09T15:50:02.493313-05:00",
   "trading_date": "2026-11-09",
-  "universe_size": 30,
+  "universe_size": 502,
   "has_premarket_data": true,
-  "model": "demo",
-  "disclaimer": "DEMO DATA (synthetic prices) \u2014 real picks appear after the first scheduled run. Statistical signals for research and education only. Not financial advice. Past patterns do not guarantee future results.",
+  "model": "rules-v1",
+  "disclaimer": "Statistical signals for research and education only. Not financial advice. Past patterns do not guarantee future results.",
   "picks": [
     {
       "rank": 1,
-      "ticker": "MRK",
+      "ticker": "TTWO",
       "score": 100,
-      "prev_close": 167.55,
-      "premarket_price": 168.02,
-      "premarket_gap_pct": 0.28,
-      "momentum_5d_pct": 4.41,
-      "trend_vs_ma50_pct": 6.35,
-      "rsi_14": 61.1,
-      "rel_volume_1d": 1.3,
+      "prev_close": 207.92,
+      "premarket_price": 216.5,
+      "premarket_gap_pct": 4.13,
+      "momentum_5d_pct": 8.24,
+      "trend_vs_ma50_pct": 0.46,
+      "rsi_14": 52.8,
+      "rel_volume_1d": 1.27,
       "reasons": [
         {
-          "text": "Strong 5-day momentum (+4.4%)",
+          "text": "Trading up +4.1% premarket",
           "impact": "positive"
         },
         {
-          "text": "Trading up +0.3% premarket",
+          "text": "Unusual volume yesterday (1.3x normal)",
           "impact": "positive"
         },
         {
-          "text": "Premarket move backed by heavy volume",
+          "text": "Strong 5-day momentum (+8.2%)",
           "impact": "positive"
         }
       ]
     },
     {
       "rank": 2,
-      "ticker": "INTC",
-      "score": 97,
-      "prev_close": 459.31,
-      "premarket_price": 468.14,
-      "premarket_gap_pct": 1.92,
-      "momentum_5d_pct": -1.98,
-      "trend_vs_ma50_pct": 2.23,
-      "rsi_14": 50.9,
-      "rel_volume_1d": 1.18,
+      "ticker": "HUM",
+      "score": 100,
+      "prev_close": 423.74,
+      "premarket_price": 440.01,
+      "premarket_gap_pct": 3.84,
+      "momentum_5d_pct": 3.25,
+      "trend_vs_ma50_pct": 4.86,
+      "rsi_14": 55.4,
+      "rel_volume_1d": 1.32,
       "reasons": [
         {
-          "text": "Trading up +1.9% premarket",
+          "text": "Trading up +3.8% premarket",
           "impact": "positive"
         },
         {
-          "text": "Premarket move backed by heavy volume",
+          "text": "Unusual volume yesterday (1.3x normal)",
+          "impact": "positive"
+        },
+        {
+          "text": "Strong 5-day momentum (+3.2%)",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "ticker": "FSLR",
+      "score": 100,
+      "prev_close": 192.08,
+      "premarket_price": 197.83,
+      "premarket_gap_pct": 2.99,
+      "momentum_5d_pct": 5.51,
+      "trend_vs_ma50_pct": 2.86,
+      "rsi_14": 57.1,
+      "rel_volume_1d": 1.2,
+      "reasons": [
+        {
+          "text": "Trading up +3.0% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Unusual volume yesterday (1.2x normal)",
+          "impact": "positive"
+        },
+        {
+          "text": "Strong 5-day momentum (+5.5%)",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "ticker": "HSY",
+      "score": 99,
+      "prev_close": 173.21,
+      "premarket_price": 178.33,
+      "premarket_gap_pct": 2.96,
+      "momentum_5d_pct": 1.14,
+      "trend_vs_ma50_pct": 2.89,
+      "rsi_14": 54.7,
+      "rel_volume_1d": 0.93,
+      "reasons": [
+        {
+          "text": "Trading up +3.0% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Unusual volume yesterday (0.9x normal)",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "ticker": "ABNB",
+      "score": 99,
+      "prev_close": 191.53,
+      "premarket_price": 193.32,
+      "premarket_gap_pct": 0.94,
+      "momentum_5d_pct": 11.93,
+      "trend_vs_ma50_pct": 13.26,
+      "rsi_14": 67.1,
+      "rel_volume_1d": 0.97,
+      "reasons": [
+        {
+          "text": "Trading up +0.9% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Strong 5-day momentum (+11.9%)",
+          "impact": "positive"
+        },
+        {
+          "text": "Unusual volume yesterday (1.0x normal)",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 6,
+      "ticker": "GDDY",
+      "score": 99,
+      "prev_close": 111.78,
+      "premarket_price": 117.25,
+      "premarket_gap_pct": 4.89,
+      "momentum_5d_pct": -4.14,
+      "trend_vs_ma50_pct": 7.92,
+      "rsi_14": 53.6,
+      "rel_volume_1d": 0.55,
+      "reasons": [
+        {
+          "text": "Trading up +4.9% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Weak 5-day momentum (-4.1%)",
+          "impact": "negative"
+        }
+      ]
+    },
+    {
+      "rank": 7,
+      "ticker": "ROP",
+      "score": 99,
+      "prev_close": 472.07,
+      "premarket_price": 485.68,
+      "premarket_gap_pct": 2.88,
+      "momentum_5d_pct": -1.56,
+      "trend_vs_ma50_pct": 18.15,
+      "rsi_14": 69.1,
+      "rel_volume_1d": 0.61,
+      "reasons": [
+        {
+          "text": "Trading up +2.9% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Above its 50-day average (+18.2%)",
+          "impact": "positive"
+        },
+        {
+          "text": "Weak 5-day momentum (-1.6%)",
+          "impact": "negative"
+        }
+      ]
+    },
+    {
+      "rank": 8,
+      "ticker": "AXON",
+      "score": 99,
+      "prev_close": 302.62,
+      "premarket_price": 319.35,
+      "premarket_gap_pct": 5.53,
+      "momentum_5d_pct": -28.87,
+      "trend_vs_ma50_pct": -30.52,
+      "rsi_14": 22.7,
+      "rel_volume_1d": 2.12,
+      "reasons": [
+        {
+          "text": "Trading up +5.5% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Weak 5-day momentum (-28.9%)",
+          "impact": "negative"
+        },
+        {
+          "text": "Unusual volume yesterday (2.1x normal)",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 9,
+      "ticker": "COF",
+      "score": 98,
+      "prev_close": 198.85,
+      "premarket_price": 204.09,
+      "premarket_gap_pct": 2.64,
+      "momentum_5d_pct": -5.66,
+      "trend_vs_ma50_pct": -2.19,
+      "rsi_14": 43.5,
+      "rel_volume_1d": 1.12,
+      "reasons": [
+        {
+          "text": "Trading up +2.6% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Unusual volume yesterday (1.1x normal)",
+          "impact": "positive"
+        },
+        {
+          "text": "Weak 5-day momentum (-5.7%)",
+          "impact": "negative"
+        }
+      ]
+    },
+    {
+      "rank": 10,
+      "ticker": "CPAY",
+      "score": 98,
+      "prev_close": 459.04,
+      "premarket_price": 459.81,
+      "premarket_gap_pct": 0.17,
+      "momentum_5d_pct": 12.16,
+      "trend_vs_ma50_pct": 13.08,
+      "rsi_14": 77.0,
+      "rel_volume_1d": 0.81,
+      "reasons": [
+        {
+          "text": "Strong 5-day momentum (+12.2%)",
+          "impact": "positive"
+        },
+        {
+          "text": "Trading up +0.2% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Unusual volume yesterday (0.8x normal)",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 11,
+      "ticker": "FISV",
+      "score": 98,
+      "prev_close": 63.6,
+      "premarket_price": 63.1,
+      "premarket_gap_pct": -0.79,
+      "momentum_5d_pct": 22.47,
+      "trend_vs_ma50_pct": 28.36,
+      "rsi_14": 83.1,
+      "rel_volume_1d": 0.85,
+      "reasons": [
+        {
+          "text": "Strong 5-day momentum (+22.5%)",
+          "impact": "positive"
+        },
+        {
+          "text": "Above its 50-day average (+28.4%)",
+          "impact": "positive"
+        },
+        {
+          "text": "Unusual volume yesterday (0.9x normal)",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 12,
+      "ticker": "GWW",
+      "score": 98,
+      "prev_close": 1449.34,
+      "premarket_price": 1455.0,
+      "premarket_gap_pct": 0.39,
+      "momentum_5d_pct": 5.2,
+      "trend_vs_ma50_pct": 10.22,
+      "rsi_14": 67.5,
+      "rel_volume_1d": 1.73,
+      "reasons": [
+        {
+          "text": "Trading up +0.4% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Unusual volume yesterday (1.7x normal)",
+          "impact": "positive"
+        },
+        {
+          "text": "Strong 5-day momentum (+5.2%)",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 13,
+      "ticker": "PAYX",
+      "score": 98,
+      "prev_close": 115.6,
+      "premarket_price": 118.01,
+      "premarket_gap_pct": 2.08,
+      "momentum_5d_pct": 0.1,
+      "trend_vs_ma50_pct": 4.24,
+      "rsi_14": 56.7,
+      "rel_volume_1d": 0.73,
+      "reasons": [
+        {
+          "text": "Trading up +2.1% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Unusual volume yesterday (0.7x normal)",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 14,
+      "ticker": "ACN",
+      "score": 97,
+      "prev_close": 255.77,
+      "premarket_price": 262.0,
+      "premarket_gap_pct": 2.44,
+      "momentum_5d_pct": -1.98,
+      "trend_vs_ma50_pct": 21.37,
+      "rsi_14": 62.5,
+      "rel_volume_1d": 0.43,
+      "reasons": [
+        {
+          "text": "Trading up +2.4% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Above its 50-day average (+21.4%)",
           "impact": "positive"
         },
         {
@@ -60,331 +360,287 @@
       ]
     },
     {
-      "rank": 3,
-      "ticker": "PEP",
-      "score": 93,
-      "prev_close": 116.94,
-      "premarket_price": 118.12,
-      "premarket_gap_pct": 1.01,
-      "momentum_5d_pct": 2.28,
-      "trend_vs_ma50_pct": 1.44,
-      "rsi_14": 61.9,
-      "rel_volume_1d": 0.91,
-      "reasons": [
-        {
-          "text": "Trading up +1.0% premarket",
-          "impact": "positive"
-        },
-        {
-          "text": "Strong 5-day momentum (+2.3%)",
-          "impact": "positive"
-        },
-        {
-          "text": "Premarket move backed by heavy volume",
-          "impact": "positive"
-        }
-      ]
-    },
-    {
-      "rank": 4,
-      "ticker": "MA",
-      "score": 90,
-      "prev_close": 409.66,
-      "premarket_price": 412.93,
-      "premarket_gap_pct": 0.8,
-      "momentum_5d_pct": -0.64,
-      "trend_vs_ma50_pct": 6.66,
-      "rsi_14": 65.3,
-      "rel_volume_1d": 1.34,
-      "reasons": [
-        {
-          "text": "Trading up +0.8% premarket",
-          "impact": "positive"
-        },
-        {
-          "text": "Above its 50-day average (+6.7%)",
-          "impact": "positive"
-        },
-        {
-          "text": "Premarket move backed by heavy volume",
-          "impact": "positive"
-        }
-      ]
-    },
-    {
-      "rank": 5,
-      "ticker": "WMT",
-      "score": 87,
-      "prev_close": 128.18,
-      "premarket_price": 128.92,
-      "premarket_gap_pct": 0.58,
-      "momentum_5d_pct": 0.96,
-      "trend_vs_ma50_pct": 0.43,
-      "rsi_14": 53.5,
-      "rel_volume_1d": 0.97,
-      "reasons": [
-        {
-          "text": "Trading up +0.6% premarket",
-          "impact": "positive"
-        },
-        {
-          "text": "Premarket move backed by heavy volume",
-          "impact": "positive"
-        },
-        {
-          "text": "Strong 5-day momentum (+1.0%)",
-          "impact": "positive"
-        }
-      ]
-    },
-    {
-      "rank": 6,
-      "ticker": "NVDA",
-      "score": 83,
-      "prev_close": 69.28,
-      "premarket_price": 69.87,
-      "premarket_gap_pct": 0.85,
-      "momentum_5d_pct": 0.04,
-      "trend_vs_ma50_pct": -5.19,
-      "rsi_14": 40.4,
-      "rel_volume_1d": 1.28,
-      "reasons": [
-        {
-          "text": "Trading up +0.9% premarket",
-          "impact": "positive"
-        },
-        {
-          "text": "Premarket move backed by heavy volume",
-          "impact": "positive"
-        },
-        {
-          "text": "Below its 50-day average (-5.2%)",
-          "impact": "negative"
-        }
-      ]
-    },
-    {
-      "rank": 7,
-      "ticker": "GOOGL",
-      "score": 80,
-      "prev_close": 83.87,
-      "premarket_price": 84.74,
-      "premarket_gap_pct": 1.03,
-      "momentum_5d_pct": -1.74,
-      "trend_vs_ma50_pct": -3.68,
-      "rsi_14": 37.5,
-      "rel_volume_1d": 1.25,
-      "reasons": [
-        {
-          "text": "Trading up +1.0% premarket",
-          "impact": "positive"
-        },
-        {
-          "text": "Premarket move backed by heavy volume",
-          "impact": "positive"
-        },
-        {
-          "text": "Below its 50-day average (-3.7%)",
-          "impact": "negative"
-        }
-      ]
-    },
-    {
-      "rank": 8,
-      "ticker": "V",
-      "score": 77,
-      "prev_close": 431.5,
-      "premarket_price": 434.74,
-      "premarket_gap_pct": 0.75,
-      "momentum_5d_pct": -2.0,
-      "trend_vs_ma50_pct": 5.69,
-      "rsi_14": 57.3,
-      "rel_volume_1d": 0.99,
-      "reasons": [
-        {
-          "text": "Trading up +0.8% premarket",
-          "impact": "positive"
-        },
-        {
-          "text": "Premarket move backed by heavy volume",
-          "impact": "positive"
-        },
-        {
-          "text": "Above its 50-day average (+5.7%)",
-          "impact": "positive"
-        }
-      ]
-    },
-    {
-      "rank": 9,
-      "ticker": "MSFT",
-      "score": 73,
-      "prev_close": 511.74,
-      "premarket_price": 512.74,
-      "premarket_gap_pct": 0.2,
-      "momentum_5d_pct": 0.33,
-      "trend_vs_ma50_pct": 4.17,
-      "rsi_14": 63.0,
-      "rel_volume_1d": 1.15,
-      "reasons": [
-        {
-          "text": "Trading up +0.2% premarket",
-          "impact": "positive"
-        },
-        {
-          "text": "Premarket move backed by heavy volume",
-          "impact": "positive"
-        },
-        {
-          "text": "Above its 50-day average (+4.2%)",
-          "impact": "positive"
-        }
-      ]
-    },
-    {
-      "rank": 10,
-      "ticker": "UNH",
-      "score": 70,
-      "prev_close": 279.6,
-      "premarket_price": 281.14,
-      "premarket_gap_pct": 0.55,
-      "momentum_5d_pct": -0.2,
-      "trend_vs_ma50_pct": 0.0,
-      "rsi_14": 50.9,
-      "rel_volume_1d": 1.02,
-      "reasons": [
-        {
-          "text": "Trading up +0.5% premarket",
-          "impact": "positive"
-        },
-        {
-          "text": "Premarket move backed by heavy volume",
-          "impact": "positive"
-        }
-      ]
-    },
-    {
-      "rank": 11,
-      "ticker": "KO",
-      "score": 67,
-      "prev_close": 517.01,
-      "premarket_price": 519.71,
-      "premarket_gap_pct": 0.52,
-      "momentum_5d_pct": -2.1,
-      "trend_vs_ma50_pct": -2.22,
-      "rsi_14": 32.0,
-      "rel_volume_1d": 1.32,
-      "reasons": [
-        {
-          "text": "Trading up +0.5% premarket",
-          "impact": "positive"
-        },
-        {
-          "text": "Premarket move backed by heavy volume",
-          "impact": "positive"
-        },
-        {
-          "text": "Weak 5-day momentum (-2.1%)",
-          "impact": "negative"
-        }
-      ]
-    },
-    {
-      "rank": 12,
-      "ticker": "CVX",
-      "score": 63,
-      "prev_close": 213.11,
-      "premarket_price": 213.3,
-      "premarket_gap_pct": 0.09,
-      "momentum_5d_pct": -0.34,
-      "trend_vs_ma50_pct": -1.41,
-      "rsi_14": 47.0,
-      "rel_volume_1d": 1.22,
-      "reasons": [
-        {
-          "text": "Premarket move backed by heavy volume",
-          "impact": "positive"
-        },
-        {
-          "text": "Trading up +0.1% premarket",
-          "impact": "positive"
-        },
-        {
-          "text": "Unusual volume yesterday (1.2x normal)",
-          "impact": "positive"
-        }
-      ]
-    },
-    {
-      "rank": 13,
-      "ticker": "AVGO",
-      "score": 60,
-      "prev_close": 169.45,
-      "premarket_price": 169.74,
-      "premarket_gap_pct": 0.17,
-      "momentum_5d_pct": -1.35,
-      "trend_vs_ma50_pct": -5.88,
-      "rsi_14": 31.2,
-      "rel_volume_1d": 1.26,
-      "reasons": [
-        {
-          "text": "Trading up +0.2% premarket",
-          "impact": "positive"
-        },
-        {
-          "text": "Premarket move backed by heavy volume",
-          "impact": "positive"
-        },
-        {
-          "text": "Below its 50-day average (-5.9%)",
-          "impact": "negative"
-        }
-      ]
-    },
-    {
-      "rank": 14,
-      "ticker": "NFLX",
-      "score": 57,
-      "prev_close": 175.43,
-      "premarket_price": 176.28,
-      "premarket_gap_pct": 0.48,
-      "momentum_5d_pct": -2.51,
-      "trend_vs_ma50_pct": 1.61,
-      "rsi_14": 51.0,
-      "rel_volume_1d": 0.72,
-      "reasons": [
-        {
-          "text": "Trading up +0.5% premarket",
-          "impact": "positive"
-        },
-        {
-          "text": "Premarket move backed by heavy volume",
-          "impact": "positive"
-        },
-        {
-          "text": "Weak 5-day momentum (-2.5%)",
-          "impact": "negative"
-        }
-      ]
-    },
-    {
       "rank": 15,
-      "ticker": "XOM",
-      "score": 53,
-      "prev_close": 487.88,
-      "premarket_price": 485.75,
-      "premarket_gap_pct": -0.44,
-      "momentum_5d_pct": 0.77,
-      "trend_vs_ma50_pct": 2.08,
-      "rsi_14": 56.0,
-      "rel_volume_1d": 0.98,
+      "ticker": "SYK",
+      "score": 97,
+      "prev_close": 327.48,
+      "premarket_price": 331.0,
+      "premarket_gap_pct": 1.07,
+      "momentum_5d_pct": 6.74,
+      "trend_vs_ma50_pct": 12.22,
+      "rsi_14": 62.0,
+      "rel_volume_1d": 0.59,
       "reasons": [
         {
-          "text": "Strong 5-day momentum (+0.8%)",
+          "text": "Trading up +1.1% premarket",
           "impact": "positive"
         },
         {
-          "text": "Above its 50-day average (+2.1%)",
+          "text": "Strong 5-day momentum (+6.7%)",
+          "impact": "positive"
+        },
+        {
+          "text": "Above its 50-day average (+12.2%)",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 16,
+      "ticker": "CNC",
+      "score": 97,
+      "prev_close": 68.51,
+      "premarket_price": 70.01,
+      "premarket_gap_pct": 2.19,
+      "momentum_5d_pct": 2.98,
+      "trend_vs_ma50_pct": 2.67,
+      "rsi_14": 49.9,
+      "rel_volume_1d": 0.42,
+      "reasons": [
+        {
+          "text": "Trading up +2.2% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Quiet trading yesterday (0.4x normal)",
+          "impact": "negative"
+        },
+        {
+          "text": "Strong 5-day momentum (+3.0%)",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 17,
+      "ticker": "AMZN",
+      "score": 97,
+      "prev_close": 268.43,
+      "premarket_price": 269.43,
+      "premarket_gap_pct": 0.37,
+      "momentum_5d_pct": 9.28,
+      "trend_vs_ma50_pct": 5.69,
+      "rsi_14": 60.1,
+      "rel_volume_1d": 0.75,
+      "reasons": [
+        {
+          "text": "Trading up +0.4% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Strong 5-day momentum (+9.3%)",
+          "impact": "positive"
+        },
+        {
+          "text": "Unusual volume yesterday (0.8x normal)",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 18,
+      "ticker": "CB",
+      "score": 97,
+      "prev_close": 363.33,
+      "premarket_price": 373.81,
+      "premarket_gap_pct": 2.88,
+      "momentum_5d_pct": -1.53,
+      "trend_vs_ma50_pct": 4.92,
+      "rsi_14": 56.9,
+      "rel_volume_1d": 0.4,
+      "reasons": [
+        {
+          "text": "Trading up +2.9% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Quiet trading yesterday (0.4x normal)",
+          "impact": "negative"
+        },
+        {
+          "text": "Weak 5-day momentum (-1.5%)",
+          "impact": "negative"
+        }
+      ]
+    },
+    {
+      "rank": 19,
+      "ticker": "BA",
+      "score": 96,
+      "prev_close": 172.9,
+      "premarket_price": 176.07,
+      "premarket_gap_pct": 1.83,
+      "momentum_5d_pct": -1.43,
+      "trend_vs_ma50_pct": -9.79,
+      "rsi_14": 38.1,
+      "rel_volume_1d": 0.94,
+      "reasons": [
+        {
+          "text": "Trading up +1.8% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Unusual volume yesterday (0.9x normal)",
+          "impact": "positive"
+        },
+        {
+          "text": "Below its 50-day average (-9.8%)",
+          "impact": "negative"
+        }
+      ]
+    },
+    {
+      "rank": 20,
+      "ticker": "IFF",
+      "score": 96,
+      "prev_close": 84.85,
+      "premarket_price": 88.05,
+      "premarket_gap_pct": 3.78,
+      "momentum_5d_pct": -10.33,
+      "trend_vs_ma50_pct": -2.38,
+      "rsi_14": 40.8,
+      "rel_volume_1d": 0.56,
+      "reasons": [
+        {
+          "text": "Trading up +3.8% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Weak 5-day momentum (-10.3%)",
+          "impact": "negative"
+        },
+        {
+          "text": "Below its 50-day average (-2.4%)",
+          "impact": "negative"
+        }
+      ]
+    },
+    {
+      "rank": 21,
+      "ticker": "ROL",
+      "score": 96,
+      "prev_close": 38.53,
+      "premarket_price": 38.74,
+      "premarket_gap_pct": 0.55,
+      "momentum_5d_pct": 6.94,
+      "trend_vs_ma50_pct": 14.42,
+      "rsi_14": 69.5,
+      "rel_volume_1d": 0.67,
+      "reasons": [
+        {
+          "text": "Trading up +0.5% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Strong 5-day momentum (+6.9%)",
+          "impact": "positive"
+        },
+        {
+          "text": "Above its 50-day average (+14.4%)",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 22,
+      "ticker": "VRSK",
+      "score": 96,
+      "prev_close": 200.57,
+      "premarket_price": 205.0,
+      "premarket_gap_pct": 2.21,
+      "momentum_5d_pct": -0.46,
+      "trend_vs_ma50_pct": 9.6,
+      "rsi_14": 57.9,
+      "rel_volume_1d": 0.42,
+      "reasons": [
+        {
+          "text": "Trading up +2.2% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Quiet trading yesterday (0.4x normal)",
+          "impact": "negative"
+        },
+        {
+          "text": "Above its 50-day average (+9.6%)",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 23,
+      "ticker": "NEM",
+      "score": 96,
+      "prev_close": 125.25,
+      "premarket_price": 124.55,
+      "premarket_gap_pct": -0.55,
+      "momentum_5d_pct": 14.81,
+      "trend_vs_ma50_pct": 5.4,
+      "rsi_14": 62.7,
+      "rel_volume_1d": 0.79,
+      "reasons": [
+        {
+          "text": "Strong 5-day momentum (+14.8%)",
+          "impact": "positive"
+        },
+        {
+          "text": "Trading up -0.6% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Unusual volume yesterday (0.8x normal)",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 24,
+      "ticker": "BEN",
+      "score": 95,
+      "prev_close": 35.99,
+      "premarket_price": null,
+      "premarket_gap_pct": null,
+      "momentum_5d_pct": 12.57,
+      "trend_vs_ma50_pct": 10.86,
+      "rsi_14": 68.4,
+      "rel_volume_1d": 1.12,
+      "reasons": [
+        {
+          "text": "Strong 5-day momentum (+12.6%)",
+          "impact": "positive"
+        },
+        {
+          "text": "Unusual volume yesterday (1.1x normal)",
+          "impact": "positive"
+        },
+        {
+          "text": "Above its 50-day average (+10.9%)",
+          "impact": "positive"
+        }
+      ]
+    },
+    {
+      "rank": 25,
+      "ticker": "HPQ",
+      "score": 95,
+      "prev_close": 28.44,
+      "premarket_price": 28.96,
+      "premarket_gap_pct": 1.83,
+      "momentum_5d_pct": 0.04,
+      "trend_vs_ma50_pct": -9.91,
+      "rsi_14": 39.2,
+      "rel_volume_1d": 0.69,
+      "reasons": [
+        {
+          "text": "Trading up +1.8% premarket",
+          "impact": "positive"
+        },
+        {
+          "text": "Below its 50-day average (-9.9%)",
+          "impact": "negative"
+        },
+        {
+          "text": "Not overbought (RSI 39)",
           "impact": "positive"
         }
       ]
