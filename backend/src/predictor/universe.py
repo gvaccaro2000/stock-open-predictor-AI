@@ -7,6 +7,7 @@ make any signal unreliable.
 from __future__ import annotations
 
 import io
+import re
 import logging
 import urllib.request
 
@@ -56,8 +57,16 @@ def sp500() -> list[str]:
         return SAMPLE
 
 
+def clean_name(name: str) -> str:
+    """'Hershey Company (The)' -> 'Hershey Company'; 'Apple Inc.' -> 'Apple'."""
+    name = re.sub(r"\s*\(The\)$", "", name.strip())
+    name = re.sub(r",?\s+(Inc\.?|Incorporated|Corp\.?|Co\.|plc|Ltd\.?|N\.V\.|S\.A\.)$", "", name)
+    return name
+
+
 def company_name(ticker: str) -> str | None:
-    return NAMES.get(ticker)
+    n = NAMES.get(ticker)
+    return clean_name(n) if n else None
 
 
 def get_universe(name: str) -> list[str]:
