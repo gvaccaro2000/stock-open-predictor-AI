@@ -79,6 +79,16 @@
     font-size: 13.5px; line-height: 1.35; color: var(--soft);
     display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
   }
+  .tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .05em; padding: 1px 5px; border-radius: 4px; margin-right: 5px; vertical-align: 1px; }
+  .tag.positive { background: color-mix(in srgb, var(--up) 15%, transparent); color: var(--up); }
+  .tag.negative { background: color-mix(in srgb, var(--down) 15%, transparent); color: var(--down); }
+  .news-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); text-decoration: none; color: inherit; }
+  .news-item:last-child { border-bottom: 0; }
+  .news-item .nd { flex: none; width: 8px; height: 8px; border-radius: 50%; margin-top: 7px; background: var(--muted); }
+  .news-item .nd.positive { background: var(--up); } .news-item .nd.negative { background: var(--down); }
+  .news-item .nt { font-size: 15px; line-height: 1.35; }
+  .news-item .nm { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .ai-note { color: var(--muted); font-size: 12.5px; margin-top: 6px; }
   .more { width: 100%; padding: 16px 0; font-weight: 600; font-size: 15px; border-bottom: 1px solid var(--line); }
   .skeleton { height: 66px; border-bottom: 1px solid var(--line); position: relative; }
   .skeleton::after { content: ""; position: absolute; left: 0; top: 22px; width: 60%; height: 16px; border-radius: 6px; background: var(--fill); animation: pulse 1.1s ease-in-out infinite alternate; }
@@ -177,7 +187,8 @@
         <li><b>Early trading.</b> Some trading happens before the official open. A stock already rising then often opens higher.</li>
         <li><b>How busy it is.</b> A move with lots of trading behind it is more convincing.</li>
         <li><b>Recent direction.</b> Stocks rising this week or this season tend to keep some of that energy.</li>
-        <li><b>Warning signs.</b> If a stock has shot up very fast, we're more cautious.</li>
+        <li><b>Company news.</b> An AI (Claude) reads the news published since yesterday's close, such as results, forecasts or analyst opinions, and judges whether it's good or bad for the stock.</li>
+        <li><b>Warning signs.</b> If a stock has shot up very fast, or has bad news, we're more cautious.</li>
       </ol>
       <p>We scan the 500 biggest US companies every trading morning and show the ones where these signs line up best.</p>
     </details>
@@ -251,6 +262,25 @@
   const pct = (x) => (x == null ? '—' : `${x > 0 ? '+' : x < 0 ? '−' : ''}${Math.abs(x).toFixed(1)}%`);
   const money = (x) => (x == null ? '—' : '$' + x.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
   const monogram = (t) => esc(t.replace(/[^A-Z]/g, '').slice(0, 2) || t.slice(0, 2));
+  const hasNews = (p) => p.news && p.news.label !== 'neutral' && p.reasons.some((r) => r.kind === 'news');
+  const newsTag = (p) => (hasNews(p) ? `<span class="tag ${p.news.label}">NEWS</span>` : '');
+  function ago(iso) {
+    const m = Math.round((Date.now() - new Date(iso)) / 60000);
+    if (m < 60) return `${Math.max(1, m)} min ago`;
+    const h = Math.round(m / 60);
+    return h < 24 ? `${h} h ago` : `${Math.round(h / 24)} d ago`;
+  }
+  function newsSection(p) {
+    if (!p.news) return report.news_enabled ? `<h4>News</h4><p class="summary" style="color:var(--muted)">No company news since yesterday's close.</p>` : '';
+    const items = (p.news.items || []).map((n) => `
+      <a class="news-item" href="${esc(n.url || '#')}" target="_blank" rel="noopener">
+        <span class="nd ${esc(n.sentiment)}"></span>
+        <div><div class="nt">${esc(n.title)}</div><div class="nm">${esc(n.source)} · ${esc(ago(n.published))}</div></div>
+      </a>`).join('');
+    return `<h4>News</h4><p class="summary">${esc(p.news.summary)}</p>
+      <p class="ai-note">Summary written by AI (Claude) from the headlines below. It can make mistakes.</p>${items}`;
+  }
+
   // In the list the % is already shown, so drop the leading "Up 4.1% before the open".
   function shortWhy(p) {
     if (p.why_short) return p.why_short;
@@ -301,7 +331,7 @@
         </div>
         <div class="name">${esc(p.name || '—')}</div>
         <div class="pct num"><b class="${d}">${pct(p.premarket_gap_pct)}</b><small>${s.label}</small></div>
-        <div class="why">${esc(shortWhy(p))}</div>
+        <div class="why">${newsTag(p)}${esc(shortWhy(p))}</div>
       </button>`;
   }
   function renderList() {
@@ -334,11 +364,13 @@
       <h4>Why</h4>
       <p class="summary">${esc(why(p))}</p>
 
+      ${newsSection(p)}
+
       <h4>Signal strength</h4>
       <div class="meter">${[1,2,3,4,5].map((n) => `<span class="${n <= s.bars ? 'on' : ''}"></span>`).join('')}</div>
       <div class="meter-label"><span>${s.label}</span><span>${p.reasons.length} main signal${p.reasons.length === 1 ? '' : 's'}</span></div>
 
-      ${p.reasons.length ? `<h4>Signals</h4>` + p.reasons.map((r) =>
+      ${p.reasons.filter((r) => r.kind !== 'news').length ? `<h4>Price signals</h4>` + p.reasons.filter((r) => r.kind !== 'news').map((r) =>
         `<div class="sig"><i class="${r.impact === 'positive' ? 'pos' : 'neg'}">${r.impact === 'positive' ? '↑' : '!'}</i><span>${esc(r.text)}</span></div>`).join('') : ''}
 
       <h4>Key numbers</h4>

@@ -46,7 +46,10 @@ def run_window(t: datetime) -> str:
     return "outside_premarket"
 
 
-def build_payload(scored: pd.DataFrame, generated_at: datetime, top_n: int = 25) -> dict:
+def build_payload(scored: pd.DataFrame, generated_at: datetime, top_n: int = 25,
+                  news: dict | None = None, news_checked: int = 0) -> dict:
+    """`news` maps ticker -> sentiment.NewsAssessment; `news_checked` = how many stocks we read news for."""
+    news = news or {}
     has_premarket = bool(scored["premarket_gap_pct"].notna().any())
     picks = []
     for rank, (ticker, r) in enumerate(scored.head(top_n).iterrows(), start=1):
@@ -66,6 +69,7 @@ def build_payload(scored: pd.DataFrame, generated_at: datetime, top_n: int = 25)
             "summary": r["summary"],
             "why_short": r["why_short"],
             "reasons": r["reasons"],
+            "news": news[ticker].to_json() if ticker in news else None,
         })
     return {
         "schema_version": SCHEMA_VERSION,
@@ -74,7 +78,9 @@ def build_payload(scored: pd.DataFrame, generated_at: datetime, top_n: int = 25)
         "universe_size": int(len(scored)),
         "has_premarket_data": has_premarket,
         "run_window": run_window(generated_at),
-        "model": "rules-v1",
+        "model": "rules-v2-news" if news else "rules-v1",
+        "news_enabled": bool(news),
+        "news_checked": news_checked,
         "disclaimer": DISCLAIMER,
         "picks": picks,
     }

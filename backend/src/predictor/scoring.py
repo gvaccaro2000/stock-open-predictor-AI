@@ -5,6 +5,10 @@ v1 is a transparent, rule-based model:
   2. Multiply by a weight (how much we believe in it) and add up
   3. Convert to a 0-100 rank so the app can show "signal strength"
 
+Phase 2 adds a news signal: Claude's assessment of the company's overnight news
+(-1..+1, already scaled by importance) times NEWS_WEIGHT. It is added directly,
+not standardised, because most stocks have no news (score 0) on a given day.
+
 The weights are educated guesses. Phase 3 replaces them with weights learned from
 history and checked by a backtest. Until then, treat the scores as hypotheses.
 """
@@ -23,6 +27,8 @@ WEIGHTS: dict[str, float] = {
     "rel_volume_1d": 0.10,
     "rsi_14": -0.05,
 }
+NEWS_WEIGHT = 1.5      # strong, important news ~ about half the maximum pre-market effect
+NEWS_MIN_EFFECT = 0.1  # below this, news isn't mentioned in the explanation
 
 # Written for people with no finance background: no jargon, numbers only where helpful.
 REASON_TEXT = {
@@ -41,6 +47,23 @@ REASON_TEXT = {
 }
 
 
+def _is_true(feat: str, positive: bool, row: pd.Series) -> bool:
+    """Scores are relative to other stocks, but the words must be literally true.
+    E.g. a +0.6% week can score above average, but we can't call it "a strong week"."""
+    v = row.get(feat, np.nan)
+    gap = row.get("premarket_gap_pct", np.nan)
+    checks = {
+        "premarket_gap_pct": (v > 0, v < 0),
+        "premarket_confirmation": (gap > 0, gap < 0),
+        "momentum_5d_pct": (v > 1.0, v < 0),
+        "trend_vs_ma50_pct": (v > 0, v < 0),
+        "rel_volume_1d": (v > 1, v < 1),
+        "rsi_14": (v < 65, v > 70),
+    }
+    ok_pos, ok_neg = checks.get(feat, (True, True))
+    return bool(ok_pos if positive else ok_neg)
+
+
 def robust_z(s: pd.Series, clip: float = 3.0) -> pd.Series:
     """Like a z-score, but using median/MAD so one crazy outlier doesn't distort it."""
     med = s.median()
@@ -53,7 +76,8 @@ def robust_z(s: pd.Series, clip: float = 3.0) -> pd.Series:
     return ((s - med) / scale).clip(-clip, clip).fillna(0.0)
 
 
-def score(features: pd.DataFrame, n_reasons: int = 3) -> pd.DataFrame:
+def score(features: pd.DataFrame, news: dict | None = None, n_reasons: int = 3) -> pd.DataFrame:
+    """`news` maps ticker -> sentiment.NewsAssessment (optional)."""
     df = features.copy()
     # Gap in the same direction as heavy premarket volume = "confirmed" gap.
     df["premarket_confirmation"] = (
@@ -64,14 +88,27 @@ def score(features: pd.DataFrame, n_reasons: int = 3) -> pd.DataFrame:
     for feat, w in WEIGHTS.items():
         contrib[feat] = robust_z(df[feat].astype(float)) * w
 
+    news = news or {}
+    df["news_score"] = pd.Series({t: a.score for t, a in news.items()}, dtype=float).reindex(df.index)
+    df["news_summary"] = pd.Series({t: a.summary for t, a in news.items()}, dtype=object).reindex(df.index)
+    contrib["news"] = df["news_score"].fillna(0.0) * NEWS_WEIGHT
+
     df["raw_score"] = contrib.sum(axis=1)
     df["score"] = (df["raw_score"].rank(pct=True) * 100).round(0)
     df["reasons"] = [
-        _reasons(df.loc[t], contrib.loc[t], n_reasons) for t in df.index
+        _news_reason(df.loc[t], contrib.loc[t]) + _reasons(df.loc[t], contrib.loc[t].drop("news"), n_reasons)
+        for t in df.index
     ]
     df["summary"] = [summary(df.loc[t], contrib.loc[t]) for t in df.index]
     df["why_short"] = [short_why(df.loc[t], contrib.loc[t]) for t in df.index]
     return df.sort_values("raw_score", ascending=False)
+
+
+def _news_reason(row: pd.Series, contrib: pd.Series) -> list[dict]:
+    c = float(contrib.get("news", 0.0))
+    if abs(c) < NEWS_MIN_EFFECT or not isinstance(row.get("news_summary"), str):
+        return []
+    return [{"text": row["news_summary"], "impact": "positive" if c > 0 else "negative", "kind": "news"}]
 
 
 def _reasons(row: pd.Series, contrib: pd.Series, n: int) -> list[dict]:
@@ -83,8 +120,7 @@ def _reasons(row: pd.Series, contrib: pd.Series, n: int) -> list[dict]:
         c = float(contrib[feat])
         if abs(c) < 0.05 or not np.isfinite(row.get(feat, np.nan)):
             continue
-        # Only call volume "busier"/"quieter" if it really is above/below 1x.
-        if feat == "rel_volume_1d" and (row[feat] > 1) != (c > 0):
+        if not _is_true(feat, c > 0, row):
             continue
         pos, neg = REASON_TEXT[feat]
         # For a negative-weight feature, a positive contribution means a LOW value.
@@ -115,12 +151,25 @@ _CAUTION = {
 
 def summary(row: pd.Series, contrib: pd.Series) -> str:
     """One or two plain-English sentences explaining why the stock scores well."""
+    price = _price_summary(row, contrib.drop("news", errors="ignore"))
+    return _with_news(row, contrib, price, lead_full=True)
+
+
+def _with_news(row: pd.Series, contrib: pd.Series, price_text: str, lead_full: bool) -> str:
+    """Put strong good news first; add strong bad news as a caution."""
+    c = float(contrib.get("news", 0.0))
+    news_text = row.get("news_summary")
+    if not isinstance(news_text, str) or abs(c) < NEWS_MIN_EFFECT:
+        return price_text
+    news_text = news_text.rstrip(".") + "."
+    if c > 0:
+        return f"{news_text} {price_text}" if lead_full else news_text
+    return f"{price_text} Caution: {news_text[0].lower() + news_text[1:]}"
+
+
+def _price_summary(row: pd.Series, contrib: pd.Series) -> str:
     pos = [f for f in contrib.sort_values(ascending=False).index
-           if contrib[f] > 0.05 and np.isfinite(row.get(f, np.nan))]
-    if "rel_volume_1d" in pos and not row["rel_volume_1d"] > 1:
-        pos.remove("rel_volume_1d")
-    if "premarket_gap_pct" in pos and not row["premarket_gap_pct"] > 0:
-        pos.remove("premarket_gap_pct")
+           if f in _UP_CLAUSE and contrib[f] > 0.05 and _is_true(f, True, row)]
     clauses = [_UP_CLAUSE[f].format(**row.to_dict()) for f in pos[:3]]
     if not clauses:
         text = "Several small positive signs, none stand-out on its own."
@@ -130,8 +179,10 @@ def summary(row: pd.Series, contrib: pd.Series) -> str:
             text = first + "."
         else:
             text = first + ", " + " and ".join(clauses[1:]).replace(" and on", " on") + "."
-    neg = contrib.sort_values().index[0]
-    if contrib[neg] < -0.15 and neg in _CAUTION:
+    negs = [f for f in contrib.sort_values().index
+            if contrib[f] < -0.15 and f in _CAUTION and _is_true(f, False, row)]
+    neg = negs[0] if negs else None
+    if neg:
         text += f" Caution: {_CAUTION[neg]}."
     return text
 
@@ -154,10 +205,13 @@ _SHORT_CAUTION = {
 
 
 def short_why(row: pd.Series, contrib: pd.Series) -> str:
+    price = _price_short(row, contrib.drop("news", errors="ignore"))
+    return _with_news(row, contrib, price, lead_full=False)
+
+
+def _price_short(row: pd.Series, contrib: pd.Series) -> str:
     pos = [f for f in contrib.sort_values(ascending=False).index
-           if f in _SHORT and contrib[f] > 0.05 and np.isfinite(row.get(f, np.nan))]
-    if "rel_volume_1d" in pos and not row["rel_volume_1d"] > 1:
-        pos.remove("rel_volume_1d")
+           if f in _SHORT and contrib[f] > 0.05 and _is_true(f, True, row)]
     parts = [_SHORT[f].format(**row.to_dict()) for f in pos[:2]]
     if parts:
         text = " and ".join(parts)
@@ -166,7 +220,9 @@ def short_why(row: pd.Series, contrib: pd.Series) -> str:
         text = "Rising before the open."
     else:
         text = "Several small positive signs."
-    neg = contrib.sort_values().index[0]
-    if contrib[neg] < -0.15 and neg in _SHORT_CAUTION:
+    negs = [f for f in contrib.sort_values().index
+            if contrib[f] < -0.15 and f in _SHORT_CAUTION and _is_true(f, False, row)]
+    neg = negs[0] if negs else None
+    if neg:
         text += f" Caution: {_SHORT_CAUTION[neg]}."
     return text

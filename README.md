@@ -12,7 +12,8 @@ a price rise at the market open — and tracks how often it is right.
  BACKEND (Python, runs daily ~8:30 ET)            iPHONE APP (Expo / React Native)
  ────────────────────────────────────             ────────────────────────────────
  1. Ingest   prices, premarket, news...    ──►    Reads docs/data/today.json
- 2. Features one row of signals per ticker        Shows ranked picks + reasons
+ 2. Features one row of signals per ticker
+    News     headlines since last close → Claude rates sentiment        Shows ranked picks + reasons
  3. Score    rule-based (v1) → ML later
  4. Publish  docs/data/today.json (GitHub Pages)
 ```
@@ -54,7 +55,7 @@ npx expo start      # scan the QR code with the Expo Go app on your iPhone
 
 ## Roadmap
 - [x] Phase 1 — Price-based features, rule-based score, daily JSON, Expo app
-- [ ] Phase 2 — News & SEC filings analysed with the Claude API
+- [x] Phase 2 — Overnight company news analysed with the Claude API (needs `ANTHROPIC_API_KEY` secret)
 - [ ] Phase 3 — Historical dataset, ML model, backtesting & live accuracy tracking
 - [ ] Phase 4 — Supabase backend, push notifications, watchlists, App Store
 

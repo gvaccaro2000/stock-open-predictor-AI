@@ -4,6 +4,16 @@
 export type Reason = {
   text: string;
   impact: 'positive' | 'negative';
+  kind?: 'news';
+};
+
+export type NewsInfo = {
+  label: 'positive' | 'negative' | 'neutral';
+  score: number;
+  importance: 'low' | 'medium' | 'high';
+  event: string;
+  summary: string; // written by Claude
+  items: { title: string; source: string; url: string | null; published: string; sentiment: string }[];
 };
 
 export type Pick = {
@@ -22,6 +32,7 @@ export type Pick = {
   summary?: string;   // 1-2 sentence explanation
   why_short?: string; // very short version for list rows
   reasons: Reason[];
+  news?: NewsInfo | null;
 };
 
 export type Report = {
