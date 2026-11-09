@@ -2,7 +2,7 @@ import type { Report } from './types';
 
 // The backend publishes this file every trading morning via GitHub Pages.
 export const REPORT_URL =
-  'https://gvaccaro2000.github.io/stock-open-predictor/data/today.json';
+  'https://gvaccaro2000.github.io/stock-open-predictor-AI/data/today.json';
 
 export async function fetchReport(): Promise<Report> {
   // Cache-buster so we always get the latest morning file.
