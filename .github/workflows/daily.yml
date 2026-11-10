@@ -4,11 +4,15 @@ name: Daily predictions
 
 on:
   schedule:
-    # GitHub cron is in UTC. 8:30 New York time is 13:30 UTC in winter (EST)
-    # and 12:30 UTC in summer (EDT), so we run at both; the later run simply
-    # overwrites the file with fresher premarket data.
-    # Note: GitHub may start scheduled jobs a few minutes late.
-    - cron: "30 12,13 * * 1-5"
+    # GitHub cron is in UTC. The US open (9:30 New York) is 14:30 UTC in winter
+    # (EST) and 13:30 UTC in summer (EDT). GitHub often delays scheduled jobs and
+    # can skip them when busy, especially at :00 and :30, so we schedule several
+    # runs at quieter minutes. Each run overwrites today.json with fresher
+    # pre-market data; any of them succeeding is enough.
+    - cron: "17 12 * * 1-5"   # 07:17 NY winter / 08:17 NY summer
+    - cron: "47 12 * * 1-5"   # 07:47 / 08:47
+    - cron: "13 13 * * 1-5"   # 08:13 / 09:13
+    - cron: "41 13 * * 1-5"   # 08:41 winter (summer: after the open, still useful as a check)
   workflow_dispatch: {}   # adds a "Run workflow" button for manual runs
 
 permissions:
