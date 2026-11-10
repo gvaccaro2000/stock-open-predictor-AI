@@ -90,7 +90,8 @@ def main(argv: list[str] | None = None) -> None:
     if mdl is not None:
         ranked = predict.score(mdl, live, pre, news=assessments, news_checked=set(candidates))
         base = scored.drop(columns=["reasons", "summary", "why_short"], errors="ignore")
-        scored = ranked.join(base, how="inner").sort_values("expected_after_open_pct", ascending=False)
+        scored = ranked.join(base, how="inner").sort_values(["rank_score", "expected_after_open_pct"], ascending=False)
+        scored = scored[~scored["excluded_volatile"]]
     elif assessments:
         scored = scoring.score(feats, news=assessments, news_checked=set(candidates))
 
@@ -110,11 +111,13 @@ def model_info(mdl, out: Path) -> dict | None:
     if mdl is None:
         return None
     import json
-    info = {"name": "ridge-v1", "trained_through": mdl.meta.get("trained_through"),
+    info = {"name": "ridge-v1", "strategy": mdl.meta.get("strategy", "raw"),
+            "trained_through": mdl.meta.get("trained_through"),
             "trained_from": mdl.meta.get("trained_from"), "n_stocks": mdl.meta.get("n_stocks")}
     try:
         bt = json.loads((out / "backtest.json").read_text())
-        info["backtest"] = {k: bt.get(k) for k in ("start", "end", "top_n", "cost_round_trip_pct", "overall", "last_12_months")}
+        info["backtest"] = {k: bt.get(k) for k in ("start", "end", "top_n", "cost_round_trip_pct", "overall",
+                                                     "last_12_months", "strategy", "strategy_label", "strategies")}
     except (OSError, ValueError):
         pass
     return info

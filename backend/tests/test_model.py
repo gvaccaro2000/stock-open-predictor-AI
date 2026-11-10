@@ -84,3 +84,25 @@ def test_model_roundtrip(tmp_path):
     assert np.allclose(m.predict(t.head(50)), m2.predict(t.head(50)), atol=1e-4)
     c = m2.contributions(t.head(5))
     assert np.allclose(c.sum(axis=1), m2.predict(t.head(5)))
+
+
+def test_strategies_compared_and_one_chosen():
+    daily = synthetic_market()
+    P = model.to_panel(daily)
+    feats = model.panel_features(P)
+    y, y_ex = model.target_excess(P)
+    bt = model.walk_forward(model.long_table(feats, y, y_ex), min_train_days=200)
+    assert set(bt["strategies"]) == set(model.STRATEGIES)
+    assert bt["strategy"] in model.STRATEGIES
+    chosen = bt["strategies"][bt["strategy"]]
+    assert chosen["overall"]["top_avg_after_costs_pct"] > 0
+    assert all("sharpe" in v["overall"] for v in bt["strategies"].values())
+
+
+def test_rank_scores_calm_excludes_most_volatile():
+    import pandas as pd
+    pred = pd.Series([1.0, 0.9, 0.8, 0.7, 0.6], index=list("abcde"))
+    vol = pd.Series(np.log([10.0, 1.0, 1.0, 1.0, 1.0]), index=pred.index)   # "a" is very volatile
+    assert pd.isna(model.rank_scores(pred, vol, "calm")["a"])
+    ra = model.rank_scores(pred, vol, "risk_adj")
+    assert ra.idxmax() == "b"                       # a's high pred is divided by its big swing

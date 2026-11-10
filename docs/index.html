@@ -678,8 +678,20 @@
     if (bt && bt.overall && bt.overall.days) {
       const o = bt.overall, y = bt.last_12_months || o;
       $('backtest').hidden = false;
-      $('backtest').innerHTML = `<b>Tested on past data</b> (${esc(bt.start)} to ${esc(bt.end)}, ${o.days} trading days, walk-forward): the model's top ${bt.top_n} averaged <b>${pct2(o.top_avg_pct)}</b> per day from open to close (<b>${pct2(o.top_avg_after_costs_pct)}</b> after ~${bt.cost_round_trip_pct}% costs), vs. ${pct2(o.all_avg_pct)} for the average stock and ${pct2(o.bottom_avg_pct)} for its bottom ${bt.top_n}. Its picks beat the average stock on ${Math.round(o.days_top_beats_all * 100)}% of days. Last 12 months: ${pct2(y.top_avg_pct)} per day vs. ${pct2(y.all_avg_pct)}. Past results don't guarantee future ones.`;
+      $('backtest').innerHTML = `<b>Tested on past data</b> (${esc(bt.start)} to ${esc(bt.end)}, ${o.days} trading days, walk-forward): the model's top ${bt.top_n} averaged <b>${pct2(o.top_avg_pct)}</b> per day from open to close (<b>${pct2(o.top_avg_after_costs_pct)}</b> after ~${bt.cost_round_trip_pct}% costs), vs. ${pct2(o.all_avg_pct)} for the average stock and ${pct2(o.bottom_avg_pct)} for its bottom ${bt.top_n}. Its picks beat the average stock on ${Math.round(o.days_top_beats_all * 100)}% of days. Last 12 months: ${pct2(y.top_avg_pct)} per day vs. ${pct2(y.all_avg_pct)}. Past results don't guarantee future ones.` + strategyTable(bt);
     }
+  }
+
+  function strategyTable(bt) {
+    const S = bt.strategies;
+    if (!S) return '';
+    const order = ['raw', 'calm', 'risk_adj', 'calm_risk_adj'].filter((k) => S[k]);
+    const short = { raw: 'A. Current', calm: 'B. Calm only', risk_adj: 'C. Risk-adjusted', calm_risk_adj: 'D. B + C' };
+    return `<div style="margin-top:14px"><b>Ways of picking the top ${bt.top_n}, compared</b> (last 12 months, after costs)</div>
+      <div class="trow h"><span>Method</span><span>Per day</span><span>€100 →</span></div>` +
+      order.map((k) => { const v = S[k].last_12_months; const on = k === bt.strategy;
+        return `<div class="trow num"${on ? ' style="font-weight:650"' : ''}><span>${on ? '✓ ' : ''}${esc(short[k])}</span><span class="${signCls(v.top_avg_after_costs_pct)}">${pct2(v.top_avg_after_costs_pct)}</span><span>€${v.top_growth_of_100.toFixed(0)}</span></div>`; }).join('') +
+      `<p class="ai-note" style="margin-top:8px">A: highest expected move. B: same, skipping the most volatile 20% of stocks. C: expected move relative to the stock's normal daily swing. D: C among the calmer 80%. ✓ = the method the app uses now: the best of the last 12 months among those that were also profitable after costs over the whole test.</p>`;
   }
 
   // ---------- load ----------

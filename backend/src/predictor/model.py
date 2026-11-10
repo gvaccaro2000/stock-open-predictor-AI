@@ -50,6 +50,24 @@ TARGET_CLIP = 8.0           # winsorise daily open->close excess returns at +-8%
 MIN_PRICE, MIN_DOLLAR_VOL = 3.0, 5e6
 RIDGE_LAMBDA = 0.05         # shrinkage, as a fraction of the number of rows
 ROUND_TRIP_COST = 0.10      # %, rough cost of buying and selling (spread + fees)
+VOL_CUT_QUANTILE = 0.80     # "calm only": skip the most volatile 20% of stocks each day
+
+# Ways to turn predictions into a top-10. All are tested; training keeps the best.
+STRATEGIES = {
+    "raw": "Highest expected move after the open",
+    "calm": "Highest expected move, skipping the most volatile 20% of stocks",
+    "risk_adj": "Highest expected move relative to the stock's normal daily swing",
+    "calm_risk_adj": "Risk-adjusted, among the calmer 80% of stocks",
+}
+
+
+def rank_scores(pred: pd.Series, log_atr_pct: pd.Series, strategy: str) -> pd.Series:
+    """Ranking score for one day's cross-section; NaN = excluded."""
+    atr_pct = np.exp(log_atr_pct.astype(float)).fillna(np.exp(log_atr_pct.astype(float)).median())
+    score = pred / atr_pct if strategy in ("risk_adj", "calm_risk_adj") else pred.copy()
+    if strategy in ("calm", "calm_risk_adj"):
+        score = score.where(atr_pct <= atr_pct.quantile(VOL_CUT_QUANTILE))
+    return score
 
 
 # ----------------------------------------------------------------------------- panels
@@ -218,22 +236,34 @@ def walk_forward(table: pd.DataFrame, market_oc: pd.Series | None = None, min_tr
         for d, g in te.groupby(level="date"):
             if len(g) < 3 * top_n:
                 continue
-            g = g.sort_values("pred", ascending=False)
-            top, bot = g.head(top_n), g.tail(top_n)
-            rows.append({
-                "date": pd.Timestamp(d).date().isoformat(),
-                "top_mean": float(top["y"].mean()),
-                "top_hit": float((top["y"] > 0).mean()),
-                "bottom_mean": float(bot["y"].mean()),
-                "all_mean": float(g["y"].mean()),
-                "market": float(market_oc.get(d, np.nan)) if market_oc is not None else math.nan,
-                "ic": _spearman(g["pred"].to_numpy(), g["y_ex"].to_numpy()),
-                "n": int(len(g)),
-            })
+            base = {"date": pd.Timestamp(d).date().isoformat(),
+                    "all_mean": float(g["y"].mean()),
+                    "market": float(market_oc.get(d, np.nan)) if market_oc is not None else math.nan,
+                    "ic": _spearman(g["pred"].to_numpy(), g["y_ex"].to_numpy()), "n": int(len(g))}
+            for strat in STRATEGIES:
+                sc = rank_scores(g["pred"], g["log_atr_pct"], strat).dropna().sort_values(ascending=False)
+                top, bot = g.loc[sc.index[:top_n]], g.loc[sc.index[-top_n:]]
+                rows.append({**base, "strategy": strat, "top_mean": float(top["y"].mean()),
+                             "top_hit": float((top["y"] > 0).mean()), "bottom_mean": float(bot["y"].mean())})
     if not rows:
         return {"error": "backtest produced no test days", "days": 0}
     s = pd.DataFrame(rows)
-    return summarise(s, top_n) | {"daily": rows[-260:]}
+    per = {k: summarise(g.reset_index(drop=True), top_n) for k, g in s.groupby("strategy")}
+    best = choose_strategy(per)
+    out = per[best] | {"strategy": best, "strategy_label": STRATEGIES[best],
+                       "strategies": {k: {"label": STRATEGIES[k], "overall": v["overall"], "last_12_months": v["last_12_months"]}
+                                      for k, v in per.items()}}
+    daily = s[s["strategy"] == best].drop(columns="strategy").to_dict("records")
+    return out | {"daily": daily[-260:]}
+
+
+def choose_strategy(per: dict) -> str:
+    """Best growth after costs over the last 12 months, among strategies that are
+    also positive after costs over the whole test. Falls back to "raw"."""
+    ok = {k: v for k, v in per.items() if v["overall"]["top_avg_after_costs_pct"] > 0}
+    if not ok:
+        return "raw"
+    return max(ok, key=lambda k: ok[k]["last_12_months"]["top_growth_of_100"])
 
 
 def summarise(s: pd.DataFrame, top_n: int) -> dict:
@@ -243,6 +273,7 @@ def summarise(s: pd.DataFrame, top_n: int) -> dict:
             "days": int(len(x)),
             "top_avg_pct": round(float(x["top_mean"].mean()), 3),
             "top_avg_after_costs_pct": round(float(net.mean()), 3),
+            "top_avg_after_double_costs_pct": round(float((x["top_mean"] - 2 * ROUND_TRIP_COST).mean()), 3),
             "all_avg_pct": round(float(x["all_mean"].mean()), 3),
             "market_avg_pct": round(float(x["market"].mean()), 3) if x["market"].notna().any() else None,
             "bottom_avg_pct": round(float(x["bottom_mean"].mean()), 3),
@@ -250,6 +281,8 @@ def summarise(s: pd.DataFrame, top_n: int) -> dict:
             "days_top_beats_all": round(float((x["top_mean"] > x["all_mean"]).mean()), 3),
             "avg_ic": round(float(x["ic"].mean()), 4),
             "top_growth_of_100": round(float(100 * np.prod(1 + net / 100)), 1),
+            "top_volatility_pct": round(float(x["top_mean"].std()), 3),
+            "sharpe": round(float(net.mean() / net.std() * math.sqrt(252)), 2) if net.std() > 0 else None,
             "all_growth_of_100": round(float(100 * np.prod(1 + x["all_mean"] / 100)), 1),
         }
     last = s.tail(252)
@@ -284,6 +317,7 @@ def train_all(daily: dict[str, pd.DataFrame], etf_daily: dict[str, pd.DataFrame]
         market = ((E["C"]["SPY"] / E["O"]["SPY"] - 1) * 100)
     bt = walk_forward(table, market)
     final = fit(table)
+    final.meta["strategy"] = bt.get("strategy", "raw")
     final.meta.update({
         "trained_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "trained_from": str(table.index.get_level_values("date").min().date()),

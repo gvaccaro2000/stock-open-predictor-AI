@@ -227,4 +227,8 @@ def score(mdl: M.Model, live: pd.DataFrame, pre: dict[str, Premarket],
         }
     out = pd.DataFrame.from_dict(rows, orient="index")
     out.index.name = "ticker"
-    return out.sort_values("expected_after_open_pct", ascending=False)
+    strategy = mdl.meta.get("strategy", "raw")
+    out["rank_score"] = M.rank_scores(out["expected_after_open_pct"], live["log_atr_pct"].reindex(out.index), strategy)
+    out["excluded_volatile"] = out["rank_score"].isna()
+    out["rank_score"] = out["rank_score"].fillna(-np.inf)
+    return out.sort_values(["rank_score", "expected_after_open_pct"], ascending=False)
