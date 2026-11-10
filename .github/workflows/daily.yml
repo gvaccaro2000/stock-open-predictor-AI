@@ -14,6 +14,9 @@ on:
     - cron: "13 13 * * 1-5"   # 08:13 / 09:13
     - cron: "41 13 * * 1-5"   # 08:41 winter (summer: after the open, still useful as a check)
   workflow_dispatch: {}   # adds a "Run workflow" button for manual runs
+  push:                   # backup trigger: a scheduled task updates this file at 8:05 New York time
+    branches: [main]
+    paths: [".github/triggers/predict"]
 
 permissions:
   contents: write   # needed to commit the new JSON back to the repo

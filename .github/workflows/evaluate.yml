@@ -10,6 +10,9 @@ on:
     - cron: "53 22 * * 1-5"
     - cron: "19 1 * * 2-6"    # late catch-up (early next morning UTC)
   workflow_dispatch: {}
+  push:                   # backup trigger: a scheduled task updates this file after the US close
+    branches: [main]
+    paths: [".github/triggers/evaluate"]
 
 permissions:
   contents: write
