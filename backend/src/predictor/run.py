@@ -11,7 +11,9 @@ import logging
 from datetime import datetime, time
 from pathlib import Path
 
-from . import data, features, market, news, predict, report, scoring, sentiment, universe
+import pandas as pd
+
+from . import calendars, data, features, market, news, predict, report, scoring, sentiment, universe
 from . import model as model_mod
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
@@ -69,12 +71,35 @@ def main(argv: list[str] | None = None) -> None:
         etf_daily = {e: daily_all[e] for e in etfs if e in daily_all}
         etf_pre = {e: pre_all[e] for e in etfs if e in pre_all}
         sector_etf = {t: data.SECTOR_ETFS.get(universe.sector(t) or "") for t in daily}
-        live = predict.live_features(daily, pre, etf_daily, etf_pre,
-                                     {t: e for t, e in sector_etf.items() if e}, now)
+        vix = indexes.get("^VIX", pd.DataFrame()).get("Close") if indexes else None
+        cal = calendars.load(args.out / "earnings_calendar.json", {})
+        macro = calendars.load(args.out / "macro_days.json", [])
+        sector_map = {t: e for t, e in sector_etf.items() if e}
+
+        def features_now():
+            return predict.live_features(daily, pre, etf_daily, etf_pre, sector_map, now,
+                                         vix=vix, earnings_cal=cal, macro_days=macro)
+
+        live = features_now()
         first = predict.score(mdl, live, pre)
+        # Ex-dividend correction for the top candidates (a mechanical drop isn't a real dip).
+        session = predict.next_session_date(now, max(pd.Timestamp(d.index[-1]).tz_localize(None) for d in daily.values()))
+        try:
+            divs = calendars.ex_dividends_today(list(first.index[:150]), session.date())
+        except Exception as exc:
+            log.warning("Ex-dividend check failed: %s", exc)
+            divs = {}
+        if divs:
+            log.info("Ex-dividend today, adjusting: %s", ", ".join(f"{t} ${d:.2f}" for t, d in divs.items()))
+            for t, d in divs.items():
+                daily[t] = calendars.adjust_for_dividend(daily[t], d)
+            live = features_now()
+            first = predict.score(mdl, live, pre)
+        live["is_ex_dividend"] = live.index.isin(list(divs)).astype(float)
         candidates = list(first.index[: args.news_candidates])
-        log.info("Model %s (trained through %s) scored %d stocks", "ridge-v1",
-                 mdl.meta.get("trained_through"), len(first))
+        log.info("Model %s/%s (trained through %s) scored %d stocks; earnings today: %d",
+                 mdl.kind, mdl.meta.get("strategy"), mdl.meta.get("trained_through"), len(first),
+                 int(live["is_earnings"].fillna(0).sum()))
     else:
         log.warning("No model.json yet — using the rule-based ranking (run predictor.train)")
         candidates = list(scored.index[: args.news_candidates])
@@ -98,7 +123,11 @@ def main(argv: list[str] | None = None) -> None:
     payload = report.build_payload(scored, generated_at=now, top_n=args.top, market=ctx, daily=daily,
                                    news=assessments, news_checked=len(candidates) if assessments else 0,
                                    model_info=model_info(mdl, args.out))
-    path = report.write(payload, args.out, save_history=data.session_for(now) == "premarket")
+    is_morning = data.session_for(now) == "premarket"
+    path = report.write(payload, args.out, save_history=is_morning)
+    if is_morning and live is not None:
+        log_path = write_feature_log(args.out, payload["trading_date"], live, pre, assessments, scored)
+        log.info("Logged %d stocks' live data to %s", len(live), log_path.name)
 
     log.info("Wrote %s", path)
     for pick in payload["picks"][:10]:
@@ -106,18 +135,36 @@ def main(argv: list[str] | None = None) -> None:
                  pick.get("expected_after_open_pct"), pick.get("premarket_gap_pct"), pick.get("why_short"))
 
 
+def write_feature_log(out: Path, day: str, live, pre: dict, assessments: dict, scored) -> Path:
+    """Everything known this morning, for all stocks, so live-only factors (pre-market
+    shape, news, fading) can be backtested once a few months have accumulated."""
+    rows = live.copy()
+    for f in ("last_price", "volume", "rvol", "peak", "high", "low", "trend_30m", "range_pos", "vwap_dev"):
+        rows[f"pm_{f}"] = [getattr(pre.get(t), f, None) if pre.get(t) else None for t in rows.index]
+    rows["news_score"] = [assessments[t].score if t in assessments else None for t in rows.index]
+    rows["news_event"] = [assessments[t].event if t in assessments else None for t in rows.index]
+    for c in ("model_pct", "adjust_pct", "expected_after_open_pct"):
+        if c in scored:
+            rows[c] = scored[c].reindex(rows.index)
+    path = out / "features" / f"{day}.csv.gz"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    rows.round(5).to_csv(path, compression="gzip")
+    return path
+
+
 def model_info(mdl, out: Path) -> dict | None:
     """Model + backtest summary for the app."""
     if mdl is None:
         return None
     import json
-    info = {"name": "ridge-v1", "strategy": mdl.meta.get("strategy", "raw"),
+    info = {"name": f"{mdl.kind}-v2", "kind": mdl.kind, "strategy": mdl.meta.get("strategy", "raw"),
             "trained_through": mdl.meta.get("trained_through"),
             "trained_from": mdl.meta.get("trained_from"), "n_stocks": mdl.meta.get("n_stocks")}
     try:
         bt = json.loads((out / "backtest.json").read_text())
         info["backtest"] = {k: bt.get(k) for k in ("start", "end", "top_n", "cost_round_trip_pct", "overall",
-                                                     "last_12_months", "strategy", "strategy_label", "strategies")}
+                                                     "last_12_months", "strategy", "strategy_label", "strategies",
+                                                     "model_kind", "models")}
     except (OSError, ValueError):
         pass
     return info

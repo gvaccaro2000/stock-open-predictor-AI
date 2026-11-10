@@ -56,12 +56,18 @@ def _with_today(daily: dict[str, pd.DataFrame], pre: dict[str, Premarket], day: 
 
 def live_features(daily: dict[str, pd.DataFrame], pre: dict[str, Premarket],
                   etf_daily: dict[str, pd.DataFrame], etf_pre: dict[str, Premarket],
-                  sector_etf: dict[str, str], now: datetime) -> pd.DataFrame:
+                  sector_etf: dict[str, str], now: datetime, vix: pd.Series | None = None,
+                  earnings_cal: dict | None = None, macro_days: list[str] | None = None) -> pd.DataFrame:
+    """Features for the coming session, computed exactly like in training."""
+    from .train import build_context
+
     last = max(pd.Timestamp(df.index[-1]).tz_localize(None).normalize() for df in daily.values())
     day = next_session_date(now, last)
-    P = M.to_panel(_with_today(daily, pre, day))
+    daily_t = _with_today(daily, pre, day)
+    P = M.to_panel(daily_t)
     E = M.to_panel(_with_today(etf_daily, etf_pre, day)) if etf_daily else None
-    f = M.panel_features(P, sector_etf, E)
+    ctx = build_context(daily_t, vix, earnings_cal or {}, macro_days or [])
+    f = M.panel_features(P, sector_etf, E, ctx)
     row = pd.DataFrame({k: v.loc[day] for k, v in f.items()})
     row.index.name = "ticker"
     return row[row["gap_pct"].notna()]
@@ -102,6 +108,36 @@ def _phrase(feat: str, v: float) -> str | None:
         return f"Traded {math.exp(v):.1f}x its normal volume yesterday"
     if feat == "log_atr_pct":
         return f"Normally moves about {math.exp(v):.1f}% a day"
+    if feat == "prev_intraday":
+        return f"{'Rose' if v > 0 else 'Fell'} {abs(v):.1f}% during yesterday's session"
+    if feat == "close_loc_1d":
+        return ("Closed near its high yesterday" if v > 0.75 else
+                "Closed near its low yesterday" if v < 0.25 else None)
+    if feat == "up_days_5":
+        k = round((v + 0.5) * 5)
+        return f"Rose on {k} of the last 5 days"
+    if feat == "dist_52w_high":
+        return "Trading near its 52-week high" if v > -3 else f"{abs(v):.0f}% below its 52-week high"
+    if feat in ("on_avg_20", "on_avg_60"):
+        span = "month" if feat == "on_avg_20" else "3 months"
+        return (f"Has tended to gain overnight over the past {span}" if v > 0
+                else f"Has tended to lose overnight over the past {span}")
+    if feat in ("id_avg_20", "id_avg_60"):
+        span = "month" if feat == "id_avg_20" else "3 months"
+        return (f"Has tended to rise during the trading day over the past {span}" if v > 0
+                else f"Has tended to fall during the trading day over the past {span}")
+    if feat == "beta_60":
+        return (f"Moves about {v:.1f}x as much as the market" if v >= 0 else "Tends to move against the market")
+    if feat in ("is_earnings", "earn_x_gap"):
+        return "Results came out since yesterday's close" if v else None
+    if feat == "gap_x_vix":
+        return "Early move on a nervous market day (high VIX)" if v else None
+    if feat == "gap_x_monday":
+        return "Early move after the weekend" if v else None
+    if feat == "gap_x_opex":
+        return "Early move on an options-expiry day" if v else None
+    if feat == "beta_x_macro":
+        return "Big US economic data release today" if v else None
     return None
 
 
@@ -212,7 +248,7 @@ def score(mdl: M.Model, live: pd.DataFrame, pre: dict[str, Premarket],
           news: dict | None = None, news_checked: set | None = None) -> pd.DataFrame:
     news, news_checked = news or {}, news_checked or set()
     contrib = mdl.contributions(live)
-    pred = contrib.sum(axis=1)
+    pred = mdl.predict(live)          # = sum of contributions (+ a baseline for tree models)
     rows = {}
     for t in live.index:
         r = live.loc[t]

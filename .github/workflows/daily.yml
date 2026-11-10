@@ -41,7 +41,7 @@ jobs:
         run: pytest backend
 
       - name: Train the model if it doesn't exist yet
-        run: test -f docs/data/model.json || python -m predictor.train --universe us1500
+        run: test -f docs/data/model.json || python -m predictor.train --universe us1500 --quick --kinds ridge --no-earnings
 
       - name: Run pipeline
         env:

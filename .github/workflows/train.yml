@@ -17,7 +17,7 @@ concurrency:
 jobs:
   train:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -28,12 +28,14 @@ jobs:
       - run: pip install -e "backend[dev]"
       - run: pytest backend
       - name: Train and backtest
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}   # optional: US macro release days
         run: python -m predictor.train --universe us1500
       - name: Commit model
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/data/model.json docs/data/backtest.json
+          git add docs/data
           git diff --cached --quiet && echo "No changes" && exit 0
           git commit -m "Retrain model $(date -u +%F)"
           git pull --rebase origin main

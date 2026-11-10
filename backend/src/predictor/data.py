@@ -49,6 +49,9 @@ class Premarket:
     rvol: float = math.nan          # volume vs the same time window on previous days
     session: str = "premarket"      # premarket | after_hours | regular
     peak: float = math.nan          # highest price since the last regular close (after-hours + pre-market)
+    trend_30m: float = math.nan     # % change over the last 30 minutes of the session so far
+    range_pos: float = math.nan     # 0 = at the session low, 1 = at the session high
+    vwap_dev: float = math.nan      # % above/below the session's volume-weighted average price
 
 
 def session_for(now: datetime) -> str:
@@ -168,16 +171,25 @@ def extract_extended(intraday: dict[str, pd.DataFrame], now: datetime) -> dict[s
         # Peak since the last regular-session close: previous evening's after-hours + today so far.
         if session == "premarket":
             prev_days = sorted(d for d in set(local.index.date) if d < now.date())
-            since = local[((local.index.date == prev_days[-1]) & (times >= MARKET_CLOSE)) if prev_days else False]
-            since = pd.concat([since, today])
+            evening = local[(local.index.date == prev_days[-1]) & (times >= MARKET_CLOSE)] if prev_days else local.iloc[0:0]
+            since = pd.concat([evening, today])
         else:
             since = today
         hi_col = since["High"] if "High" in since else since["Close"]
         peak = float(hi_col.max()) if len(since) else math.nan
+        last = float(today["Close"].iloc[-1])
+        recent = today[today.index >= today.index[-1] - pd.Timedelta(minutes=30)]
+        trend_30m = (last / float(recent["Close"].iloc[0]) - 1) * 100 if len(recent) > 1 else math.nan
+        s_hi = float(today.get("High", today["Close"]).max())
+        s_lo = float(today.get("Low", today["Close"]).min())
+        range_pos = (last - s_lo) / (s_hi - s_lo) if s_hi > s_lo else math.nan
+        v = today["Volume"].fillna(0)
+        vwap = float((today["Close"] * v).sum() / v.sum()) if v.sum() > 0 else math.nan
+        vwap_dev = (last / vwap - 1) * 100 if vwap and math.isfinite(vwap) else math.nan
         out[t] = Premarket(
             last_price=float(today["Close"].iloc[-1]), volume=vol, as_of=today.index[-1].isoformat(),
             high=float(today.get("High", today["Close"]).max()), low=float(today.get("Low", today["Close"]).min()),
-            rvol=rvol, session=session, peak=peak,
+            rvol=rvol, session=session, peak=peak, trend_30m=trend_30m, range_pos=range_pos, vwap_dev=vwap_dev,
         )
     return out
 

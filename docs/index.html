@@ -277,6 +277,10 @@
         <li><b>Beating its sector.</b> Is the stock rising more than similar companies, or just moving with them?</li>
         <li><b>Key price levels.</b> Breaking above yesterday's high is a good sign; sitting just under a recent high can act as a ceiling.</li>
         <li><b>How big the move is for this stock.</b> Every stock has a normal daily range. A move far beyond it is flagged as already stretched.</li>
+        <li><b>Overnight vs. daytime habits.</b> Some stocks tend to gain overnight and give it back during the day, others the opposite. We measure each stock's habit over the past 1 and 3 months.</li>
+        <li><b>Company results.</b> Whether earnings came out since yesterday's close; a jump on results behaves differently from an ordinary jump.</li>
+        <li><b>Market conditions.</b> How nervous the market is (VIX), whether it's a Monday or an options-expiry day, and big US economic releases (inflation, jobs, Fed).</li>
+        <li><b>Yesterday's session.</b> Whether it closed near its high or low, how many of the last 5 days were up, and how close it is to its 52-week high.</li>
         <li><b>Recent direction.</b> Rising this week or this season, without having shot up too fast, and where the price sits against its 50- and 200-day averages.</li>
       </ol>
       <p>Every trading morning we scan about 1,500 US companies (the S&amp;P 500, the S&amp;P MidCap 400 and SmallCap 600, plus the Nasdaq-100), skip the ones that are too small or rarely traded to give reliable signals, and show the ones where these signs line up best.</p>
@@ -678,7 +682,10 @@
     if (bt && bt.overall && bt.overall.days) {
       const o = bt.overall, y = bt.last_12_months || o;
       $('backtest').hidden = false;
-      $('backtest').innerHTML = `<b>Tested on past data</b> (${esc(bt.start)} to ${esc(bt.end)}, ${o.days} trading days, walk-forward): the model's top ${bt.top_n} averaged <b>${pct2(o.top_avg_pct)}</b> per day from open to close (<b>${pct2(o.top_avg_after_costs_pct)}</b> after ~${bt.cost_round_trip_pct}% costs), vs. ${pct2(o.all_avg_pct)} for the average stock and ${pct2(o.bottom_avg_pct)} for its bottom ${bt.top_n}. Its picks beat the average stock on ${Math.round(o.days_top_beats_all * 100)}% of days. Last 12 months: ${pct2(y.top_avg_pct)} per day vs. ${pct2(y.all_avg_pct)}. Past results don't guarantee future ones.` + strategyTable(bt);
+      const M = bt.models || {}, kinds = Object.keys(M);
+      const modelLine = kinds.length > 1
+        ? `<p style="margin:0 0 8px"><b>Model:</b> ${esc(M[bt.model_kind]?.label || bt.model_kind)}, chosen because it ranked stocks better on unseen data (${kinds.map((k) => `${esc(M[k].label.split(' (')[0])}: ${(M[k].avg_ic * 100).toFixed(1)}`).join(' vs. ')} ranking score).</p>` : '';
+      $('backtest').innerHTML = modelLine + `<b>Tested on past data</b> (${esc(bt.start)} to ${esc(bt.end)}, ${o.days} trading days, walk-forward): the model's top ${bt.top_n} averaged <b>${pct2(o.top_avg_pct)}</b> per day from open to close (<b>${pct2(o.top_avg_after_costs_pct)}</b> after ~${bt.cost_round_trip_pct}% costs), vs. ${pct2(o.all_avg_pct)} for the average stock and ${pct2(o.bottom_avg_pct)} for its bottom ${bt.top_n}. Its picks beat the average stock on ${Math.round(o.days_top_beats_all * 100)}% of days. Last 12 months: ${pct2(y.top_avg_pct)} per day vs. ${pct2(y.all_avg_pct)}. Past results don't guarantee future ones.` + strategyTable(bt);
     }
   }
 

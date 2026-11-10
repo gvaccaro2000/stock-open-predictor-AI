@@ -65,6 +65,10 @@ npx expo start      # scan the QR code with the Expo Go app on your iPhone
       walk-forward backtest (`python -m predictor.train`); fading-from-peak, news, thin-trading and
       unexplained-jump adjustments; nightly track record of every published pick
       (`python -m predictor.evaluate`)
+- [x] Phase 3b — More factors (overnight vs daytime habits, stock-specific gap and beta, VIX /
+      Monday / options-expiry / macro-day interactions, earnings days, yesterday's session pattern,
+      52-week high), ex-dividend correction, LightGBM vs ridge compared walk-forward, and a daily
+      log of live-only data (pre-market shape, news) for future testing
 - [ ] Phase 4 — Supabase backend, push notifications, watchlists, App Store
 
 ## License

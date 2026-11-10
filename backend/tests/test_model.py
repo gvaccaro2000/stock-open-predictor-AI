@@ -106,3 +106,48 @@ def test_rank_scores_calm_excludes_most_volatile():
     assert pd.isna(model.rank_scores(pred, vol, "calm")["a"])
     ra = model.rank_scores(pred, vol, "risk_adj")
     assert ra.idxmax() == "b"                       # a's high pred is divided by its big swing
+
+
+def synthetic_threshold_market(n_stocks=60, n_days=420, seed=1):
+    """Only *big* gaps (beyond 2 normal days' range) fade; small gaps don't matter.
+    A non-linear pattern: trees should capture it at least as well as the linear model."""
+    rng = np.random.default_rng(seed)
+    days = pd.bdate_range("2023-01-02", periods=n_days)
+    daily = {}
+    for i in range(n_stocks):
+        hist = [50 + 100 * rng.random()]
+        rows = []
+        for d in days:
+            gap = rng.normal(0, 1.2) + (rng.random() < 0.08) * rng.normal(0, 6)
+            o = hist[-1] * (1 + gap / 100)
+            oc = (-0.6 * (gap - 2 * np.sign(gap)) if abs(gap) > 2 else 0.0) + rng.normal(0, 1.2)
+            c = o * (1 + oc / 100)
+            h, l = max(o, c) * 1.003, min(o, c) * 0.997
+            rows.append((o, h, l, c, 1e6))
+            hist.append(c)
+        daily[f"S{i}"] = pd.DataFrame(rows, index=days, columns=["Open", "High", "Low", "Close", "Volume"])
+    return daily
+
+
+def test_lgbm_learns_nonlinear_pattern_and_explains_it():
+    daily = synthetic_threshold_market()
+    P = model.to_panel(daily)
+    feats = model.panel_features(P)
+    y, y_ex = model.target_excess(P)
+    table = model.long_table(feats, y, y_ex)
+    bt_tree = model.walk_forward(table, min_train_days=200, kind="lgbm")
+    bt_lin = model.walk_forward(table, min_train_days=200, kind="ridge")
+    assert bt_tree["overall"]["avg_ic"] > 0.1
+    assert bt_tree["overall"]["avg_ic"] >= bt_lin["overall"]["avg_ic"] - 0.02
+    m = model.fit(table, kind="lgbm")
+    sample = table.tail(20)
+    c = m.contributions(sample)
+    gap_part = c[[f for f in model.FEATURES if f in model.GAP_GROUP]].sum(axis=1)
+    big_up = sample["gap_pct"] > 3
+    if big_up.any():
+        assert (gap_part[big_up] < 0).all()       # explanation blames the big gap
+    import tempfile, pathlib
+    with tempfile.TemporaryDirectory() as d:
+        model.save(m, pathlib.Path(d) / "m.json")
+        m2 = model.load(pathlib.Path(d) / "m.json")
+    assert np.allclose(m.predict(sample), m2.predict(sample))

@@ -168,3 +168,13 @@ def test_no_busier_claim_without_measured_rvol():
         pre[t] = Premarket(x.last_price, x.volume, "x", rvol=float("nan"))
     sc = scoring.score(features.build_features(daily, pre))
     assert not any("busier" in (r["summary"] + r["why_short"]) for _, r in sc.iterrows())
+
+
+def test_premarket_shape():
+    idx = pd.DatetimeIndex(["2026-11-09 08:00", "2026-11-09 08:40", "2026-11-09 09:00", "2026-11-09 09:10"]).tz_localize(NY)
+    bars = pd.DataFrame({"Close": [10.0, 10.4, 10.2, 10.3], "High": [10.0, 10.5, 10.3, 10.3],
+                         "Low": [9.9, 10.3, 10.1, 10.2], "Volume": [100, 100, 100, 100]}, index=idx)
+    p = data.extract_extended({"X": bars}, datetime(2026, 11, 9, 9, 15, tzinfo=NY))["X"]
+    assert abs(p.trend_30m - (10.3 / 10.4 - 1) * 100) < 1e-9          # last 30 min: from 08:40 bar
+    assert abs(p.range_pos - (10.3 - 9.9) / (10.5 - 9.9)) < 1e-9
+    assert abs(p.vwap_dev - (10.3 / 10.225 - 1) * 100) < 1e-9
