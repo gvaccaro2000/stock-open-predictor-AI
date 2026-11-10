@@ -48,6 +48,7 @@ class Premarket:
     low: float = math.nan
     rvol: float = math.nan          # volume vs the same time window on previous days
     session: str = "premarket"      # premarket | after_hours | regular
+    peak: float = math.nan          # highest price since the last regular close (after-hours + pre-market)
 
 
 def session_for(now: datetime) -> str:
@@ -164,10 +165,19 @@ def extract_extended(intraday: dict[str, pd.DataFrame], now: datetime) -> dict[s
         per_day = prior["Volume"].fillna(0).groupby(prior.index.date).sum()
         per_day = per_day[per_day > 0]
         rvol = vol / float(per_day.mean()) if len(per_day) else math.nan
+        # Peak since the last regular-session close: previous evening's after-hours + today so far.
+        if session == "premarket":
+            prev_days = sorted(d for d in set(local.index.date) if d < now.date())
+            since = local[((local.index.date == prev_days[-1]) & (times >= MARKET_CLOSE)) if prev_days else False]
+            since = pd.concat([since, today])
+        else:
+            since = today
+        hi_col = since["High"] if "High" in since else since["Close"]
+        peak = float(hi_col.max()) if len(since) else math.nan
         out[t] = Premarket(
             last_price=float(today["Close"].iloc[-1]), volume=vol, as_of=today.index[-1].isoformat(),
             high=float(today.get("High", today["Close"]).max()), low=float(today.get("Low", today["Close"]).min()),
-            rvol=rvol, session=session,
+            rvol=rvol, session=session, peak=peak,
         )
     return out
 

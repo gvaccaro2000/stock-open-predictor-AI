@@ -70,7 +70,7 @@ def price_history(df: pd.DataFrame | None, days: int = HISTORY_DAYS) -> dict | N
 
 def build_payload(scored: pd.DataFrame, generated_at: datetime, top_n: int = 25,
                   news: dict | None = None, news_checked: int = 0, market: dict | None = None,
-                  daily: dict[str, pd.DataFrame] | None = None) -> dict:
+                  daily: dict[str, pd.DataFrame] | None = None, model_info: dict | None = None) -> dict:
     """`news` maps ticker -> sentiment.NewsAssessment; `news_checked` = how many stocks we read news for."""
     news = news or {}
     has_premarket = bool(scored["premarket_gap_pct"].notna().any())
@@ -80,8 +80,13 @@ def build_payload(scored: pd.DataFrame, generated_at: datetime, top_n: int = 25,
             "rank": rank,
             "ticker": ticker,
             "name": company_name(ticker),
-            "score": int(r["score"]),
-            "raw_score": _num(r["raw_score"], 3),
+            "score": int(r["score"]) if "score" in r and pd.notna(r["score"]) else None,
+            "raw_score": _num(r.get("raw_score"), 3),
+            "expected_after_open_pct": _num(r.get("expected_after_open_pct"), 2),
+            "model_pct": _num(r.get("model_pct"), 3),
+            "adjust_pct": _num(r.get("adjust_pct"), 3),
+            "strength": r.get("strength") if isinstance(r.get("strength"), str) else None,
+            "adjustments": r.get("adjustments") if isinstance(r.get("adjustments"), list) else [],
             "prev_close": _num(r["prev_close"]),
             "premarket_price": _num(r["premarket_price"]),
             "premarket_gap_pct": _num(r["premarket_gap_pct"]),
@@ -118,7 +123,8 @@ def build_payload(scored: pd.DataFrame, generated_at: datetime, top_n: int = 25,
         "universe_size": int(len(scored)),
         "has_premarket_data": has_premarket,
         "run_window": run_window(generated_at),
-        "model": "rules-v3" + ("-news" if news else ""),
+        "model": ("ridge-v1" if model_info else "rules-v3") + ("-news" if news else ""),
+        "model_info": model_info,
         "market": market,
         "news_enabled": bool(news),
         "news_checked": news_checked,
@@ -127,11 +133,14 @@ def build_payload(scored: pd.DataFrame, generated_at: datetime, top_n: int = 25,
     }
 
 
-def write(payload: dict, out_dir: Path) -> Path:
+def write(payload: dict, out_dir: Path, save_history: bool = True) -> Path:
+    """today.json always; the dated history copy (used by the track record) only for
+    pre-market runs, so a test run in the evening can't overwrite the morning's picks."""
     out_dir.mkdir(parents=True, exist_ok=True)
-    (out_dir / "history").mkdir(exist_ok=True)
     text = json.dumps(payload, indent=2)
     today = out_dir / "today.json"
     today.write_text(text)
-    (out_dir / "history" / f"{payload['trading_date']}.json").write_text(text)
+    if save_history:
+        (out_dir / "history").mkdir(exist_ok=True)
+        (out_dir / "history" / f"{payload['trading_date']}.json").write_text(text)
     return today

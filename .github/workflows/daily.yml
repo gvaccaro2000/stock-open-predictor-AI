@@ -19,7 +19,7 @@ permissions:
   contents: write   # needed to commit the new JSON back to the repo
 
 concurrency:
-  group: daily-predictions
+  group: repo-writer      # shared with the track-record and training jobs: one writer at a time
   cancel-in-progress: false
 
 jobs:
@@ -40,6 +40,9 @@ jobs:
       - name: Test
         run: pytest backend
 
+      - name: Train the model if it doesn't exist yet
+        run: test -f docs/data/model.json || python -m predictor.train --universe us1500
+
       - name: Run pipeline
         env:
           # Add these under Settings → Secrets and variables → Actions.
@@ -55,4 +58,5 @@ jobs:
           git add docs/data
           git diff --cached --quiet && echo "No changes" && exit 0
           git commit -m "Predictions for $(date -u +%F)"
+          git pull --rebase origin main
           git push

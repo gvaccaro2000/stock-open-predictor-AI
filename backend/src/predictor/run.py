@@ -11,7 +11,8 @@ import logging
 from datetime import datetime, time
 from pathlib import Path
 
-from . import data, features, market, news, report, scoring, sentiment, universe
+from . import data, features, market, news, predict, report, scoring, sentiment, universe
+from . import model as model_mod
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_OUT = REPO_ROOT / "docs" / "data"
@@ -59,27 +60,64 @@ def main(argv: list[str] | None = None) -> None:
     refs = market.reference_gaps(list(daily), {t: universe.sector(t) for t in daily}, gaps)
 
     feats = features.build_features(daily, pre, refs)
-    scored = scoring.score(feats)  # price-only first pass
+    scored = scoring.score(feats)  # rule-based pass: levels, ATR etc. for the app (and fallback ranking)
 
-    # Phase 2: read the overnight news for the most promising stocks, then re-score.
+    # The after-open model (trained by predictor.train), if available.
+    mdl = model_mod.load(args.out / "model.json")
+    live = None
+    if mdl is not None:
+        etf_daily = {e: daily_all[e] for e in etfs if e in daily_all}
+        etf_pre = {e: pre_all[e] for e in etfs if e in pre_all}
+        sector_etf = {t: data.SECTOR_ETFS.get(universe.sector(t) or "") for t in daily}
+        live = predict.live_features(daily, pre, etf_daily, etf_pre,
+                                     {t: e for t, e in sector_etf.items() if e}, now)
+        first = predict.score(mdl, live, pre)
+        candidates = list(first.index[: args.news_candidates])
+        log.info("Model %s (trained through %s) scored %d stocks", "ridge-v1",
+                 mdl.meta.get("trained_through"), len(first))
+    else:
+        log.warning("No model.json yet — using the rule-based ranking (run predictor.train)")
+        candidates = list(scored.index[: args.news_candidates])
+
+    # Read the overnight news for the most promising stocks.
     assessments: dict = {}
-    candidates = list(scored.index[: args.news_candidates])
     if candidates:
         since = last_close_time(daily)
         found = news.collect(candidates, since)
         names = {t: universe.company_name(t) for t in candidates}
         assessments = sentiment.analyze(found, names)
-        if assessments:
-            scored = scoring.score(feats, news=assessments, news_checked=set(candidates))
+
+    if mdl is not None:
+        ranked = predict.score(mdl, live, pre, news=assessments, news_checked=set(candidates))
+        base = scored.drop(columns=["reasons", "summary", "why_short"], errors="ignore")
+        scored = ranked.join(base, how="inner").sort_values("expected_after_open_pct", ascending=False)
+    elif assessments:
+        scored = scoring.score(feats, news=assessments, news_checked=set(candidates))
 
     payload = report.build_payload(scored, generated_at=now, top_n=args.top, market=ctx, daily=daily,
-                                   news=assessments, news_checked=len(candidates) if assessments else 0)
-    path = report.write(payload, args.out)
+                                   news=assessments, news_checked=len(candidates) if assessments else 0,
+                                   model_info=model_info(mdl, args.out))
+    path = report.write(payload, args.out, save_history=data.session_for(now) == "premarket")
 
     log.info("Wrote %s", path)
     for pick in payload["picks"][:10]:
-        log.info("  #%-2d %-6s score %3d  %s", pick["rank"], pick["ticker"], pick["score"],
-                 "; ".join(r["text"] for r in pick["reasons"]))
+        log.info("  #%-2d %-6s exp %s  pre %s  %s", pick["rank"], pick["ticker"],
+                 pick.get("expected_after_open_pct"), pick.get("premarket_gap_pct"), pick.get("why_short"))
+
+
+def model_info(mdl, out: Path) -> dict | None:
+    """Model + backtest summary for the app."""
+    if mdl is None:
+        return None
+    import json
+    info = {"name": "ridge-v1", "trained_through": mdl.meta.get("trained_through"),
+            "trained_from": mdl.meta.get("trained_from"), "n_stocks": mdl.meta.get("n_stocks")}
+    try:
+        bt = json.loads((out / "backtest.json").read_text())
+        info["backtest"] = {k: bt.get(k) for k in ("start", "end", "top_n", "cost_round_trip_pct", "overall", "last_12_months")}
+    except (OSError, ValueError):
+        pass
+    return info
 
 
 def last_close_time(daily: dict) -> datetime:

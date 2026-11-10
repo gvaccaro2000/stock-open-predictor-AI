@@ -1,0 +1,42 @@
+# Every evening after the US close: check how the morning's picks actually did
+# (open -> close) and update the track record shown in the app.
+name: Track record
+
+on:
+  schedule:
+    # 16:00 New York = 21:00 UTC in winter, 20:00 UTC in summer. Several off-peak
+    # times because GitHub can delay or skip scheduled jobs.
+    - cron: "23 21 * * 1-5"
+    - cron: "53 22 * * 1-5"
+    - cron: "19 1 * * 2-6"    # late catch-up (early next morning UTC)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: repo-writer
+  cancel-in-progress: false
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/pyproject.toml
+      - run: pip install -e "backend[dev]"
+      - name: Evaluate past picks
+        run: python -m predictor.evaluate
+      - name: Commit results
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "Track record $(date -u +%F)"
+          git pull --rebase origin main
+          git push

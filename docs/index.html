@@ -75,7 +75,7 @@
   .section-head { display: flex; justify-content: space-between; align-items: baseline; margin: 14px 0 4px; }
   .section-head h2 { font-size: 22px; font-weight: 700; letter-spacing: -.02em; margin: 0; }
   .section-head span { color: var(--muted); font-size: 14px; }
-  .cols, .row { display: grid; grid-template-columns: 54px minmax(0, 1fr) 62px minmax(0, 1.5fr); column-gap: 10px; align-items: center; }
+  .cols, .row { display: grid; grid-template-columns: 50px minmax(0, 1fr) 78px minmax(0, 1.45fr); column-gap: 9px; align-items: center; }
   .cols { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; padding: 10px 0 8px; border-bottom: 1px solid var(--line); }
   .cols .r { text-align: right; }
   .row { width: 100%; text-align: left; padding: 14px 0; border-bottom: 1px solid var(--line); }
@@ -92,7 +92,8 @@
   .pct { text-align: right; }
   .pct b { display: block; font-size: 16px; font-weight: 650; }
   .pct b.up { color: var(--up); } .pct b.down { color: var(--down); } .pct b.flat { color: var(--muted); }
-  .pct small { color: var(--muted); font-size: 11.5px; }
+  .pct small { color: var(--muted); font-size: 10.5px; display: block; white-space: nowrap; letter-spacing: -.01em; }
+  .cols .exp-long { display: none; }
   .why {
     font-size: 13.5px; line-height: 1.35; color: var(--soft);
     display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
@@ -125,6 +126,17 @@
   @keyframes pulse { to { opacity: .4; } }
   .error { color: var(--down); padding: 18px 0; }
 
+  .track { margin-top: 34px; }
+  .track h2 { font-size: 22px; font-weight: 700; letter-spacing: -.02em; margin: 0 0 4px; }
+  .track .lead { color: var(--soft); font-size: 14.5px; margin: 4px 0 12px; }
+  .tgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 10px 0; }
+  .trow { display: grid; grid-template-columns: minmax(0, 1fr) 92px 70px; white-space: nowrap; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; align-items: center; }
+  .trow.h { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+  .trow > span:not(:first-child) { text-align: right; }
+  .trow > span:first-child { overflow: hidden; text-overflow: ellipsis; }
+  .trow .up { color: var(--up); } .trow .down { color: var(--down); }
+  .bt { background: var(--fill); border-radius: 14px; padding: 14px 16px; margin-top: 16px; font-size: 14.5px; color: var(--soft); }
+  .bt b { color: var(--text); }
   .faq { margin-top: 34px; }
   .faq h2 { font-size: 22px; font-weight: 700; letter-spacing: -.02em; margin: 0 0 4px; }
   details { border-bottom: 1px solid var(--line); }
@@ -191,6 +203,7 @@
     .whycell { display: grid; grid-template-columns: 120px minmax(0, 1fr); column-gap: 16px; align-items: center; }
     .spark { height: 38px; margin: 0; }
     .cols .chart-h { display: inline; }
+    .cols .exp-long { display: inline; } .cols .exp-short { display: none; }
     .cols .why-h { display: grid; grid-template-columns: 120px 1fr; column-gap: 16px; }
   }
 </style>
@@ -228,22 +241,37 @@
 
   <div class="section-head"><h2>Top picks</h2><span id="scanned"></span></div>
   <div class="legend" aria-hidden="true"><span>Charts:</span><span><i class="p" style="border-color:var(--up)"></i>price, last 90 days (green = up, red = down)</span><span><i class="m50"></i>50-day average</span><span><i class="m200"></i>200-day average</span></div>
-  <div class="cols" aria-hidden="true"><span>Ticker</span><span>Name</span><span class="r">Expected</span><span class="why-h"><span class="chart-h">Last 90 days</span><span>Why</span></span></div>
+  <div class="cols" aria-hidden="true"><span>Ticker</span><span>Name</span><span class="r"><span class="exp-short">After open</span><span class="exp-long">Expected after open</span></span><span class="why-h"><span class="chart-h">Last 90 days</span><span>Why</span></span></div>
   <section id="list" aria-live="polite">
     <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+  </section>
+
+  <section class="track" id="track">
+    <h2>Track record</h2>
+    <p class="lead">Every evening we check how the morning's top 10 actually did from the US open (15:30 CET) to the close. Nothing is left out.</p>
+    <div id="trackBody"><p class="lead">Loading…</p></div>
+    <div class="bt" id="backtest" hidden></div>
   </section>
 
   <section class="faq">
     <h2>How it works</h2>
     <details>
-      <summary>What does “Expected” mean?</summary>
-      <p>It's the change between yesterday's closing price and the price the stock is trading at <b>right before the market opens</b>. Stocks usually open close to that price, so it's our best estimate of the move at the open. It can still change in the last minutes, and the price can move either way after the open.</p>
+      <summary>What does “Expected after open” mean?</summary>
+      <p>It's our estimate of how much the stock will move <b>from the US open (15:30 CET) to the close</b>, compared with the average stock that day. That's the part you can still catch if you buy before or at the open.</p>
+      <p>The small “pre-mkt” number underneath is how much it has <b>already</b> moved since yesterday's close. That move is mostly gone by the time you can buy, and big early jumps often partly fade after the open, so a large pre-market gain is not automatically a good sign.</p>
+      <p>The estimates are small (often well under 1%) because day-to-day price moves are mostly random. A good method wins a bit more often than it loses, not every day.</p>
+    </details>
+    <details>
+      <summary>How was it tested?</summary>
+      <p>The model learned from about 3 years of daily prices of ~1,500 US stocks: what was known before the open, and what happened from the open to the close. It was tested “walk-forward”: trained only on the past, then checked on the following month, again and again, so the test never peeks at the future. The results are shown in the Track record section, together with the live results since the app started.</p>
+      <p>Limits: the test uses the official open price (you may pay slightly more or less before the open), assumes small trading costs, and uses today's index members (companies that dropped out of the indexes are missing, which flatters results a little).</p>
     </details>
     <details>
       <summary>What we look at</summary>
+      <p>The ranking comes from a model trained on past data (see “How was it tested?”). These are the ingredients, and the model learned from history how much each one matters for the move <b>after</b> the open:</p>
       <ol>
         <li><b>The whole market.</b> Are the S&amp;P 500 and Nasdaq pointing up or down before the open? How nervous is the market (VIX)?</li>
-        <li><b>Early trading.</b> Some trading happens before the official open. A stock already rising then often opens higher.</li>
+        <li><b>Early trading.</b> How far the stock has already moved before the open, compared with its normal daily range. Very big jumps often fade later; we also flag stocks already falling back from an overnight peak.</li>
         <li><b>How busy it is.</b> We compare this morning's early trading with a normal morning. A move with many buyers is more convincing; very thin trading makes it less reliable.</li>
         <li><b>Company news.</b> An AI (Claude) reads the news since yesterday's close, such as results, forecasts or analyst opinions, and judges whether it's good or bad. A big jump with <i>no</i> news gets a warning.</li>
         <li><b>Beating its sector.</b> Is the stock rising more than similar companies, or just moving with them?</li>
@@ -314,12 +342,16 @@
 
   // ---------- plain-language helpers ----------
   function strength(p) {
+    if (p.strength) return { label: p.strength, bars: { Strong: 5, Good: 4, Moderate: 3, Weak: 2 }[p.strength] || 2 };
     const x = p.raw_score ?? (p.score - 50) / 40;
     if (x >= 1.2) return { label: 'Strong', bars: 5 };
     if (x >= 0.8) return { label: 'Good', bars: 4 };
     if (x >= 0.5) return { label: 'Moderate', bars: 3 };
     return { label: 'Weak', bars: 2 };
   }
+  const hasModel = (p) => p.expected_after_open_pct != null;
+  const expVal = (p) => (hasModel(p) ? p.expected_after_open_pct : p.premarket_gap_pct);
+  const pct2 = (x) => (x == null ? '—' : `${x > 0 ? '+' : x < 0 ? '−' : ''}${Math.abs(x).toFixed(Math.abs(x) < 1 ? 2 : 1)}%`);
   const dir = (x) => (x == null ? 'flat' : x > 0.05 ? 'up' : x < -0.05 ? 'down' : 'flat');
   const pct = (x) => (x == null ? '—' : `${x > 0 ? '+' : x < 0 ? '−' : ''}${Math.abs(x).toFixed(1)}%`);
   const money = (x) => (x == null ? '—' : '$' + x.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
@@ -501,15 +533,15 @@
 
   // ---------- list ----------
   function rowHTML(p, i) {
-    const s = strength(p), d = dir(p.premarket_gap_pct);
+    const s = strength(p), d = dir(expVal(p));
     return `
-      <button class="row" type="button" data-i="${i}" aria-label="${esc(p.name || p.ticker)}, expected ${pct(p.premarket_gap_pct)}. ${esc(why(p))}">
+      <button class="row" type="button" data-i="${i}" aria-label="${esc(p.name || p.ticker)}, expected after open ${pct2(expVal(p))}, pre-market ${pct(p.premarket_gap_pct)}. ${esc(why(p))}">
         <div class="stock">
           <span class="logo" aria-hidden="true">${monogram(p.ticker)}</span>
           <div class="ticker">${esc(p.ticker)}</div>
         </div>
         <div class="name">${esc(p.name || '—')}</div>
-        <div class="pct num"><b class="${d}">${pct(p.premarket_gap_pct)}</b><small>${s.label}</small></div>
+        <div class="pct num"><b class="${d}">${hasModel(p) ? pct2(expVal(p)) : pct(expVal(p))}</b><small>${hasModel(p) ? 'pre-mkt ' + pct(p.premarket_gap_pct) : s.label}</small></div>
         <div class="whycell">
           <div class="spark" aria-hidden="true">${chartSVG(p)}</div>
           <div class="why">${newsTag(p)}${esc(shortWhy(p))}</div>
@@ -529,7 +561,7 @@
 
   // ---------- detail sheet ----------
   function openSheet(p) {
-    const s = strength(p), d = dir(p.premarket_gap_pct);
+    const s = strength(p), d = dir(expVal(p));
     $('sheet').innerHTML = `
       <div class="grab"></div>
       <div class="sheet-head">
@@ -539,9 +571,9 @@
           <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
         </button>
       </div>
-      <div class="exp-label">Expected at open</div>
-      <div class="exp num ${d}">${pct(p.premarket_gap_pct)}</div>
-      <div class="exp-sub num">${money(p.premarket_price)} ${report.run_window === 'after_hours' ? 'after hours' : 'before the open'} · closed at ${money(p.prev_close)}</div>
+      <div class="exp-label">${hasModel(p) ? 'Expected after open (15:30 → close)' : 'Expected at open'}</div>
+      <div class="exp num ${d}">${hasModel(p) ? pct2(expVal(p)) : pct(expVal(p))}</div>
+      <div class="exp-sub num">${hasModel(p) ? 'vs. the average stock · ' : ''}Pre-market ${pct(p.premarket_gap_pct)}: ${money(p.premarket_price)} ${report.run_window === 'after_hours' ? 'after hours' : 'before the open'}, closed at ${money(p.prev_close)}</div>
 
       ${chartSection(p)}
 
@@ -552,15 +584,15 @@
 
       <h4>Signal strength</h4>
       <div class="meter">${[1,2,3,4,5].map((n) => `<span class="${n <= s.bars ? 'on' : ''}"></span>`).join('')}</div>
-      <div class="meter-label"><span>${s.label}</span><span>${p.reasons.length} main signal${p.reasons.length === 1 ? '' : 's'}</span></div>
+      <div class="meter-label"><span>${s.label}</span><span>${hasModel(p) ? 'vs. other stocks in past tests' : p.reasons.length + ' main signals'}</span></div>
 
-      ${p.reasons.filter((r) => r.kind !== 'news').length ? `<h4>Signals</h4>` + p.reasons.filter((r) => r.kind !== 'news').map((r) =>
+      ${p.reasons.filter((r) => r.kind !== 'news').length ? `<h4>What drives the estimate</h4>` + p.reasons.filter((r) => r.kind !== 'news').map((r) =>
         `<div class="sig"><i class="${r.impact === 'positive' ? 'pos' : 'neg'}">${r.impact === 'positive' ? '↑' : '!'}</i><span>${esc(r.text)}</span></div>`).join('') : ''}
 
       ${levelsSection(p)}
       ${statsSection(p)}
       <a class="cta" href="https://finance.yahoo.com/quote/${encodeURIComponent(p.ticker)}" target="_blank" rel="noopener">View chart</a>
-      <p class="fine">Not financial advice. The expected move is an estimate based on pre-market trading and can be wrong.</p>`;
+      <p class="fine">Not financial advice. The expected move is a statistical estimate from past patterns and is often wrong for any single stock or day.</p>`;
     $('closeSheet').addEventListener('click', closeSheet);
     $('scrim').classList.add('open'); $('sheet').classList.add('open'); $('sheet').scrollTop = 0;
   }
@@ -619,13 +651,44 @@
   showInstall();
   $('installClose').addEventListener('click', () => { $('install').classList.remove('show'); try { localStorage.setItem('installHintDismissed', '1'); } catch (e) {} });
 
+  // ---------- track record + backtest ----------
+  const signCls = (x) => (x == null ? '' : x > 0 ? 'up' : x < 0 ? 'down' : '');
+  async function renderTrack() {
+    let t = null;
+    try { const r = await fetch(`data/track_summary.json?t=${Date.now()}`, { cache: 'no-store' }); if (r.ok) t = await r.json(); } catch (e) {}
+    const body = $('trackBody');
+    if (!t || !t.days) {
+      body.innerHTML = '<p class="lead">The first results appear in the evening after the first full trading day.</p>';
+    } else {
+      const L = t.latest, d = (iso) => new Date(iso + 'T12:00:00').toLocaleDateString([], { weekday: 'short', day: 'numeric', month: 'short' });
+      const tile = (label, v, sub) => `<div class="mk"><div class="l">${label}</div><div class="v num ${signCls(typeof v === 'number' ? v : null)}">${typeof v === 'number' ? pct2(v) : esc(v)}</div>${sub ? `<div class="c">${sub}</div>` : ''}</div>`;
+      let html = `<div class="section-head" style="margin:6px 0 0"><h4 style="margin:0">Latest: ${esc(d(L.date))}</h4><span>top 10, open → close</span></div>
+        <div class="tgrid">${tile('Top 10 average', L.top10.avg_open_to_close_pct)}${tile('S&amp;P 500', L.spy_open_to_close_pct)}${tile('Picks that rose', Math.round((L.top10.hit_rate || 0) * 10) + ' of 10')}</div>
+        <div class="trow h"><span>Stock</span><span>Expected</span><span>Actual</span></div>` +
+        L.picks.slice(0, 10).map((x) => `<div class="trow num"><span><b>${esc(x.ticker)}</b> <span style="color:var(--muted)">${esc(x.name || '')}</span></span><span class="${signCls(x.expected_pct)}">${x.expected_pct == null ? '<small style="color:var(--muted)">pre-mkt</small> ' + pct(x.premarket_gap_pct) : pct2(x.expected_pct)}</span><span class="${signCls(x.open_to_close_pct)}">${pct2(x.open_to_close_pct)}</span></div>`).join('');
+      if (t.days > 1) {
+        html += `<div class="section-head" style="margin:18px 0 0"><h4 style="margin:0">Since ${esc(d(t.start))} (${t.days} trading days)</h4></div>
+          <div class="tgrid">${tile('Top 10, avg per day', t.top10_avg_open_to_close_pct)}${tile('S&amp;P 500, avg per day', t.spy_avg_open_to_close_pct)}${tile('Days beating S&amp;P', Math.round(t.days_beating_spy * 100) + '%')}</div>
+          <p class="lead">€100 following the top 10 every day would now be <b>€${t.top10_growth_of_100_after_costs.toFixed(2)}</b> after estimated costs, vs. €${t.spy_growth_of_100.toFixed(2)} in the S&amp;P 500 over the same hours.</p>`;
+      }
+      if (L.model && !String(L.model).startsWith('ridge')) html += `<p class="ai-note">Days before ${esc(d('2026-11-11'))} used the earlier method (ranking by the pre-market jump).</p>`;
+      body.innerHTML = html;
+    }
+    const bt = report?.model_info?.backtest;
+    if (bt && bt.overall && bt.overall.days) {
+      const o = bt.overall, y = bt.last_12_months || o;
+      $('backtest').hidden = false;
+      $('backtest').innerHTML = `<b>Tested on past data</b> (${esc(bt.start)} to ${esc(bt.end)}, ${o.days} trading days, walk-forward): the model's top ${bt.top_n} averaged <b>${pct2(o.top_avg_pct)}</b> per day from open to close (<b>${pct2(o.top_avg_after_costs_pct)}</b> after ~${bt.cost_round_trip_pct}% costs), vs. ${pct2(o.all_avg_pct)} for the average stock and ${pct2(o.bottom_avg_pct)} for its bottom ${bt.top_n}. Its picks beat the average stock on ${Math.round(o.days_top_beats_all * 100)}% of days. Last 12 months: ${pct2(y.top_avg_pct)} per day vs. ${pct2(y.all_avg_pct)}. Past results don't guarantee future ones.`;
+    }
+  }
+
   // ---------- load ----------
   async function load() {
     try {
       const res = await fetch(`${DATA_URL}?t=${Date.now()}`, { cache: 'no-store' });
       if (!res.ok) throw new Error(res.status);
       report = await res.json();
-      renderHero(); renderMarket(); renderList();
+      renderHero(); renderMarket(); renderList(); renderTrack();
     } catch (e) {
       $('heroSub').textContent = '';
       $('list').innerHTML = `<p class="error">We couldn't load today's picks. Check your connection and try again.</p>`;

@@ -14,7 +14,7 @@ a price rise at the market open — and tracks how often it is right.
  1. Ingest   prices, premarket, news...    ──►    Reads docs/data/today.json
  2. Features one row of signals per ticker
     News     headlines since last close → Claude rates sentiment        Shows ranked picks + reasons
- 3. Score    rule-based (v1) → ML later
+ 3. Score    after-open model (trained weekly) + adjustments
  4. Publish  docs/data/today.json (GitHub Pages)
 ```
 
@@ -60,7 +60,11 @@ npx expo start      # scan the QR code with the Expo Go app on your iPhone
       relative volume, liquidity, sector relative strength, ATR & extension, key levels (PDH/PDL/PDC,
       pre-market high/low, 20-day high), unexplained-move flag
 - [x] Phase 2c — ~1,500-stock universe with liquidity filter; 90-day charts per pick
-- [ ] Phase 3 — Historical dataset, ML model, backtesting & live accuracy tracking
+- [x] Phase 3 — After-open model: predicts the open→close move (vs the average stock) from
+      pre-open information; ridge regression trained on ~3 years of S&P 1500 history with a
+      walk-forward backtest (`python -m predictor.train`); fading-from-peak, news, thin-trading and
+      unexplained-jump adjustments; nightly track record of every published pick
+      (`python -m predictor.evaluate`)
 - [ ] Phase 4 — Supabase backend, push notifications, watchlists, App Store
 
 ## License
