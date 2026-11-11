@@ -47,11 +47,9 @@ def _bar(df, day):
     return float(r["Open"]), float(r["Close"])
 
 
-def evaluate_day(morning: dict, daily: dict) -> dict | None:
-    day = datetime.fromisoformat(morning["trading_date"]).date()
-    spy = _bar(daily.get("SPY"), day)
+def _evaluate_list(items: list[dict], daily: dict, day) -> list[dict]:
     picks = []
-    for p in morning.get("picks", []):
+    for p in items:
         b = _bar(daily.get(p["ticker"]), day)
         if b is None:
             continue
@@ -64,6 +62,14 @@ def evaluate_day(morning: dict, daily: dict) -> dict | None:
             "premarket_price": entry, "open": round(o, 2), "close": round(c, 2),
             "open_to_close_pct": _pct(c, o), "entry_to_close_pct": _pct(c, entry) if entry else None,
         })
+    return picks
+
+
+def evaluate_day(morning: dict, daily: dict) -> dict | None:
+    day = datetime.fromisoformat(morning["trading_date"]).date()
+    spy = _bar(daily.get("SPY"), day)
+    picks = _evaluate_list(morning.get("picks", []), daily, day)
+    risky = _evaluate_list(morning.get("high_risk_picks", []), daily, day)
     if not picks or spy is None:
         return None
 
@@ -76,9 +82,13 @@ def evaluate_day(morning: dict, daily: dict) -> dict | None:
                 "hit_rate": round(float(np.mean([x > 0 for x in oc])), 3) if oc else None}
 
     top = sorted(picks, key=lambda r: r["rank"])
-    return {"date": day.isoformat(), "model": morning.get("model"),
-            "spy_open_to_close_pct": _pct(spy[1], spy[0]),
-            "top10": block(top[:TOP_N]), "all_picks": block(top), "picks": top}
+    out = {"date": day.isoformat(), "model": morning.get("model"),
+           "spy_open_to_close_pct": _pct(spy[1], spy[0]),
+           "top10": block(top[:TOP_N]), "all_picks": block(top), "picks": top}
+    if risky:
+        out["high_risk"] = block(risky)
+        out["high_risk_picks"] = sorted(risky, key=lambda r: r["rank"])
+    return out
 
 
 def summarise(days: list[dict]) -> dict:
@@ -90,7 +100,14 @@ def summarise(days: list[dict]) -> dict:
     entry = [d["top10"]["avg_entry_to_close_pct"] for d in rows if d["top10"]["avg_entry_to_close_pct"] is not None]
     hits = [d["top10"]["hit_rate"] for d in rows if d["top10"]["hit_rate"] is not None]
     net = top - ROUND_TRIP_COST
+    hr = [d["high_risk"]["avg_open_to_close_pct"] for d in rows if d.get("high_risk") and d["high_risk"]["avg_open_to_close_pct"] is not None]
+    hr_hits = [d["high_risk"]["hit_rate"] for d in rows if d.get("high_risk") and d["high_risk"]["hit_rate"] is not None]
+    high_risk = None if not hr else {
+        "days": len(hr), "avg_open_to_close_pct": round(float(np.mean(hr)), 3),
+        "hit_rate": round(float(np.mean(hr_hits)), 3) if hr_hits else None,
+        "growth_of_100_after_costs": round(float(100 * np.prod(1 + (np.array(hr) - ROUND_TRIP_COST) / 100)), 2)}
     return {
+        "high_risk": high_risk,
         "days": len(rows), "start": rows[0]["date"], "end": rows[-1]["date"], "top_n": TOP_N,
         "cost_round_trip_pct": ROUND_TRIP_COST,
         "top10_avg_open_to_close_pct": round(float(top.mean()), 3),
@@ -101,6 +118,7 @@ def summarise(days: list[dict]) -> dict:
         "top10_growth_of_100_after_costs": round(float(100 * np.prod(1 + net / 100)), 2),
         "spy_growth_of_100": round(float(100 * np.prod(1 + spy / 100)), 2),
         "recent": [{"date": d["date"], "top10": d["top10"]["avg_open_to_close_pct"],
+                    "high_risk": (d.get("high_risk") or {}).get("avg_open_to_close_pct"),
                     "spy": d["spy_open_to_close_pct"], "hit_rate": d["top10"]["hit_rate"],
                     "model": d.get("model")} for d in rows[-30:]][::-1],
     }

@@ -120,6 +120,9 @@
   .chart-meta { display: flex; justify-content: space-between; color: var(--muted); font-size: 12.5px; }
   .chart-change { font-size: 15px; margin: 2px 0 4px; color: var(--soft); }
   .chart-change b.up { color: var(--up); } .chart-change b.down { color: var(--down); }
+  .risk-note { background: color-mix(in srgb, var(--down) 9%, transparent); color: var(--soft); border-radius: 12px; padding: 12px 14px; font-size: 13.5px; margin: 8px 0 6px; }
+  .risk-note b { color: var(--text); }
+  .risk-badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .04em; color: var(--down); border: 1px solid currentColor; border-radius: 6px; padding: 1px 6px; margin-left: 6px; vertical-align: 2px; }
   .more { width: 100%; padding: 16px 0; font-weight: 600; font-size: 15px; border-bottom: 1px solid var(--line); }
   .skeleton { height: 66px; border-bottom: 1px solid var(--line); position: relative; }
   .skeleton::after { content: ""; position: absolute; left: 0; top: 22px; width: 60%; height: 16px; border-radius: 6px; background: var(--fill); animation: pulse 1.1s ease-in-out infinite alternate; }
@@ -244,6 +247,13 @@
   <div class="cols" aria-hidden="true"><span>Ticker</span><span>Name</span><span class="r"><span class="exp-short">After open</span><span class="exp-long">Expected after open</span></span><span class="why-h"><span class="chart-h">Last 90 days</span><span>Why</span></span></div>
   <section id="list" aria-live="polite">
     <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+  </section>
+
+  <section id="risky" hidden>
+    <div class="section-head" style="margin-top:30px"><h2>High-risk picks</h2><span>most volatile stocks</span></div>
+    <div class="risk-note">These stocks normally move a lot, often 5–10% in a day, up <b>or</b> down. They're left out of the main list because, over 3 years of testing, including them made results worse and much bumpier on average. Shown here ranked by the same model, for information. Treat with extra care.</div>
+    <div class="cols" aria-hidden="true"><span>Ticker</span><span>Name</span><span class="r"><span class="exp-short">After open</span><span class="exp-long">Expected after open</span></span><span class="why-h"><span class="chart-h">Last 90 days</span><span>Why</span></span></div>
+    <div id="riskyList"></div>
   </section>
 
   <section class="track" id="track">
@@ -561,16 +571,23 @@
     $('list').innerHTML = html;
     $('list').querySelectorAll('.row').forEach((el) => el.addEventListener('click', () => openSheet(picks[+el.dataset.i])));
     $('moreBtn')?.addEventListener('click', () => { showAll = true; renderList(); });
+    const risky = report.high_risk_picks || [];
+    $('risky').hidden = !(risky.length || report.high_risk_enabled);
+    if (!risky.length) $('riskyList').innerHTML = '<p class="lead" style="padding:12px 0">None of the most volatile stocks has a positive expected move today.</p>';
+    if (risky.length) {
+      $('riskyList').innerHTML = risky.map(rowHTML).join('');
+      $('riskyList').querySelectorAll('.row').forEach((el) => el.addEventListener('click', () => openSheet(risky[+el.dataset.i], true)));
+    }
   }
 
   // ---------- detail sheet ----------
-  function openSheet(p) {
+  function openSheet(p, risky = false) {
     const s = strength(p), d = dir(expVal(p));
     $('sheet').innerHTML = `
       <div class="grab"></div>
       <div class="sheet-head">
         <span class="logo" aria-hidden="true">${monogram(p.ticker)}</span>
-        <div><div class="t" id="sheetTitle">${esc(p.name || p.ticker)}</div><div class="n">${esc(p.ticker)}${p.size ? ' · ' + esc(p.size) : ''} · #${p.rank} today</div></div>
+        <div><div class="t" id="sheetTitle">${esc(p.name || p.ticker)}</div><div class="n">${esc(p.ticker)}${p.size ? ' · ' + esc(p.size) : ''} · #${p.rank} ${risky ? 'high-risk' : 'today'}${risky ? '<span class="risk-badge">HIGH RISK</span>' : ''}</div></div>
         <button class="icon-btn close" type="button" id="closeSheet" aria-label="Close">
           <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
         </button>
@@ -670,10 +687,12 @@
         <div class="tgrid">${tile('Top 10 average', L.top10.avg_open_to_close_pct)}${tile('S&amp;P 500', L.spy_open_to_close_pct)}${tile('Picks that rose', Math.round((L.top10.hit_rate || 0) * 10) + ' of 10')}</div>
         <div class="trow h"><span>Stock</span><span>Expected</span><span>Actual</span></div>` +
         L.picks.slice(0, 10).map((x) => `<div class="trow num"><span><b>${esc(x.ticker)}</b> <span style="color:var(--muted)">${esc(x.name || '')}</span></span><span class="${signCls(x.expected_pct)}">${x.expected_pct == null ? '<small style="color:var(--muted)">pre-mkt</small> ' + pct(x.premarket_gap_pct) : pct2(x.expected_pct)}</span><span class="${signCls(x.open_to_close_pct)}">${pct2(x.open_to_close_pct)}</span></div>`).join('');
+      if (L.high_risk && L.high_risk.avg_open_to_close_pct != null)
+        html += `<p class="lead" style="margin-top:10px">High-risk list that day: <b class="${signCls(L.high_risk.avg_open_to_close_pct)}">${pct2(L.high_risk.avg_open_to_close_pct)}</b> on average, ${Math.round((L.high_risk.hit_rate || 0) * L.high_risk.n)} of ${L.high_risk.n} rose.</p>`;
       if (t.days > 1) {
         html += `<div class="section-head" style="margin:18px 0 0"><h4 style="margin:0">Since ${esc(d(t.start))} (${t.days} trading days)</h4></div>
           <div class="tgrid">${tile('Top 10, avg per day', t.top10_avg_open_to_close_pct)}${tile('S&amp;P 500, avg per day', t.spy_avg_open_to_close_pct)}${tile('Days beating S&amp;P', Math.round(t.days_beating_spy * 100) + '%')}</div>
-          <p class="lead">€100 following the top 10 every day would now be <b>€${t.top10_growth_of_100_after_costs.toFixed(2)}</b> after estimated costs, vs. €${t.spy_growth_of_100.toFixed(2)} in the S&amp;P 500 over the same hours.</p>`;
+          <p class="lead">€100 following the top 10 every day would now be <b>€${t.top10_growth_of_100_after_costs.toFixed(2)}</b> after estimated costs, vs. €${t.spy_growth_of_100.toFixed(2)} in the S&amp;P 500 over the same hours.${t.high_risk ? ` The high-risk list: €${t.high_risk.growth_of_100_after_costs.toFixed(2)} (${t.high_risk.days} days).` : ''}</p>`;
       }
       if (L.model && !String(L.model).startsWith('ridge')) html += `<p class="ai-note">Days before ${esc(d('2026-11-11'))} used the earlier method (ranking by the pre-market jump).</p>`;
       body.innerHTML = html;

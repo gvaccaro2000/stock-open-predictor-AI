@@ -265,6 +265,9 @@ def score(mdl: M.Model, live: pd.DataFrame, pre: dict[str, Premarket],
     out.index.name = "ticker"
     strategy = mdl.meta.get("strategy", "raw")
     out["rank_score"] = M.rank_scores(out["expected_after_open_pct"], live["log_atr_pct"].reindex(out.index), strategy)
+    # Always mark the most volatile 20% (for the separate high-risk list), whatever the strategy.
+    vol_cut = M.rank_scores(out["expected_after_open_pct"], live["log_atr_pct"].reindex(out.index), "calm").isna()
     out["excluded_volatile"] = out["rank_score"].isna()
+    out["is_volatile"] = vol_cut
     out["rank_score"] = out["rank_score"].fillna(-np.inf)
     return out.sort_values(["rank_score", "expected_after_open_pct"], ascending=False)

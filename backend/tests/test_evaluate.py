@@ -12,7 +12,8 @@ def test_evaluate_and_summarise(tmp_path, monkeypatch):
     morning = {"trading_date": "2026-11-10", "model": "ridge-v1",
                "picks": [{"rank": i + 1, "ticker": t, "name": t, "premarket_price": 100.0,
                           "expected_after_open_pct": 0.5, "premarket_gap_pct": 2.0}
-                         for i, t in enumerate(["AAA", "BBB", "CCC"])]}
+                         for i, t in enumerate(["AAA", "BBB", "CCC"])],
+               "high_risk_picks": [{"rank": 1, "ticker": "CCC", "name": "CCC", "premarket_price": 100.0}]}
     (hist / "2026-11-10.json").write_text(json.dumps(morning))
     idx = pd.to_datetime(["2026-11-09", "2026-11-10"])
     bars = {"AAA": (101, 103), "BBB": (102, 100), "CCC": (100, 101), "SPY": (500, 505)}
@@ -31,6 +32,8 @@ def test_evaluate_and_summarise(tmp_path, monkeypatch):
     assert abs(day["spy_open_to_close_pct"] - 1.0) < 1e-9
     s = json.loads((tmp_path / "track_summary.json").read_text())
     assert s["days"] == 1 and s["recent"][0]["date"] == "2026-11-10"
+    assert day["high_risk"]["n"] == 1 and s["high_risk"]["days"] == 1
+    assert abs(s["high_risk"]["avg_open_to_close_pct"] - 1.0) < 1e-9
 
 
 def test_not_evaluated_before_close(tmp_path, monkeypatch):

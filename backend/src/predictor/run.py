@@ -64,6 +64,7 @@ def main(argv: list[str] | None = None) -> None:
     feats = features.build_features(daily, pre, refs)
     scored = scoring.score(feats)  # rule-based pass: levels, ATR etc. for the app (and fallback ranking)
 
+    high_risk = None
     # The after-open model (trained by predictor.train), if available.
     mdl = model_mod.load(args.out / "model.json")
     live = None
@@ -116,13 +117,20 @@ def main(argv: list[str] | None = None) -> None:
         ranked = predict.score(mdl, live, pre, news=assessments, news_checked=set(candidates))
         base = scored.drop(columns=["reasons", "summary", "why_short"], errors="ignore")
         scored = ranked.join(base, how="inner").sort_values(["rank_score", "expected_after_open_pct"], ascending=False)
-        scored = scored[~scored["excluded_volatile"]]
+        # The most volatile stocks are left out of the main list (they made results worse on
+        # average in the backtest) but get their own "high-risk" list, ranked by expected move.
+        main = scored[~scored["excluded_volatile"]]
+        shown = set(main.index[: args.top])
+        high_risk = scored[scored["is_volatile"] & ~scored.index.isin(list(shown))
+                           & (scored["expected_after_open_pct"] > 0)].sort_values("expected_after_open_pct", ascending=False)
+        scored = main
     elif assessments:
         scored = scoring.score(feats, news=assessments, news_checked=set(candidates))
 
     payload = report.build_payload(scored, generated_at=now, top_n=args.top, market=ctx, daily=daily,
                                    news=assessments, news_checked=len(candidates) if assessments else 0,
-                                   model_info=model_info(mdl, args.out))
+                                   model_info=model_info(mdl, args.out),
+                                   high_risk=high_risk if mdl is not None else None)
     is_morning = data.session_for(now) == "premarket"
     path = report.write(payload, args.out, save_history=is_morning)
     if is_morning and live is not None:
