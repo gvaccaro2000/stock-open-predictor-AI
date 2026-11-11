@@ -1,16 +1,16 @@
 {
- "days": 2,
- "start": "2026-11-09",
+ "days": 1,
+ "start": "2026-11-10",
  "end": "2026-11-10",
  "top_n": 10,
  "cost_round_trip_pct": 0.1,
- "top10_avg_open_to_close_pct": 2.452,
- "top10_avg_entry_to_close_pct": -0.819,
- "spy_avg_open_to_close_pct": 0.857,
- "top10_hit_rate": 0.7,
- "days_beating_spy": 0.5,
- "top10_growth_of_100_after_costs": 104.69,
- "spy_growth_of_100": 101.72,
+ "top10_avg_open_to_close_pct": -0.131,
+ "top10_avg_entry_to_close_pct": -1.18,
+ "spy_avg_open_to_close_pct": 0.265,
+ "top10_hit_rate": 0.5,
+ "days_beating_spy": 0.0,
+ "top10_growth_of_100_after_costs": 99.77,
+ "spy_growth_of_100": 100.27,
  "recent": [
   {
    "date": "2026-11-10",
@@ -18,16 +18,9 @@
    "spy": 0.265,
    "hit_rate": 0.5,
    "model": "rules-v3-news"
-  },
-  {
-   "date": "2026-11-09",
-   "top10": 5.035,
-   "spy": 1.448,
-   "hit_rate": 0.9,
-   "model": "rules-v3-news"
   }
  ],
- "updated_at": "2026-11-11T02:49-05:00",
+ "updated_at": "2026-11-11T03:44-05:00",
  "latest": {
   "date": "2026-11-10",
   "model": "rules-v3-news",
