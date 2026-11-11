@@ -221,7 +221,7 @@ def adjustments(t: str, row: pd.Series, pre: Premarket | None, news: dict, news_
     a = news.get(t)
     if a is not None and abs(a.score) >= 0.05:
         out.append({"kind": "news", "pct": NEWS_PCT * a.score, "text": a.summary, "short": a.summary.rstrip(".")})
-    if pre is not None and pre.volume * pre.last_price < THIN_DOLLAR_VOL:
+    if pre is not None and math.isfinite(pre.volume) and 0 < pre.volume * pre.last_price < THIN_DOLLAR_VOL:
         out.append({"kind": "thin", "pct": THIN_PCT,
                     "text": "Very little pre-market trading so far, so the early price is less reliable",
                     "short": "Very thin pre-market trading"})

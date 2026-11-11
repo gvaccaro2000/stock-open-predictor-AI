@@ -178,3 +178,14 @@ def test_premarket_shape():
     assert abs(p.trend_30m - (10.3 / 10.4 - 1) * 100) < 1e-9          # last 30 min: from 08:40 bar
     assert abs(p.range_pos - (10.3 - 9.9) / (10.5 - 9.9)) < 1e-9
     assert abs(p.vwap_dev - (10.3 / 10.225 - 1) * 100) < 1e-9
+
+
+def test_zero_extended_hours_volume_is_unknown_not_thin():
+    from predictor import predict
+    idx = pd.DatetimeIndex(["2026-11-11 07:00", "2026-11-11 08:00"]).tz_localize(NY)
+    bars = pd.DataFrame({"Close": [10.0, 10.2], "High": [10.0, 10.3], "Low": [9.9, 10.1], "Volume": [0, 0]}, index=idx)
+    p = data.extract_extended({"X": bars}, datetime(2026, 11, 11, 8, 30, tzinfo=NY))["X"]
+    assert math.isnan(p.volume) and math.isnan(p.rvol)
+    row = pd.Series({"_atr": 0.5, "_prev_close": 10.0, "gap_pct": 2.0})
+    kinds = [a["kind"] for a in predict.adjustments("X", row, p, {}, set())]
+    assert "thin" not in kinds

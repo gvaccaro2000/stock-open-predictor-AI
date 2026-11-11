@@ -164,10 +164,13 @@ def extract_extended(intraday: dict[str, pd.DataFrame], now: datetime) -> dict[s
         if today.empty:
             continue
         vol = float(today["Volume"].fillna(0).sum())
+        # Yahoo often reports 0 volume for extended-hours bars: treat that as unknown, not "no trading".
+        if vol <= 0:
+            vol = math.nan
         prior = in_window[in_window.index.date < now.date()]
         per_day = prior["Volume"].fillna(0).groupby(prior.index.date).sum()
         per_day = per_day[per_day > 0]
-        rvol = vol / float(per_day.mean()) if len(per_day) else math.nan
+        rvol = vol / float(per_day.mean()) if len(per_day) and math.isfinite(vol) else math.nan
         # Peak since the last regular-session close: previous evening's after-hours + today so far.
         if session == "premarket":
             prev_days = sorted(d for d in set(local.index.date) if d < now.date())
