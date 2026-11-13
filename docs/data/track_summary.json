@@ -38,7 +38,7 @@
    "model": "rules-v3-news"
   }
  ],
- "updated_at": "2026-11-13T03:08-05:00",
+ "updated_at": "2026-11-13T16:36-05:00",
  "latest": {
   "date": "2026-11-12",
   "model": "lgbm-v2-news",
