@@ -140,6 +140,26 @@
   .trow .up { color: var(--up); } .trow .down { color: var(--down); }
   .bt { background: var(--fill); border-radius: 14px; padding: 14px 16px; margin-top: 16px; font-size: 14.5px; color: var(--soft); }
   .bt b { color: var(--text); }
+  .lt-lead { color: var(--soft); font-size: 14.5px; margin: 4px 0 8px; }
+  .ltrow { display: grid; grid-template-columns: 30px minmax(0, 1fr) 64px; gap: 10px; width: 100%; text-align: left; padding: 14px 0; border-bottom: 1px solid var(--line); align-items: start; }
+  .ltrow:active { opacity: .55; }
+  .ltrow .rk { color: var(--muted); font-size: 14px; padding-top: 2px; }
+  .ltrow .nm { font-weight: 650; font-size: 16px; } .ltrow .nm span { color: var(--muted); font-weight: 500; font-size: 13px; margin-left: 4px; }
+  .ltrow .sub { color: var(--muted); font-size: 12.5px; margin-top: 1px; }
+  .ltrow .one { color: var(--soft); font-size: 14px; margin-top: 5px; line-height: 1.35; }
+  .ltrow .sc { text-align: right; } .ltrow .sc b { font-size: 20px; font-weight: 700; display: block; }
+  .ltrow .sc small { color: var(--muted); font-size: 11px; display: block; white-space: nowrap; }
+  .ltrow .sc .up { color: var(--up); } .ltrow .sc .down { color: var(--down); }
+  .ltrow .mini { height: 26px; margin-top: 6px; }
+  .bars5 div { display: grid; grid-template-columns: 90px 1fr 34px; gap: 10px; align-items: center; padding: 6px 0; font-size: 14.5px; }
+  .bars5 .track5 { height: 8px; background: var(--fill); border-radius: 4px; overflow: hidden; }
+  .bars5 .track5 i { display: block; height: 100%; background: var(--text); border-radius: 4px; }
+  .bars5 b { text-align: right; font-variant-numeric: tabular-nums; }
+  .vs { display: grid; grid-template-columns: 1fr 80px 80px; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+  .vs.h { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+  .vs span:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
+  .bul { margin: 0; padding-left: 18px; } .bul li { margin: 6px 0; font-size: 15px; color: var(--soft); }
+  .conv { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .04em; border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; margin-left: 6px; color: var(--soft); vertical-align: 2px; }
   .faq { margin-top: 34px; }
   .faq h2 { font-size: 22px; font-weight: 700; letter-spacing: -.02em; margin: 0 0 4px; }
   details { border-bottom: 1px solid var(--line); }
@@ -249,11 +269,12 @@
     <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
   </section>
 
-  <section id="risky" hidden>
-    <div class="section-head" style="margin-top:30px"><h2>High-risk picks</h2><span>most volatile stocks</span></div>
-    <div class="risk-note">These stocks normally move a lot, often 5–10% in a day, up <b>or</b> down. They're left out of the main list because, over 3 years of testing, including them made results worse and much bumpier on average. Shown here ranked by the same model, for information. Treat with extra care.</div>
-    <div class="cols" aria-hidden="true"><span>Ticker</span><span>Name</span><span class="r"><span class="exp-short">After open</span><span class="exp-long">Expected after open</span></span><span class="why-h"><span class="chart-h">Last 90 days</span><span>Why</span></span></div>
-    <div id="riskyList"></div>
+
+  <section class="lt" id="lt" hidden>
+    <div class="section-head" style="margin-top:34px"><h2>Long-term ideas</h2><span id="ltDate"></span></div>
+    <p class="lead lt-lead">Companies with strong fundamentals at reasonable prices, compared with their own sector: value, quality, growth, long-term trend and analyst views, with an AI-written case for each. For holding 1–3 years, not for day trading. Updated weekly.</p>
+    <div id="ltList"></div>
+    <div id="ltTrack"></div>
   </section>
 
   <section class="track" id="track">
@@ -270,6 +291,11 @@
       <p>It's our estimate of how much the stock will move <b>from the US open (15:30 CET) to the close</b>, compared with the average stock that day. That's the part you can still catch if you buy before or at the open.</p>
       <p>The small “pre-mkt” number underneath is how much it has <b>already</b> moved since yesterday's close. That move is mostly gone by the time you can buy, and big early jumps often partly fade after the open, so a large pre-market gain is not automatically a good sign.</p>
       <p>The estimates are small (often well under 1%) because day-to-day price moves are mostly random. A good method wins a bit more often than it loses, not every day.</p>
+    </details>
+    <details>
+      <summary>How are the long-term ideas chosen?</summary>
+      <p>Once a week we score about 1,000 larger US companies (worth at least $2bn) on five things, each <b>compared with companies in the same sector</b>: <b>value</b> (price vs. earnings, cash flow and EBITDA), <b>quality</b> (profit margins, return on equity, low debt), <b>growth</b> (sales and profit growth, expected earnings growth), <b>trend</b> (12-month price trend) and <b>analysts</b> (consensus rating and average price target). The best-scoring companies get a short written case, strengths and risks by an AI (Claude), based only on those numbers and recent news.</p>
+      <p>Data comes from Yahoo Finance. Paid research reports are not used. This method can't be tested on the past with free data, so every weekly list is tracked against the S&amp;P 500 from the day it's published.</p>
     </details>
     <details>
       <summary>How was it tested?</summary>
@@ -571,23 +597,16 @@
     $('list').innerHTML = html;
     $('list').querySelectorAll('.row').forEach((el) => el.addEventListener('click', () => openSheet(picks[+el.dataset.i])));
     $('moreBtn')?.addEventListener('click', () => { showAll = true; renderList(); });
-    const risky = report.high_risk_picks || [];
-    $('risky').hidden = !(risky.length || report.high_risk_enabled);
-    if (!risky.length) $('riskyList').innerHTML = '<p class="lead" style="padding:12px 0">None of the most volatile stocks has a positive expected move today.</p>';
-    if (risky.length) {
-      $('riskyList').innerHTML = risky.map(rowHTML).join('');
-      $('riskyList').querySelectorAll('.row').forEach((el) => el.addEventListener('click', () => openSheet(risky[+el.dataset.i], true)));
-    }
   }
 
   // ---------- detail sheet ----------
-  function openSheet(p, risky = false) {
+  function openSheet(p) {
     const s = strength(p), d = dir(expVal(p));
     $('sheet').innerHTML = `
       <div class="grab"></div>
       <div class="sheet-head">
         <span class="logo" aria-hidden="true">${monogram(p.ticker)}</span>
-        <div><div class="t" id="sheetTitle">${esc(p.name || p.ticker)}</div><div class="n">${esc(p.ticker)}${p.size ? ' · ' + esc(p.size) : ''} · #${p.rank} ${risky ? 'high-risk' : 'today'}${risky ? '<span class="risk-badge">HIGH RISK</span>' : ''}</div></div>
+        <div><div class="t" id="sheetTitle">${esc(p.name || p.ticker)}</div><div class="n">${esc(p.ticker)}${p.size ? ' · ' + esc(p.size) : ''} · #${p.rank} today</div></div>
         <button class="icon-btn close" type="button" id="closeSheet" aria-label="Close">
           <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
         </button>
@@ -672,6 +691,96 @@
   showInstall();
   $('installClose').addEventListener('click', () => { $('install').classList.remove('show'); try { localStorage.setItem('installHintDismissed', '1'); } catch (e) {} });
 
+  // ---------- long-term ideas ----------
+  let lt = null;
+  async function renderLongTerm() {
+    try { const r = await fetch(`data/longterm.json?t=${Date.now()}`, { cache: 'no-store' }); if (r.ok) lt = await r.json(); } catch (e) {}
+    if (!lt || !lt.picks?.length) return;
+    $('lt').hidden = false;
+    $('ltDate').textContent = 'as of ' + new Date(lt.as_of_date + 'T12:00:00').toLocaleDateString([], { day: 'numeric', month: 'short' });
+    $('ltList').innerHTML = lt.picks.map((x, i) => {
+      const up = x.analysts?.upside_pct;
+      return `<button class="ltrow" type="button" data-i="${i}" aria-label="${esc(x.name)}, score ${x.composite}">
+        <span class="rk">${x.rank}</span>
+        <div><div class="nm">${esc(x.name)}<span>${esc(x.ticker)}</span></div>
+          <div class="sub">${esc(x.sector || '')}${x.market_cap_bn ? ' · $' + x.market_cap_bn + 'bn' : ''}</div>
+          <div class="one">${esc(x.analysis?.one_liner || '')}</div>
+          <div class="mini">${chartSVG({ ticker: x.ticker + 'lt', history: x.history, premarket_price: null }, { w: 300, h: 26 })}</div></div>
+        <div class="sc num"><b>${x.composite ?? '—'}</b><small>score / 100</small>${up != null ? `<small class="${up >= 0 ? 'up' : 'down'}">analysts ${pct(up)}</small>` : ''}</div>
+      </button>`; }).join('') + `<p class="fine" style="margin-top:10px">${esc(lt.disclaimer)}</p>`;
+    $('ltList').querySelectorAll('.ltrow').forEach((el) => el.addEventListener('click', () => openLT(lt.picks[+el.dataset.i])));
+    try {
+      const r = await fetch(`data/longterm_track.json?t=${Date.now()}`, { cache: 'no-store' });
+      const t = r.ok ? await r.json() : null;
+      if (t && t.lists?.length) {
+        $('ltTrack').innerHTML = `<div class="trow h" style="margin-top:12px"><span>List of</span><span>Picks</span><span>S&amp;P 500</span></div>` +
+          t.lists.slice(0, 8).map((L) => `<div class="trow num"><span>${esc(new Date(L.as_of_date + 'T12:00:00').toLocaleDateString([], { day: 'numeric', month: 'short', year: 'numeric' }))} <span style="color:var(--muted)">(${L.days} days)</span></span><span class="${signCls(L.avg_return_pct)}">${pct(L.avg_return_pct)}</span><span class="${signCls(L.spy_return_pct)}">${pct(L.spy_return_pct)}</span></div>`).join('') +
+          `<p class="ai-note">Average change of each weekly list since it was published, vs. the S&amp;P 500 over the same time.</p>`;
+      }
+    } catch (e) {}
+  }
+
+  function openLT(x) {
+    const a = x.analysis || {}, m = x.metrics || {}, sm = x.sector_medians || {}, an = x.analysts || {}, st = x.sector_trend || {};
+    const f = (v, suf = '', d = 1) => (v == null ? '—' : (+v).toFixed(d) + suf);
+    const rowsVs = [
+      ['Forward P/E', f(m.forward_pe), f(sm.forward_pe)], ['EV / EBITDA', f(m.ev_ebitda), f(sm.ev_ebitda)],
+      ['Sales growth', f(m.rev_growth, '%'), f(sm.rev_growth, '%')], ['Operating margin', f(m.op_margin, '%'), f(sm.op_margin, '%')],
+      ['Return on equity', f(m.roe, '%'), f(sm.roe, '%')],
+    ];
+    const rowsOne = [
+      ['Profit growth', f(m.earn_growth, '%')], ['Expected EPS growth (next year)', f(m.fwd_eps_growth, '%')],
+      ['Free-cash-flow yield', f(m.fcf_yield, '%')], ['Debt / equity', f(m.debt_to_equity, '%', 0)],
+      ['12-month trend (excl. last month)', pct(m.momentum_12_1)], ['Dividend yield', f(m.dividend_yield, '%', 2)],
+    ];
+    const labels = { value: 'Value', quality: 'Quality', growth: 'Growth', momentum: 'Trend', analysts: 'Analysts' };
+    const c = x.history?.closes || [];
+    const chg = c.length ? ((c[c.length - 1] / c[0]) - 1) * 100 : null;
+    $('sheet').innerHTML = `
+      <div class="grab"></div>
+      <div class="sheet-head">
+        <span class="logo" aria-hidden="true">${monogram(x.ticker)}</span>
+        <div><div class="t" id="sheetTitle">${esc(x.name)}</div><div class="n">${esc(x.ticker)} · ${esc(x.sector || '')}${x.market_cap_bn ? ' · $' + x.market_cap_bn + 'bn' : ''}</div></div>
+        <button class="icon-btn close" type="button" id="closeSheet" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+      <div class="exp-label">Long-term score</div>
+      <div class="exp num">${x.composite ?? '—'}<span style="font-size:20px;color:var(--muted)"> / 100</span></div>
+      <div class="exp-sub">Rank #${x.rank} of ${lt.universe_size} companies scored · price $${f(x.price, '', 2)}</div>
+
+      ${a.thesis ? `<h4>The case${a.conviction ? `<span class="conv">${esc(a.conviction.toUpperCase())} CONVICTION</span>` : ''}</h4><p class="summary">${esc(a.thesis)}</p>
+        <p class="ai-note">Written by AI (Claude) from the numbers below and recent news. It can make mistakes.</p>` : ''}
+      ${a.strengths?.length ? `<h4>Strengths</h4><ul class="bul">${a.strengths.map((s) => `<li>${esc(s)}</li>`).join('')}</ul>` : ''}
+      ${a.risks?.length ? `<h4>Risks</h4><ul class="bul">${a.risks.map((s) => `<li>${esc(s)}</li>`).join('')}</ul>` : ''}
+
+      <h4>Scores vs. its sector</h4>
+      <div class="bars5">${Object.keys(labels).map((k) => `<div><span>${labels[k]}</span><span class="track5"><i style="width:${x.scores?.[k] ?? 0}%"></i></span><b>${x.scores?.[k] ?? '—'}</b></div>`).join('')}</div>
+      <p class="ai-note">0–100: how the company ranks among companies in the same sector (50 = middle).</p>
+
+      <h4>Key numbers</h4>
+      <div class="vs h"><span></span><span>Company</span><span>Sector median</span></div>
+      ${rowsVs.map(([n, a1, b1]) => `<div class="vs"><span>${n}</span><span>${a1}</span><span style="color:var(--muted)">${b1}</span></div>`).join('')}
+      <div class="facts num" style="margin-top:6px">${rowsOne.map(([n, v]) => `<div><span>${n}</span><b>${v}</b></div>`).join('')}</div>
+
+      <h4>Analysts</h4>
+      <div class="facts num">
+        <div><span>Analysts covering</span><b>${an.n ?? '—'}</b></div>
+        <div><span>Consensus</span><b>${esc((an.consensus || '—').replace('_', ' '))}</b></div>
+        <div><span>Average price target</span><b>${an.target_mean != null ? '$' + f(an.target_mean, '', 2) : '—'} ${an.upside_pct != null ? `<span class="${an.upside_pct >= 0 ? 'up' : 'down'}" style="color:var(--${an.upside_pct >= 0 ? 'up' : 'down'})">(${pct(an.upside_pct)})</span>` : ''}</b></div>
+        <div><span>Target range</span><b>${an.target_low != null ? '$' + f(an.target_low, '', 0) + ' – $' + f(an.target_high, '', 0) : '—'}</b></div>
+      </div>
+      ${st.ret_6m_pct != null ? `<h4>Sector trend</h4><p class="summary">${esc(x.sector)} (${esc(st.etf)}): ${pct(st.ret_6m_pct)} over 6 months${st.ret_12m_pct != null ? ', ' + pct(st.ret_12m_pct) + ' over 12 months' : ''}.</p>` : ''}
+
+      ${c.length ? `<h4>Last 12 months</h4><div class="chart-change num"><b class="${dir(chg)}">${pct(chg)}</b> in 12 months</div>
+        <div class="chart">${chartSVG({ ticker: x.ticker + 'ltb', history: x.history, premarket_price: null }, { w: 340, h: 170, big: true })}</div>
+        <div class="legend"><span><i class="p" style="border-color:${chg >= 0 ? 'var(--up)' : 'var(--down)'}"></i>Price</span><span><i class="m50"></i>50-day average</span><span><i class="m200"></i>200-day average</span></div>` : ''}
+
+      ${x.news?.length ? `<h4>Recent news</h4>` + x.news.map((n) => `<a class="news-item" href="${esc(n.url || '#')}" target="_blank" rel="noopener"><span class="nd"></span><div><div class="nt">${esc(n.title)}</div><div class="nm">${esc(n.source)} · ${esc(ago(n.published))}</div></div></a>`).join('') : ''}
+      <a class="cta" href="https://finance.yahoo.com/quote/${encodeURIComponent(x.ticker)}" target="_blank" rel="noopener">View on Yahoo Finance</a>
+      <p class="fine">${esc(lt.disclaimer)}</p>`;
+    $('closeSheet').addEventListener('click', closeSheet);
+    $('scrim').classList.add('open'); $('sheet').classList.add('open'); $('sheet').scrollTop = 0;
+  }
+
   // ---------- track record + backtest ----------
   const signCls = (x) => (x == null ? '' : x > 0 ? 'up' : x < 0 ? 'down' : '');
   async function renderTrack() {
@@ -687,12 +796,10 @@
         <div class="tgrid">${tile('Top 10 average', L.top10.avg_open_to_close_pct)}${tile('S&amp;P 500', L.spy_open_to_close_pct)}${tile('Picks that rose', Math.round((L.top10.hit_rate || 0) * 10) + ' of 10')}</div>
         <div class="trow h"><span>Stock</span><span>Expected</span><span>Actual</span></div>` +
         L.picks.slice(0, 10).map((x) => `<div class="trow num"><span><b>${esc(x.ticker)}</b> <span style="color:var(--muted)">${esc(x.name || '')}</span></span><span class="${signCls(x.expected_pct)}">${x.expected_pct == null ? '<small style="color:var(--muted)">pre-mkt</small> ' + pct(x.premarket_gap_pct) : pct2(x.expected_pct)}</span><span class="${signCls(x.open_to_close_pct)}">${pct2(x.open_to_close_pct)}</span></div>`).join('');
-      if (L.high_risk && L.high_risk.avg_open_to_close_pct != null)
-        html += `<p class="lead" style="margin-top:10px">High-risk list that day: <b class="${signCls(L.high_risk.avg_open_to_close_pct)}">${pct2(L.high_risk.avg_open_to_close_pct)}</b> on average, ${Math.round((L.high_risk.hit_rate || 0) * L.high_risk.n)} of ${L.high_risk.n} rose.</p>`;
       if (t.days > 1) {
         html += `<div class="section-head" style="margin:18px 0 0"><h4 style="margin:0">Since ${esc(d(t.start))} (${t.days} trading days)</h4></div>
           <div class="tgrid">${tile('Top 10, avg per day', t.top10_avg_open_to_close_pct)}${tile('S&amp;P 500, avg per day', t.spy_avg_open_to_close_pct)}${tile('Days beating S&amp;P', Math.round(t.days_beating_spy * 100) + '%')}</div>
-          <p class="lead">€100 following the top 10 every day would now be <b>€${t.top10_growth_of_100_after_costs.toFixed(2)}</b> after estimated costs, vs. €${t.spy_growth_of_100.toFixed(2)} in the S&amp;P 500 over the same hours.${t.high_risk ? ` The high-risk list: €${t.high_risk.growth_of_100_after_costs.toFixed(2)} (${t.high_risk.days} days).` : ''}</p>`;
+          <p class="lead">€100 following the top 10 every day would now be <b>€${t.top10_growth_of_100_after_costs.toFixed(2)}</b> after estimated costs, vs. €${t.spy_growth_of_100.toFixed(2)} in the S&amp;P 500 over the same hours.</p>`;
       }
       if (L.model && !String(L.model).startsWith('ridge')) html += `<p class="ai-note">Days before ${esc(d('2026-11-11'))} used the earlier method (ranking by the pre-market jump).</p>`;
       body.innerHTML = html;
@@ -726,7 +833,7 @@
       const res = await fetch(`${DATA_URL}?t=${Date.now()}`, { cache: 'no-store' });
       if (!res.ok) throw new Error(res.status);
       report = await res.json();
-      renderHero(); renderMarket(); renderList(); renderTrack();
+      renderHero(); renderMarket(); renderList(); renderTrack(); renderLongTerm();
     } catch (e) {
       $('heroSub').textContent = '';
       $('list').innerHTML = `<p class="error">We couldn't load today's picks. Check your connection and try again.</p>`;

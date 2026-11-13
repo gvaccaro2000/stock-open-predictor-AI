@@ -5,3 +5,4 @@ task writes the current time into these files on weekdays:
 - evaluate: 16:35 New York time (22:35 in Madrid) -> runs Track record
 
 Pushing a change to either file starts the matching workflow.
+- longterm: weekly (also Sundays via GitHub schedule) -> runs Long-term ideas

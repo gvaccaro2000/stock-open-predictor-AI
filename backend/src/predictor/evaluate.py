@@ -124,6 +124,47 @@ def summarise(days: list[dict]) -> dict:
     }
 
 
+def longterm_track(out: Path, now: datetime, fetch=None) -> dict | None:
+    """Every published long-term list vs the S&P 500, from its publication price to the latest close."""
+    files = sorted((out / "longterm_history").glob("*.json")) if (out / "longterm_history").exists() else []
+    lists = [json.loads(f.read_text()) for f in files]
+    if not lists:
+        return None
+    tickers = sorted({p["ticker"] for L in lists for p in L["picks"]} | {"SPY"})
+    daily = (fetch or data.fetch_daily)(tickers, period="2y", now=now)
+
+    def last_close(t):
+        df = daily.get(t)
+        return float(df["Close"].dropna().iloc[-1]) if df is not None and len(df) else None
+
+    def close_on(t, day):
+        df = daily.get(t)
+        if df is None or df.empty:
+            return None
+        c = df["Close"].dropna()
+        c = c[[d.date() <= day for d in c.index]]
+        return float(c.iloc[-1]) if len(c) else None
+
+    rows = []
+    for L in lists:
+        day = datetime.fromisoformat(L["as_of_date"]).date()
+        spy0, spy1 = close_on("SPY", day), last_close("SPY")
+        rets = []
+        for p in L["picks"]:
+            start, end = p.get("price"), last_close(p["ticker"])
+            if start and end:
+                rets.append({"ticker": p["ticker"], "name": p.get("name"), "return_pct": round((end / start - 1) * 100, 2)})
+        if not rets:
+            continue
+        avg = float(np.mean([r["return_pct"] for r in rets]))
+        spy = (spy1 / spy0 - 1) * 100 if spy0 and spy1 else None
+        rows.append({"as_of_date": L["as_of_date"], "days": (now.date() - day).days, "n": len(rets),
+                     "avg_return_pct": round(avg, 2), "spy_return_pct": None if spy is None else round(spy, 2),
+                     "beat_spy": None if spy is None else avg > spy,
+                     "winners": sum(r["return_pct"] > 0 for r in rets), "picks": rets})
+    return {"updated_at": now.isoformat(timespec="minutes"), "lists": rows[::-1]}
+
+
 def main(argv: list[str] | None = None) -> None:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--out", type=Path, default=OUT)
@@ -159,6 +200,13 @@ def main(argv: list[str] | None = None) -> None:
         summary["latest"] = days[-1]
     (args.out / "track_summary.json").write_text(json.dumps(summary, indent=1))
     log.info("Track record: %d days", summary.get("days", 0))
+    try:
+        lt = longterm_track(args.out, now)
+        if lt:
+            (args.out / "longterm_track.json").write_text(json.dumps(lt, indent=1))
+            log.info("Long-term lists tracked: %d", len(lt["lists"]))
+    except Exception as exc:
+        log.warning("Long-term tracking failed: %s", exc)
 
 
 if __name__ == "__main__":

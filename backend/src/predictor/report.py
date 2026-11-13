@@ -70,15 +70,12 @@ def price_history(df: pd.DataFrame | None, days: int = HISTORY_DAYS) -> dict | N
 
 def build_payload(scored: pd.DataFrame, generated_at: datetime, top_n: int = 25,
                   news: dict | None = None, news_checked: int = 0, market: dict | None = None,
-                  daily: dict[str, pd.DataFrame] | None = None, model_info: dict | None = None,
-                  high_risk: pd.DataFrame | None = None, high_risk_n: int = 10) -> dict:
-    """`news` maps ticker -> sentiment.NewsAssessment; `news_checked` = how many stocks we read news for.
-    `high_risk`: the most volatile stocks (left out of the main list), ranked separately."""
+                  daily: dict[str, pd.DataFrame] | None = None, model_info: dict | None = None) -> dict:
+    """`news` maps ticker -> sentiment.NewsAssessment; `news_checked` = how many stocks we read news for."""
     news = news or {}
     has_premarket = bool(scored["premarket_gap_pct"].notna().any())
     picks = _picks(scored.head(top_n), news, daily)
-    risky = _picks(high_risk.head(high_risk_n), news, daily) if high_risk is not None and len(high_risk) else []
-    universe = len(scored) + (len(high_risk) if high_risk is not None else 0)
+    universe = len(scored)
     return {
         "schema_version": SCHEMA_VERSION,
         "generated_at": generated_at.isoformat(),
@@ -93,8 +90,6 @@ def build_payload(scored: pd.DataFrame, generated_at: datetime, top_n: int = 25,
         "news_checked": news_checked,
         "disclaimer": DISCLAIMER,
         "picks": picks,
-        "high_risk_picks": risky,
-        "high_risk_enabled": high_risk is not None,
     }
 
 

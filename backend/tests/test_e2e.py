@@ -63,10 +63,6 @@ def test_train_then_predict(tmp_path, monkeypatch):
     if p["model_info"]["strategy"] == "raw":                       # other strategies rank risk-adjusted
         assert exp == sorted(exp, reverse=True)
     assert all(isinstance(x["why_short"], str) and x["why_short"] for x in p["picks"])
-    hr = p["high_risk_picks"]
-    assert p["high_risk_enabled"]
-    assert not ({x["ticker"] for x in hr} & {x["ticker"] for x in p["picks"]})                   # separate lists
-    assert all(x["expected_after_open_pct"] > 0 for x in hr)                                     # only positive ones
     assert (tmp_path / "history").exists()                         # pre-market run -> saved for the track record
     logs = list((tmp_path / "features").glob("*.csv.gz"))                # live data logged for future tests
     assert len(logs) == 1
