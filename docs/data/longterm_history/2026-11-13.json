@@ -1,0 +1,77 @@
+{
+ "as_of_date": "2026-11-13",
+ "picks": [
+  {
+   "rank": 1,
+   "ticker": "SNDK",
+   "name": "Sandisk Corporation",
+   "price": 937.46
+  },
+  {
+   "rank": 2,
+   "ticker": "ENVA",
+   "name": "Enova International, Inc.",
+   "price": 167.01
+  },
+  {
+   "rank": 3,
+   "ticker": "SUPN",
+   "name": "Supernus, Inc.",
+   "price": 29.2
+  },
+  {
+   "rank": 4,
+   "ticker": "HALO",
+   "name": "Halozyme Therapeutics, Inc.",
+   "price": 100.67
+  },
+  {
+   "rank": 5,
+   "ticker": "STRL",
+   "name": "Sterling Infrastructure, Inc.",
+   "price": 301.6
+  },
+  {
+   "rank": 6,
+   "ticker": "JAZZ",
+   "name": "Jazz Pharmaceuticals plc",
+   "price": 240.37
+  },
+  {
+   "rank": 7,
+   "ticker": "EQH",
+   "name": "Equitable Holdings, Inc.",
+   "price": 55.63
+  },
+  {
+   "rank": 8,
+   "ticker": "BGC",
+   "name": "BGC Group, Inc.",
+   "price": 11.14
+  },
+  {
+   "rank": 9,
+   "ticker": "CENX",
+   "name": "Century Aluminum Company",
+   "price": 35.51
+  },
+  {
+   "rank": 10,
+   "ticker": "LQDA",
+   "name": "Liquidia Corporation",
+   "price": 58.12
+  },
+  {
+   "rank": 11,
+   "ticker": "FIX",
+   "name": "Comfort Systems USA, Inc.",
+   "price": 1128.09
+  },
+  {
+   "rank": 12,
+   "ticker": "STX",
+   "name": "Seagate Technology Holdings plc",
+   "price": 545.14
+  }
+ ]
+}
