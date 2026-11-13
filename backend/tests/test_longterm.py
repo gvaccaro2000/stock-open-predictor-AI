@@ -58,7 +58,7 @@ def test_analysis_with_fake_claude_and_payload():
     info = fake_info()
     sc = LT.score(LT.metrics(info, pd.Series(5.0, index=info.index)))
     t = sc.index[0]
-    answer = {"thesis": "Profitable, growing faster than peers, and cheaper than its sector.",
+    answer = {"why_invest": "Grows fast, earns high margins and trades below peers.", "thesis": "Profitable, growing faster than peers, and cheaper than its sector.",
               "strengths": ["Margins above sector", "Low debt"], "risks": ["Competition", "Valuation could compress"],
               "conviction": "medium", "one_liner": "Growth at a sector discount"}
 
@@ -77,6 +77,7 @@ def test_analysis_with_fake_claude_and_payload():
     payload = LT.build(sc, info, daily, {}, {t: a}, {}, datetime(2026, 11, 15, 10, tzinfo=NY), top_n=5)
     p0 = payload["picks"][0]
     assert p0["ticker"] == t and p0["analysis"]["one_liner"] == "Growth at a sector discount"
+    assert p0["analysis"]["why_invest"].startswith("Grows fast")
     assert set(p0["scores"]) == set(LT.WEIGHTS) and p0["history"]["closes"]
     import json; json.dumps(payload)
 

@@ -146,7 +146,8 @@
   .ltrow .rk { color: var(--muted); font-size: 14px; padding-top: 2px; }
   .ltrow .nm { font-weight: 650; font-size: 16px; } .ltrow .nm span { color: var(--muted); font-weight: 500; font-size: 13px; margin-left: 4px; }
   .ltrow .sub { color: var(--muted); font-size: 12.5px; margin-top: 1px; }
-  .ltrow .one { color: var(--soft); font-size: 14px; margin-top: 5px; line-height: 1.35; }
+  .ltrow .why-lbl { color: var(--muted); font-size: 11px; font-weight: 650; text-transform: uppercase; letter-spacing: .04em; margin-top: 7px; }
+  .ltrow .one { color: var(--soft); font-size: 14px; margin-top: 2px; line-height: 1.38; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
   .ltrow .sc { text-align: right; } .ltrow .sc b { font-size: 20px; font-weight: 700; display: block; }
   .ltrow .sc small { color: var(--muted); font-size: 11px; display: block; white-space: nowrap; }
   .ltrow .sc .up { color: var(--up); } .ltrow .sc .down { color: var(--down); }
@@ -704,7 +705,7 @@
         <span class="rk">${x.rank}</span>
         <div><div class="nm">${esc(x.name)}<span>${esc(x.ticker)}</span></div>
           <div class="sub">${esc(x.sector || '')}${x.market_cap_bn ? ' · $' + x.market_cap_bn + 'bn' : ''}</div>
-          <div class="one">${esc(x.analysis?.one_liner || '')}</div>
+          ${(x.analysis?.why_invest || x.analysis?.one_liner) ? `<div class="why-lbl">Why invest</div><div class="one">${esc(x.analysis.why_invest || x.analysis.one_liner)}</div>` : ''}
           <div class="mini">${chartSVG({ ticker: x.ticker + 'lt', history: x.history, premarket_price: null }, { w: 300, h: 26 })}</div></div>
         <div class="sc num"><b>${x.composite ?? '—'}</b><small>score / 100</small>${up != null ? `<small class="${up >= 0 ? 'up' : 'down'}">analysts ${pct(up)}</small>` : ''}</div>
       </button>`; }).join('') + `<p class="fine" style="margin-top:10px">${esc(lt.disclaimer)}</p>`;
@@ -747,7 +748,8 @@
       <div class="exp num">${x.composite ?? '—'}<span style="font-size:20px;color:var(--muted)"> / 100</span></div>
       <div class="exp-sub">Rank #${x.rank} of ${lt.universe_size} companies scored · price $${f(x.price, '', 2)}</div>
 
-      ${a.thesis ? `<h4>The case${a.conviction ? `<span class="conv">${esc(a.conviction.toUpperCase())} CONVICTION</span>` : ''}</h4><p class="summary">${esc(a.thesis)}</p>
+      ${a.why_invest ? `<h4>Why invest</h4><p class="summary">${esc(a.why_invest)}</p>` : ''}
+      ${a.thesis ? `<h4>${a.why_invest ? 'Overall view' : 'The case'}${a.conviction ? `<span class="conv">${esc(a.conviction.toUpperCase())} CONVICTION</span>` : ''}</h4><p class="summary">${esc(a.thesis)}</p>
         <p class="ai-note">Written by AI (Claude) from the numbers below and recent news. It can make mistakes.</p>` : ''}
       ${a.strengths?.length ? `<h4>Strengths</h4><ul class="bul">${a.strengths.map((s) => `<li>${esc(s)}</li>`).join('')}</ul>` : ''}
       ${a.risks?.length ? `<h4>Risks</h4><ul class="bul">${a.risks.map((s) => `<li>${esc(s)}</li>`).join('')}</ul>` : ''}
