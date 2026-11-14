@@ -1,74 +1,74 @@
 {
- "updated_at": "2026-11-13T16:36-05:00",
+ "updated_at": "2026-11-13T20:29-05:00",
  "lists": [
   {
    "as_of_date": "2026-11-13",
    "days": 0,
    "n": 12,
-   "avg_return_pct": -0.6,
+   "avg_return_pct": 0.0,
    "spy_return_pct": 0.0,
    "beat_spy": false,
-   "winners": 4,
+   "winners": 0,
    "picks": [
     {
      "ticker": "ENVA",
      "name": "Enova International, Inc.",
-     "return_pct": 1.7
+     "return_pct": -0.0
     },
     {
      "ticker": "HALO",
      "name": "Halozyme Therapeutics, Inc.",
-     "return_pct": -0.4
+     "return_pct": -0.0
     },
     {
      "ticker": "JAZZ",
      "name": "Jazz Pharmaceuticals plc",
-     "return_pct": 0.49
+     "return_pct": -0.0
     },
     {
      "ticker": "BGC",
      "name": "BGC Group, Inc.",
-     "return_pct": -0.36
+     "return_pct": 0.0
     },
     {
      "ticker": "CENX",
      "name": "Century Aluminum Company",
-     "return_pct": -4.17
+     "return_pct": -0.0
     },
     {
      "ticker": "EQH",
      "name": "Equitable Holdings, Inc.",
-     "return_pct": 0.84
+     "return_pct": 0.0
     },
     {
      "ticker": "FIX",
      "name": "Comfort Systems USA, Inc.",
-     "return_pct": -1.38
+     "return_pct": -0.0
     },
     {
      "ticker": "IESC",
      "name": "IES Holdings, Inc.",
-     "return_pct": -2.23
+     "return_pct": -0.0
     },
     {
      "ticker": "DAR",
      "name": "Darling Ingredients Inc.",
-     "return_pct": 1.14
+     "return_pct": 0.0
     },
     {
      "ticker": "HRB",
      "name": "H&R Block, Inc.",
-     "return_pct": -1.42
+     "return_pct": -0.0
     },
     {
      "ticker": "CVSA",
      "name": "Covista Inc.",
-     "return_pct": -0.7
+     "return_pct": 0.0
     },
     {
      "ticker": "CXW",
      "name": "CoreCivic, Inc.",
-     "return_pct": -0.67
+     "return_pct": -0.0
     }
    ]
   }
