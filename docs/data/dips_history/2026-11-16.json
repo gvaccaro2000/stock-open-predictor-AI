@@ -3,51 +3,51 @@
  "picks": [
   {
    "rank": 1,
-   "ticker": "ESAB",
-   "name": "ESAB Corporation",
-   "price": 83.25
-  },
-  {
-   "rank": 2,
-   "ticker": "VC",
-   "name": "Visteon Corporation",
-   "price": 82.27
-  },
-  {
-   "rank": 3,
-   "ticker": "NXT",
-   "name": "Nextpower Inc.",
-   "price": 95.03
-  },
-  {
-   "rank": 4,
-   "ticker": "BOOT",
-   "name": "Boot Barn Holdings, Inc.",
-   "price": 137.61
-  },
-  {
-   "rank": 5,
-   "ticker": "WYNN",
-   "name": "Wynn Resorts, Limited",
-   "price": 85.06
-  },
-  {
-   "rank": 6,
-   "ticker": "INTU",
-   "name": "Intuit Inc.",
-   "price": 341.7
-  },
-  {
-   "rank": 7,
    "ticker": "LVS",
    "name": "Las Vegas Sands Corp.",
    "price": 40.39
   },
   {
-   "rank": 8,
+   "rank": 2,
    "ticker": "CELH",
    "name": "Celsius Holdings, Inc.",
    "price": 32.42
+  },
+  {
+   "rank": 3,
+   "ticker": "ESAB",
+   "name": "ESAB Corporation",
+   "price": 83.25
+  },
+  {
+   "rank": 4,
+   "ticker": "PLNT",
+   "name": "Planet Fitness, Inc.",
+   "price": 61.18
+  },
+  {
+   "rank": 5,
+   "ticker": "LKQ",
+   "name": "LKQ Corporation",
+   "price": 19.47
+  },
+  {
+   "rank": 6,
+   "ticker": "VC",
+   "name": "Visteon Corporation",
+   "price": 82.27
+  },
+  {
+   "rank": 7,
+   "ticker": "PATK",
+   "name": "Patrick Industries, Inc.",
+   "price": 80.69
+  },
+  {
+   "rank": 8,
+   "ticker": "CSGP",
+   "name": "CoStar Group, Inc.",
+   "price": 30.96
   }
  ]
 }
