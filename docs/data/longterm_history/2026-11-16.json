@@ -1,0 +1,77 @@
+{
+ "as_of_date": "2026-11-16",
+ "picks": [
+  {
+   "rank": 1,
+   "ticker": "MU",
+   "name": "Micron Technology, Inc.",
+   "price": 778.31
+  },
+  {
+   "rank": 2,
+   "ticker": "ENVA",
+   "name": "Enova International, Inc.",
+   "price": 169.85
+  },
+  {
+   "rank": 3,
+   "ticker": "HALO",
+   "name": "Halozyme Therapeutics, Inc.",
+   "price": 100.27
+  },
+  {
+   "rank": 4,
+   "ticker": "CENX",
+   "name": "Century Aluminum Company",
+   "price": 34.03
+  },
+  {
+   "rank": 5,
+   "ticker": "PBI",
+   "name": "Pitney Bowes Inc.",
+   "price": 15.59
+  },
+  {
+   "rank": 6,
+   "ticker": "LQDA",
+   "name": "Liquidia Corporation",
+   "price": 57.41
+  },
+  {
+   "rank": 7,
+   "ticker": "IESC",
+   "name": "IES Holdings, Inc.",
+   "price": 170.28
+  },
+  {
+   "rank": 8,
+   "ticker": "BGC",
+   "name": "BGC Group, Inc.",
+   "price": 11.1
+  },
+  {
+   "rank": 9,
+   "ticker": "FIX",
+   "name": "Comfort Systems USA, Inc.",
+   "price": 1112.5
+  },
+  {
+   "rank": 10,
+   "ticker": "JAZZ",
+   "name": "Jazz Pharmaceuticals plc",
+   "price": 241.55
+  },
+  {
+   "rank": 11,
+   "ticker": "EQH",
+   "name": "Equitable Holdings, Inc.",
+   "price": 56.1
+  },
+  {
+   "rank": 12,
+   "ticker": "NEM",
+   "name": "Newmont Corporation",
+   "price": 113.14
+  }
+ ]
+}
