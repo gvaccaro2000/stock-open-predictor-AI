@@ -124,9 +124,9 @@ def summarise(days: list[dict]) -> dict:
     }
 
 
-def longterm_track(out: Path, now: datetime, fetch=None) -> dict | None:
-    """Every published long-term list vs the S&P 500, from its publication price to the latest close."""
-    files = sorted((out / "longterm_history").glob("*.json")) if (out / "longterm_history").exists() else []
+def longterm_track(out: Path, now: datetime, fetch=None, folder: str = "longterm_history") -> dict | None:
+    """Every published long-term (or buy-the-dip) list vs the S&P 500, from its publication price to the latest close."""
+    files = sorted((out / folder).glob("*.json")) if (out / folder).exists() else []
     lists = [json.loads(f.read_text()) for f in files]
     if not lists:
         return None
@@ -207,6 +207,12 @@ def main(argv: list[str] | None = None) -> None:
             log.info("Long-term lists tracked: %d", len(lt["lists"]))
     except Exception as exc:
         log.warning("Long-term tracking failed: %s", exc)
+    try:
+        dt = longterm_track(args.out, now, folder="dips_history")
+        if dt:
+            (args.out / "dips_track.json").write_text(json.dumps(dt, indent=1))
+    except Exception as exc:
+        log.warning("Buy-the-dip tracking failed: %s", exc)
 
 
 if __name__ == "__main__":

@@ -141,7 +141,7 @@
   .bt { background: var(--fill); border-radius: 14px; padding: 14px 16px; margin-top: 16px; font-size: 14.5px; color: var(--soft); }
   .bt b { color: var(--text); }
   .lt-lead { color: var(--soft); font-size: 14.5px; margin: 4px 0 8px; }
-  .ltrow { display: grid; grid-template-columns: 30px minmax(0, 1fr) 64px; gap: 10px; width: 100%; text-align: left; padding: 14px 0; border-bottom: 1px solid var(--line); align-items: start; }
+  .ltrow { display: grid; grid-template-columns: 26px minmax(0, 1fr) 78px; gap: 10px; width: 100%; text-align: left; padding: 14px 0; border-bottom: 1px solid var(--line); align-items: start; }
   .ltrow:active { opacity: .55; }
   .ltrow .rk { color: var(--muted); font-size: 14px; padding-top: 2px; }
   .ltrow .nm { font-weight: 650; font-size: 16px; } .ltrow .nm span { color: var(--muted); font-weight: 500; font-size: 13px; margin-left: 4px; }
@@ -160,6 +160,10 @@
   .vs.h { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
   .vs span:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
   .bul { margin: 0; padding-left: 18px; } .bul li { margin: 6px 0; font-size: 15px; color: var(--soft); }
+  .ltrow .drop { color: var(--down); font-weight: 650; font-size: 13px; margin-top: 3px; }
+  .ltrow .fell { color: var(--muted); font-size: 13px; margin-top: 4px; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .cause { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .04em; border-radius: 6px; padding: 1px 6px; margin-left: 6px; vertical-align: 2px; border: 1px solid var(--line); color: var(--soft); }
+  .cause.temporary { color: var(--up); border-color: var(--up); }
   .conv { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .04em; border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; margin-left: 6px; color: var(--soft); vertical-align: 2px; }
   .faq { margin-top: 34px; }
   .faq h2 { font-size: 22px; font-weight: 700; letter-spacing: -.02em; margin: 0 0 4px; }
@@ -271,6 +275,13 @@
   </section>
 
 
+  <section class="lt" id="dip" hidden>
+    <div class="section-head" style="margin-top:34px"><h2>Buy the dip</h2><span id="dipDate"></span></div>
+    <p class="lead lt-lead">Good companies whose shares fell hard (30%+ from their high, much more than their sector) but that are still profitable, not over-indebted, cheap vs. their sector, still backed by analysts, and no longer making new lows. An AI reads the news to check the drop looks temporary, not lasting damage. Updated every evening.</p>
+    <div id="dipList"></div>
+    <div id="dipTrack"></div>
+  </section>
+
   <section class="lt" id="lt" hidden>
     <div class="section-head" style="margin-top:34px"><h2>Long-term ideas</h2><span id="ltDate"></span></div>
     <p class="lead lt-lead">Companies with strong fundamentals at reasonable prices, compared with their own sector: value, quality, growth, long-term trend and analyst views, with an AI-written case for each. For holding 1–3 years, not for day trading. Updated weekly.</p>
@@ -292,6 +303,12 @@
       <p>It's our estimate of how much the stock will move <b>from the US open (15:30 CET) to the close</b>, compared with the average stock that day. That's the part you can still catch if you buy before or at the open.</p>
       <p>The small “pre-mkt” number underneath is how much it has <b>already</b> moved since yesterday's close. That move is mostly gone by the time you can buy, and big early jumps often partly fade after the open, so a large pre-market gain is not automatically a good sign.</p>
       <p>The estimates are small (often well under 1%) because day-to-day price moves are mostly random. A good method wins a bit more often than it loses, not every day.</p>
+    </details>
+    <details>
+      <summary>How are the buy-the-dip ideas chosen?</summary>
+      <p>Every evening we look for larger US companies (worth at least $2bn) whose shares are <b>at least 30% below their 52-week high</b> and fell <b>at least 15 points more than their sector</b>, so the drop is about the company, not the whole market.</p>
+      <p>To avoid "falling knives", a company must also: still make a profit and generate cash; not be shrinking fast; not carry too much debt; have profits expected to grow; be rated a buy on average by at least 5 analysts with a price target at least 15% above today's price; and have made <b>no new low for at least two weeks</b>, with the price back around its 20-day average.</p>
+      <p>The best-scoring ones (cheapness vs. sector, business quality, outlook, signs the selling has stopped, size of the drop) are checked by an AI (Claude), which reads recent news and labels why the shares fell. Drops caused by lasting damage, such as fraud, losing a key product or debt trouble, are removed. Every list is tracked against the S&amp;P 500. Shares that fell sharply can keep falling.</p>
     </details>
     <details>
       <summary>How are the long-term ideas chosen?</summary>
@@ -692,6 +709,100 @@
   showInstall();
   $('installClose').addEventListener('click', () => { $('install').classList.remove('show'); try { localStorage.setItem('installHintDismissed', '1'); } catch (e) {} });
 
+  // ---------- buy the dip ----------
+  let dp = null;
+  const causeLbl = { temporary: 'LOOKS TEMPORARY', unclear: 'CAUSE UNCLEAR', structural: 'LASTING DAMAGE' };
+  async function renderDips() {
+    try { const r = await fetch(`data/dips.json?t=${Date.now()}`, { cache: 'no-store' }); if (r.ok) dp = await r.json(); } catch (e) {}
+    if (!dp) return;
+    $('dip').hidden = false;
+    $('dipDate').textContent = 'as of ' + new Date(dp.as_of_date + 'T12:00:00').toLocaleDateString([], { day: 'numeric', month: 'short' });
+    if (!dp.picks?.length) { $('dipList').innerHTML = '<p class="lead">No company passes all the checks today. That happens: most big drops have a good reason.</p>'; return; }
+    $('dipList').innerHTML = dp.picks.map((x, i) => {
+      const a = x.analysis || {}, up = x.analysts?.upside_pct;
+      return `<button class="ltrow" type="button" data-i="${i}" aria-label="${esc(x.name)}, down ${Math.abs(x.dip.drawdown_pct)}% from its high">
+        <span class="rk">${x.rank}</span>
+        <div><div class="nm">${esc(x.name)}<span>${esc(x.ticker)}</span></div>
+          <div class="sub">${esc(x.sector || '')}${x.market_cap_bn ? ' · $' + x.market_cap_bn + 'bn' : ''}</div>
+          <div class="drop num">${pct(x.dip.drawdown_pct)} from its 52-week high</div>
+          ${a.why_fell ? `<div class="why-lbl">Why it fell</div><div class="fell">${esc(a.why_fell)}</div>` : ''}
+          ${a.why_recover ? `<div class="why-lbl">Why it could recover</div><div class="one">${esc(a.why_recover)}</div>` : ''}
+          <div class="mini">${chartSVG({ ticker: x.ticker + 'dp', history: x.history, premarket_price: null }, { w: 300, h: 26 })}</div></div>
+        <div class="sc num"><b>${x.composite ?? '—'}</b><small>score / 100</small>${up != null ? `<small class="${up >= 0 ? 'up' : 'down'}">analysts ${pct(up)}</small>` : ''}</div>
+      </button>`; }).join('') + `<p class="fine" style="margin-top:10px">${esc(dp.disclaimer)}</p>`;
+    $('dipList').querySelectorAll('.ltrow').forEach((el) => el.addEventListener('click', () => openDip(dp.picks[+el.dataset.i])));
+    try {
+      const r = await fetch(`data/dips_track.json?t=${Date.now()}`, { cache: 'no-store' });
+      const t = r.ok ? await r.json() : null;
+      if (t && t.lists?.length) {
+        $('dipTrack').innerHTML = `<div class="trow h" style="margin-top:12px"><span>List of</span><span>Picks</span><span>S&amp;P 500</span></div>` +
+          t.lists.slice(0, 8).map((L) => `<div class="trow num"><span>${esc(new Date(L.as_of_date + 'T12:00:00').toLocaleDateString([], { day: 'numeric', month: 'short', year: 'numeric' }))} <span style="color:var(--muted)">(${L.days} days)</span></span><span class="${signCls(L.avg_return_pct)}">${pct(L.avg_return_pct)}</span><span class="${signCls(L.spy_return_pct)}">${pct(L.spy_return_pct)}</span></div>`).join('') +
+          `<p class="ai-note">Average change of each list since it was published, vs. the S&amp;P 500 over the same time.</p>`;
+      }
+    } catch (e) {}
+  }
+
+  function openDip(x) {
+    const a = x.analysis || {}, d = x.dip || {}, m = x.metrics || {}, sm = x.sector_medians || {}, an = x.analysts || {};
+    const f = (v, suf = '', k = 1) => (v == null ? '—' : (+v).toFixed(k) + suf);
+    const labels = { value: 'Cheapness', quality: 'Business quality', outlook: 'Outlook', stabilising: 'Selling stopped', dip: 'Size of drop' };
+    const c = x.history?.closes || [];
+    $('sheet').innerHTML = `
+      <div class="grab"></div>
+      <div class="sheet-head">
+        <span class="logo" aria-hidden="true">${monogram(x.ticker)}</span>
+        <div><div class="t" id="sheetTitle">${esc(x.name)}</div><div class="n">${esc(x.ticker)} · ${esc(x.sector || '')}${x.market_cap_bn ? ' · $' + x.market_cap_bn + 'bn' : ''}</div></div>
+        <button class="icon-btn close" type="button" id="closeSheet" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+      <div class="exp-label">Down from its 52-week high</div>
+      <div class="exp num down">${pct(d.drawdown_pct)}</div>
+      <div class="exp-sub">High $${f(d.high_52w, '', 2)} on ${esc(new Date(d.high_date + 'T12:00:00').toLocaleDateString([], { day: 'numeric', month: 'short', year: 'numeric' }))} · now $${f(x.price, '', 2)} · its sector ${pct(d.sector_change_pct)} since then</div>
+
+      ${a.why_fell ? `<h4>Why it fell${a.cause_type ? `<span class="cause ${esc(a.cause_type)}">${causeLbl[a.cause_type] || ''}</span>` : ''}</h4><p class="summary">${esc(a.why_fell)}</p>` : ''}
+      ${a.why_recover ? `<h4>Why it could recover${a.conviction ? `<span class="conv">${esc(a.conviction.toUpperCase())} CONVICTION</span>` : ''}</h4><p class="summary">${esc(a.why_recover)}</p>` : ''}
+      ${a.risks?.length ? `<h4>Risks</h4><ul class="bul">${a.risks.map((s) => `<li>${esc(s)}</li>`).join('')}</ul>` : ''}
+      ${a.why_fell ? `<p class="ai-note">Written by AI (Claude) from the numbers below and recent news. It can make mistakes.</p>` : ''}
+
+      <h4>Has the selling stopped?</h4>
+      <div class="facts num">
+        <div><span>Days since the lowest close</span><b>${d.days_since_low ?? '—'} trading days</b></div>
+        <div><span>Up from that low</span><b>${pct(d.bounce_from_low_pct)}</b></div>
+        <div><span>vs. 20-day average</span><b>${pct(d.vs_sma20_pct)}</b></div>
+        <div><span>Trading volume now vs. at the low</span><b>${d.vol_fade != null ? Math.round(d.vol_fade * 100) + '%' : '—'}</b></div>
+      </div>
+
+      <h4>Scores</h4>
+      <div class="bars5">${Object.keys(labels).map((k) => `<div><span>${labels[k]}</span><span class="track5"><i style="width:${x.scores?.[k] ?? 0}%"></i></span><b>${x.scores?.[k] ?? '—'}</b></div>`).join('')}</div>
+      <p class="ai-note">0–100, compared with the other big drops that passed all the checks.</p>
+
+      <h4>Still a healthy business?</h4>
+      <div class="vs h"><span></span><span>Company</span><span>Sector median</span></div>
+      ${[['Forward P/E', f(m.forward_pe), f(sm.forward_pe)], ['EV / EBITDA', f(m.ev_ebitda), f(sm.ev_ebitda)], ['Operating margin', f(m.op_margin, '%'), f(sm.op_margin, '%')], ['Return on equity', f(m.roe, '%'), f(sm.roe, '%')]]
+        .map(([n, a1, b1]) => `<div class="vs"><span>${n}</span><span>${a1}</span><span style="color:var(--muted)">${b1}</span></div>`).join('')}
+      <div class="facts num" style="margin-top:6px">
+        <div><span>Sales growth</span><b>${f(m.rev_growth, '%')}</b></div><div><span>Expected EPS growth (next year)</span><b>${f(m.fwd_eps_growth, '%')}</b></div>
+        <div><span>Free-cash-flow yield</span><b>${f(m.fcf_yield, '%')}</b></div><div><span>Debt / equity</span><b>${f(m.debt_to_equity, '%', 0)}</b></div>
+        <div><span>Current ratio</span><b>${f(m.current_ratio, '', 2)}</b></div>
+      </div>
+
+      <h4>Analysts</h4>
+      <div class="facts num">
+        <div><span>Analysts covering</span><b>${an.n ?? '—'}</b></div>
+        <div><span>Consensus</span><b>${esc((an.consensus || '—').replace('_', ' '))}</b></div>
+        <div><span>Average price target</span><b>${an.target_mean != null ? '$' + f(an.target_mean, '', 2) : '—'} ${an.upside_pct != null ? `<span style="color:var(--${an.upside_pct >= 0 ? 'up' : 'down'})">(${pct(an.upside_pct)})</span>` : ''}</b></div>
+      </div>
+
+      ${c.length ? `<h4>Last 12 months</h4>
+        <div class="chart">${chartSVG({ ticker: x.ticker + 'dpb', history: x.history, premarket_price: null }, { w: 340, h: 170, big: true })}</div>
+        <div class="legend"><span><i class="p" style="border-color:var(--down)"></i>Price</span><span><i class="m50"></i>50-day average</span><span><i class="m200"></i>200-day average</span></div>` : ''}
+
+      ${x.news?.length ? `<h4>Recent news</h4>` + x.news.map((n) => `<a class="news-item" href="${esc(n.url || '#')}" target="_blank" rel="noopener"><span class="nd"></span><div><div class="nt">${esc(n.title)}</div><div class="nm">${esc(n.source)} · ${esc(ago(n.published))}</div></div></a>`).join('') : ''}
+      <a class="cta" href="https://finance.yahoo.com/quote/${encodeURIComponent(x.ticker)}" target="_blank" rel="noopener">View on Yahoo Finance</a>
+      <p class="fine">${esc(dp.disclaimer)}</p>`;
+    $('closeSheet').addEventListener('click', closeSheet);
+    $('scrim').classList.add('open'); $('sheet').classList.add('open'); $('sheet').scrollTop = 0;
+  }
+
   // ---------- long-term ideas ----------
   let lt = null;
   async function renderLongTerm() {
@@ -835,7 +946,7 @@
       const res = await fetch(`${DATA_URL}?t=${Date.now()}`, { cache: 'no-store' });
       if (!res.ok) throw new Error(res.status);
       report = await res.json();
-      renderHero(); renderMarket(); renderList(); renderTrack(); renderLongTerm();
+      renderHero(); renderMarket(); renderList(); renderTrack(); renderDips(); renderLongTerm();
     } catch (e) {
       $('heroSub').textContent = '';
       $('list').innerHTML = `<p class="error">We couldn't load today's picks. Check your connection and try again.</p>`;

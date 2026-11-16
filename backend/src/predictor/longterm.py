@@ -54,8 +54,15 @@ INFO_FIELDS = [
     "operatingMargins", "grossMargins", "profitMargins", "debtToEquity", "revenueGrowth", "earningsGrowth",
     "trailingEps", "forwardEps", "recommendationMean", "recommendationKey", "targetMeanPrice",
     "targetLowPrice", "targetHighPrice", "numberOfAnalystOpinions", "dividendYield", "beta",
-    "longBusinessSummary", "fiftyTwoWeekHigh", "fiftyTwoWeekLow", "website",
+    "longBusinessSummary", "fiftyTwoWeekHigh", "fiftyTwoWeekLow", "website", "currentRatio",
 ]
+# Yahoo's sector names -> the GICS names used for the sector ETFs.
+YAHOO_TO_GICS = {
+    "Technology": "Information Technology", "Financial Services": "Financials", "Healthcare": "Health Care",
+    "Consumer Cyclical": "Consumer Discretionary", "Consumer Defensive": "Consumer Staples",
+    "Basic Materials": "Materials", "Energy": "Energy", "Industrials": "Industrials", "Utilities": "Utilities",
+    "Real Estate": "Real Estate", "Communication Services": "Communication Services",
+}
 
 
 # ----------------------------------------------------------------------------- data
@@ -304,7 +311,7 @@ def build(scored: pd.DataFrame, info: pd.DataFrame, daily: dict, sectors: dict, 
                          "consensus": inf.get("recommendationKey"), "target_mean": _n(inf.get("targetMeanPrice")),
                          "target_low": _n(inf.get("targetLowPrice")), "target_high": _n(inf.get("targetHighPrice")),
                          "upside_pct": _n(r["target_upside"], 1)},
-            "sector_trend": sectors.get(r.get("sector") or "", {}),
+            "sector_trend": sectors.get(YAHOO_TO_GICS.get(r.get("sector") or "", r.get("sector") or ""), {}),
             "analysis": analyses.get(t),
             "news": news_items.get(t, [])[:5],
             "history": price_history(daily.get(t), days=365),
@@ -364,6 +371,12 @@ def main(argv: list[str] | None = None) -> None:
     payload = build(scored, info, daily, sectors, analyses, news_items, now, args.top)
     args.out.mkdir(parents=True, exist_ok=True)
     (args.out / "longterm.json").write_text(json.dumps(payload, indent=1))
+    # Sector medians, reused by the daily buy-the-dip scan (which only downloads a few companies).
+    cols = ["forward_pe", "ev_ebitda", "op_margin", "roe", "rev_growth"]
+    (args.out / "sector_stats.json").write_text(json.dumps(
+        {"as_of_date": payload["as_of_date"],
+         "sectors": {sec: {c: _n(v) for c, v in g[cols].median().items()} for sec, g in scored.groupby("sector")}},
+        indent=1))
     hist = args.out / "longterm_history"
     hist.mkdir(exist_ok=True)
     (hist / f"{payload['as_of_date']}.json").write_text(json.dumps(

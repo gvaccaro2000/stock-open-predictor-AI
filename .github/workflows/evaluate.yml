@@ -34,6 +34,13 @@ jobs:
       - run: pip install -e "backend[dev]"
       - name: Evaluate past picks
         run: python -m predictor.evaluate
+      - name: Buy-the-dip scan
+        continue-on-error: true
+        timeout-minutes: 40
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
+        run: python -m predictor.dips --universe us1500
       - name: Commit results
         run: |
           git config user.name  "github-actions[bot]"
