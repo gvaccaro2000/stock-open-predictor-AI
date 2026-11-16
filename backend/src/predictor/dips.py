@@ -67,6 +67,9 @@ def price_signals(daily: dict[str, pd.DataFrame], sector_close: dict[str, pd.Ser
         sma20 = float(c.iloc[-20:].mean())
         vol_at_low = float(v.iloc[-60:].iloc[max(0, low_pos - 5): low_pos + 6].mean())
         vol_recent = float(v.iloc[-10:].mean())
+        since_hi = c[c.index >= hi_date]
+        r1 = since_hi.pct_change().dropna() * 100
+        falls = [(i.date().isoformat(), round(float(x), 1)) for i, x in r1.nsmallest(3).items() if x <= -4]
         d = np.diff(c.iloc[-15:].values)
         up, dn = d[d > 0].sum(), -d[d < 0].sum()
         rows[t] = {
@@ -77,6 +80,7 @@ def price_signals(daily: dict[str, pd.DataFrame], sector_close: dict[str, pd.Ser
             "vs_sma20": (last / sma20 - 1) * 100,
             "vol_fade": vol_recent / vol_at_low if vol_at_low > 0 else np.nan,   # < 1 = selling volume fading
             "rsi14": 100.0 if dn == 0 else 100 - 100 / (1 + up / dn),
+            "biggest_falls": falls,
             "_hi_date": hi_date,
         }
     s = pd.DataFrame.from_dict(rows, orient="index")
@@ -205,7 +209,20 @@ def _ask(client, model: str, prompt: str):
                                   messages=[{"role": "user", "content": prompt + "\n\nCall the record_dip tool."}])
 
 
-def facts_for(t: str, r: pd.Series, info: dict, headlines: list[str]) -> str:
+def fall_news(t: str, falls: list, key: str | None) -> dict[str, list[str]]:
+    """Headlines from the days around each big one-day fall (needs a Finnhub key: Yahoo only has recent news)."""
+    if not key:
+        return {}
+    from . import news as news_mod
+    out = {}
+    for day, _ in falls or []:
+        d = datetime.fromisoformat(day).replace(tzinfo=timezone.utc)
+        items = news_mod.fetch_finnhub(t, d - pd.Timedelta(days=2), key, until=d + pd.Timedelta(days=1))
+        out[day] = [i.title for i in news_mod._dedupe(items)[:5]]
+    return out
+
+
+def facts_for(t: str, r: pd.Series, info: dict, headlines: list[str], around: dict | None = None) -> str:
     v = lambda x, f="{:.1f}": "n/a" if x is None or (isinstance(x, float) and not math.isfinite(x)) else f.format(x)
     return "\n".join([
         f"Company: {info.get('longName') or t} ({t}), sector {r.get('sector')}, industry {r.get('industry') or 'n/a'}",
@@ -222,6 +239,9 @@ def facts_for(t: str, r: pd.Series, info: dict, headlines: list[str]) -> str:
         f"Analysts: {v(r['n_analysts'], '{:.0f}')}, consensus {info.get('recommendationKey') or 'n/a'} (mean "
         f"{v(r['analyst_rating'], '{:.2f}')}, 1=strong buy..5=sell), average target ${v(LT._f(info.get('targetMeanPrice')), '{:.2f}')} "
         f"({v(r['target_upside'])}% vs price)",
+        "Biggest one-day falls since the high: " + (", ".join(f"{d} {x:+.1f}%" for d, x in (r.get("biggest_falls") or []))
+                                                    or "none worse than -4% (a gradual decline)"),
+        *[f"Headlines around {d}: " + (" | ".join(h) or "(none found)") for d, h in (around or {}).items()],
         "Recent headlines (newest first):", *([f"- {h}" for h in headlines[:12]] or ["- (none found)"]),
     ])
 
@@ -250,7 +270,9 @@ def build(ranked: pd.DataFrame, info: pd.DataFrame, daily: dict, analyses: dict,
     from .report import price_history
 
     n = LT._n
-    keep = [t for t in ranked.index if (analyses.get(t) or {}).get("cause_type") != "structural"][:top_n]
+    order = {"temporary": 0, None: 1, "unclear": 1}
+    ok = [t for t in ranked.index if (analyses.get(t) or {}).get("cause_type") != "structural"]
+    keep = sorted(ok, key=lambda t: order.get((analyses.get(t) or {}).get("cause_type"), 1))[:top_n]   # stable: score order within each group
     dropped = [{"ticker": t, "why_fell": analyses[t]["why_fell"]} for t in ranked.index
                if (analyses.get(t) or {}).get("cause_type") == "structural"]
     picks = []
@@ -265,7 +287,7 @@ def build(ranked: pd.DataFrame, info: pd.DataFrame, daily: dict, analyses: dict,
             "dip": {"drawdown_pct": n(r["drawdown"], 1), "high_52w": n(r["high_52w"]), "high_date": r["high_date"],
                     "sector_change_pct": n(r["sector_change"], 1), "rel_drop_pct": n(r["rel_drop"], 1),
                     "days_since_low": int(r["days_since_low"]), "bounce_from_low_pct": n(r["bounce_from_low"], 1),
-                    "vs_sma20_pct": n(r["vs_sma20"], 1), "vol_fade": n(r["vol_fade"]), "rsi14": n(r["rsi14"], 0)},
+                    "vs_sma20_pct": n(r["vs_sma20"], 1), "biggest_falls": r.get("biggest_falls") or [], "vol_fade": n(r["vol_fade"]), "rsi14": n(r["rsi14"], 0)},
             "metrics": {k: n(r.get(k)) for k in ("forward_pe", "ev_ebitda", "fcf_yield", "rev_growth", "earn_growth",
                                                  "fwd_eps_growth", "op_margin", "roe", "debt_to_equity", "current_ratio")},
             "sector_medians": {k: n(r.get(f"sector_median_{k}")) for k in ("forward_pe", "ev_ebitda", "op_margin", "roe")},
@@ -324,9 +346,11 @@ def main(argv: list[str] | None = None) -> None:
             import anthropic
             client = anthropic.Anthropic(max_retries=3)
             model = os.environ.get("CLAUDE_LONGTERM_MODEL", "claude-sonnet-5-5")
+            key = os.environ.get("FINNHUB_API_KEY") or None
             for t in top:
+                around = fall_news(t, ranked.loc[t].get("biggest_falls"), key)
                 a = analyse(client, model, facts_for(t, ranked.loc[t], info.loc[t].to_dict(),
-                                                     [i["title"] for i in news_items.get(t, [])]))
+                                                     [i["title"] for i in news_items.get(t, [])], around))
                 if a:
                     analyses[t] = a
             log.info("Claude (%s) analysed %d dips", model, len(analyses))

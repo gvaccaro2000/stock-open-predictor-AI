@@ -759,6 +759,7 @@
       <div class="exp-sub">High $${f(d.high_52w, '', 2)} on ${esc(new Date(d.high_date + 'T12:00:00').toLocaleDateString([], { day: 'numeric', month: 'short', year: 'numeric' }))} · now $${f(x.price, '', 2)} · its sector ${pct(d.sector_change_pct)} since then</div>
 
       ${a.why_fell ? `<h4>Why it fell${a.cause_type ? `<span class="cause ${esc(a.cause_type)}">${causeLbl[a.cause_type] || ''}</span>` : ''}</h4><p class="summary">${esc(a.why_fell)}</p>` : ''}
+      ${d.biggest_falls?.length ? `<p class="ai-note">Biggest one-day falls: ${d.biggest_falls.map(([day, v]) => esc(new Date(day + 'T12:00:00').toLocaleDateString([], { day: 'numeric', month: 'short' })) + ' ' + pct(v)).join(' · ')}</p>` : ''}
       ${a.why_recover ? `<h4>Why it could recover${a.conviction ? `<span class="conv">${esc(a.conviction.toUpperCase())} CONVICTION</span>` : ''}</h4><p class="summary">${esc(a.why_recover)}</p>` : ''}
       ${a.risks?.length ? `<h4>Risks</h4><ul class="bul">${a.risks.map((s) => `<li>${esc(s)}</li>`).join('')}</ul>` : ''}
       ${a.why_fell ? `<p class="ai-note">Written by AI (Claude) from the numbers below and recent news. It can make mistakes.</p>` : ''}

@@ -80,11 +80,11 @@ def fetch_yahoo(ticker: str) -> list[NewsItem]:
     return [i for i in (parse_yahoo(a) for a in raw or []) if i]
 
 
-def fetch_finnhub(ticker: str, since: datetime, api_key: str) -> list[NewsItem]:
+def fetch_finnhub(ticker: str, since: datetime, api_key: str, until: datetime | None = None) -> list[NewsItem]:
     q = urllib.parse.urlencode({
         "symbol": ticker,
         "from": (since - timedelta(days=1)).date().isoformat(),
-        "to": datetime.now(timezone.utc).date().isoformat(),
+        "to": (until or datetime.now(timezone.utc)).date().isoformat(),
         "token": api_key,
     })
     try:

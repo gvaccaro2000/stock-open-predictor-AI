@@ -84,8 +84,10 @@ def test_structural_causes_are_dropped():
 
     bad = D.analyse(Client("structural"), "m", D.facts_for(first, r.loc[first], info.loc[first].to_dict(), ["Fraud probe"]))
     good = {t: D.analyse(Client("temporary"), "m", "x") for t in r.index[1:]}
+    good[r.index[1]] = D.analyse(Client("unclear"), "m", "x")        # unclear goes after the temporary ones
     payload = D.build(r, info, {}, {first: bad, **good}, {}, datetime(2026, 11, 13, 17, tzinfo=NY), 900, 40)
     tickers = [p["ticker"] for p in payload["picks"]]
     assert first not in tickers and len(tickers) == 7
+    assert tickers[0] == r.index[2] and tickers[-1] == r.index[1]
     assert payload["excluded_lasting_damage"][0]["ticker"] == first
     assert payload["picks"][0]["analysis"]["why_recover"] and payload["picks"][0]["dip"]["drawdown_pct"] == -44.0
