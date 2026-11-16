@@ -1,0 +1,56 @@
+{
+ "updated_at": "2026-11-16T16:37-05:00",
+ "lists": [
+  {
+   "as_of_date": "2026-11-16",
+   "days": 0,
+   "n": 8,
+   "avg_return_pct": -1.6,
+   "spy_return_pct": 0.0,
+   "beat_spy": false,
+   "winners": 3,
+   "picks": [
+    {
+     "ticker": "LVS",
+     "name": "Las Vegas Sands Corp.",
+     "return_pct": -1.41
+    },
+    {
+     "ticker": "CELH",
+     "name": "Celsius Holdings, Inc.",
+     "return_pct": -2.62
+    },
+    {
+     "ticker": "ESAB",
+     "name": "ESAB Corporation",
+     "return_pct": -4.92
+    },
+    {
+     "ticker": "PLNT",
+     "name": "Planet Fitness, Inc.",
+     "return_pct": 0.29
+    },
+    {
+     "ticker": "LKQ",
+     "name": "LKQ Corporation",
+     "return_pct": -1.03
+    },
+    {
+     "ticker": "VC",
+     "name": "Visteon Corporation",
+     "return_pct": -5.3
+    },
+    {
+     "ticker": "PATK",
+     "name": "Patrick Industries, Inc.",
+     "return_pct": 1.31
+    },
+    {
+     "ticker": "CSGP",
+     "name": "CoStar Group, Inc.",
+     "return_pct": 0.9
+    }
+   ]
+  }
+ ]
+}
