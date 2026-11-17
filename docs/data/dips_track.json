@@ -1,54 +1,54 @@
 {
- "updated_at": "2026-11-16T16:37-05:00",
+ "updated_at": "2026-11-16T22:58-05:00",
  "lists": [
   {
    "as_of_date": "2026-11-16",
    "days": 0,
    "n": 8,
-   "avg_return_pct": -1.6,
+   "avg_return_pct": 0.0,
    "spy_return_pct": 0.0,
    "beat_spy": false,
-   "winners": 3,
+   "winners": 0,
    "picks": [
-    {
-     "ticker": "LVS",
-     "name": "Las Vegas Sands Corp.",
-     "return_pct": -1.41
-    },
     {
      "ticker": "CELH",
      "name": "Celsius Holdings, Inc.",
-     "return_pct": -2.62
+     "return_pct": -0.0
+    },
+    {
+     "ticker": "LVS",
+     "name": "Las Vegas Sands Corp.",
+     "return_pct": -0.0
     },
     {
      "ticker": "ESAB",
      "name": "ESAB Corporation",
-     "return_pct": -4.92
-    },
-    {
-     "ticker": "PLNT",
-     "name": "Planet Fitness, Inc.",
-     "return_pct": 0.29
+     "return_pct": 0.0
     },
     {
      "ticker": "LKQ",
      "name": "LKQ Corporation",
-     "return_pct": -1.03
-    },
-    {
-     "ticker": "VC",
-     "name": "Visteon Corporation",
-     "return_pct": -5.3
+     "return_pct": 0.0
     },
     {
      "ticker": "PATK",
      "name": "Patrick Industries, Inc.",
-     "return_pct": 1.31
+     "return_pct": 0.0
     },
     {
-     "ticker": "CSGP",
-     "name": "CoStar Group, Inc.",
-     "return_pct": 0.9
+     "ticker": "DECK",
+     "name": "Deckers Outdoor Corporation",
+     "return_pct": -0.0
+    },
+    {
+     "ticker": "WYNN",
+     "name": "Wynn Resorts, Limited",
+     "return_pct": 0.0
+    },
+    {
+     "ticker": "WING",
+     "name": "Wingstop Inc.",
+     "return_pct": -0.0
     }
    ]
   }

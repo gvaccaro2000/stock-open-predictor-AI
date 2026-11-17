@@ -39,15 +39,15 @@
   },
   {
    "rank": 7,
-   "ticker": "WYNN",
-   "name": "Wynn Resorts, Limited",
-   "price": 82.22
-  },
-  {
-   "rank": 8,
    "ticker": "WING",
    "name": "Wingstop Inc.",
    "price": 151.73
+  },
+  {
+   "rank": 8,
+   "ticker": "GPI",
+   "name": "Group 1 Automotive, Inc.",
+   "price": 260.61
   }
  ]
 }
