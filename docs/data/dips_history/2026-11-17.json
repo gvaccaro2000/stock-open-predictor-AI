@@ -1,0 +1,53 @@
+{
+ "as_of_date": "2026-11-17",
+ "picks": [
+  {
+   "rank": 1,
+   "ticker": "INTU",
+   "name": "Intuit Inc.",
+   "price": 345.56
+  },
+  {
+   "rank": 2,
+   "ticker": "CELH",
+   "name": "Celsius Holdings, Inc.",
+   "price": 31.57
+  },
+  {
+   "rank": 3,
+   "ticker": "LVS",
+   "name": "Las Vegas Sands Corp.",
+   "price": 39.82
+  },
+  {
+   "rank": 4,
+   "ticker": "ESAB",
+   "name": "ESAB Corporation",
+   "price": 79.15
+  },
+  {
+   "rank": 5,
+   "ticker": "LKQ",
+   "name": "LKQ Corporation",
+   "price": 19.27
+  },
+  {
+   "rank": 6,
+   "ticker": "PATK",
+   "name": "Patrick Industries, Inc.",
+   "price": 81.75
+  },
+  {
+   "rank": 7,
+   "ticker": "DECK",
+   "name": "Deckers Outdoor Corporation",
+   "price": 83.46
+  },
+  {
+   "rank": 8,
+   "ticker": "WYNN",
+   "name": "Wynn Resorts, Limited",
+   "price": 82.22
+  }
+ ]
+}
