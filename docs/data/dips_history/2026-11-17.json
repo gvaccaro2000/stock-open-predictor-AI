@@ -3,51 +3,51 @@
  "picks": [
   {
    "rank": 1,
-   "ticker": "INTU",
-   "name": "Intuit Inc.",
-   "price": 345.56
+   "ticker": "ESAB",
+   "name": "ESAB Corporation",
+   "price": 78.96
   },
   {
    "rank": 2,
    "ticker": "CELH",
    "name": "Celsius Holdings, Inc.",
-   "price": 31.57
+   "price": 31.18
   },
   {
    "rank": 3,
    "ticker": "LVS",
    "name": "Las Vegas Sands Corp.",
-   "price": 39.82
+   "price": 39.32
   },
   {
    "rank": 4,
-   "ticker": "ESAB",
-   "name": "ESAB Corporation",
-   "price": 79.15
+   "ticker": "PATK",
+   "name": "Patrick Industries, Inc.",
+   "price": 80.19
   },
   {
    "rank": 5,
-   "ticker": "LKQ",
-   "name": "LKQ Corporation",
-   "price": 19.27
+   "ticker": "PLNT",
+   "name": "Planet Fitness, Inc.",
+   "price": 61.14
   },
   {
    "rank": 6,
-   "ticker": "PATK",
-   "name": "Patrick Industries, Inc.",
-   "price": 81.75
+   "ticker": "RRX",
+   "name": "Regal Rexnord Corporation",
+   "price": 164.94
   },
   {
    "rank": 7,
-   "ticker": "DECK",
-   "name": "Deckers Outdoor Corporation",
-   "price": 83.46
+   "ticker": "MZTI",
+   "name": "The Marzetti Company",
+   "price": 108.37
   },
   {
    "rank": 8,
-   "ticker": "WYNN",
-   "name": "Wynn Resorts, Limited",
-   "price": 82.22
+   "ticker": "GPI",
+   "name": "Group 1 Automotive, Inc.",
+   "price": 258.44
   }
  ]
 }

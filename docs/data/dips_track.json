@@ -1,54 +1,105 @@
 {
- "updated_at": "2026-11-17T04:19-05:00",
+ "updated_at": "2026-11-17T16:36-05:00",
  "lists": [
   {
-   "as_of_date": "2026-11-16",
-   "days": 1,
+   "as_of_date": "2026-11-17",
+   "days": 0,
    "n": 8,
-   "avg_return_pct": 0.0,
+   "avg_return_pct": -2.17,
    "spy_return_pct": 0.0,
    "beat_spy": false,
    "winners": 0,
    "picks": [
     {
+     "ticker": "INTU",
+     "name": "Intuit Inc.",
+     "return_pct": -7.17
+    },
+    {
      "ticker": "CELH",
      "name": "Celsius Holdings, Inc.",
-     "return_pct": -0.0
+     "return_pct": -1.24
     },
     {
      "ticker": "LVS",
      "name": "Las Vegas Sands Corp.",
-     "return_pct": -0.0
+     "return_pct": -1.26
     },
     {
      "ticker": "ESAB",
      "name": "ESAB Corporation",
-     "return_pct": 0.0
+     "return_pct": -0.24
     },
     {
      "ticker": "LKQ",
      "name": "LKQ Corporation",
-     "return_pct": 0.0
+     "return_pct": -2.49
     },
     {
      "ticker": "PATK",
      "name": "Patrick Industries, Inc.",
-     "return_pct": 0.0
+     "return_pct": -1.91
     },
     {
      "ticker": "DECK",
      "name": "Deckers Outdoor Corporation",
-     "return_pct": -0.0
+     "return_pct": -2.37
+    },
+    {
+     "ticker": "WYNN",
+     "name": "Wynn Resorts, Limited",
+     "return_pct": -0.66
+    }
+   ]
+  },
+  {
+   "as_of_date": "2026-11-16",
+   "days": 1,
+   "n": 8,
+   "avg_return_pct": -1.26,
+   "spy_return_pct": -1.01,
+   "beat_spy": false,
+   "winners": 1,
+   "picks": [
+    {
+     "ticker": "CELH",
+     "name": "Celsius Holdings, Inc.",
+     "return_pct": -1.24
+    },
+    {
+     "ticker": "LVS",
+     "name": "Las Vegas Sands Corp.",
+     "return_pct": -1.26
+    },
+    {
+     "ticker": "ESAB",
+     "name": "ESAB Corporation",
+     "return_pct": -0.24
+    },
+    {
+     "ticker": "LKQ",
+     "name": "LKQ Corporation",
+     "return_pct": -2.49
+    },
+    {
+     "ticker": "PATK",
+     "name": "Patrick Industries, Inc.",
+     "return_pct": -1.91
+    },
+    {
+     "ticker": "DECK",
+     "name": "Deckers Outdoor Corporation",
+     "return_pct": -2.37
     },
     {
      "ticker": "WING",
      "name": "Wingstop Inc.",
-     "return_pct": -0.0
+     "return_pct": 0.27
     },
     {
      "ticker": "GPI",
      "name": "Group 1 Automotive, Inc.",
-     "return_pct": -0.0
+     "return_pct": -0.83
     }
    ]
   }
