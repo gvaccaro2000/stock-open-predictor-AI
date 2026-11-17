@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-16T22:58-05:00",
+ "updated_at": "2026-11-16T23:50-05:00",
  "lists": [
   {
    "as_of_date": "2026-11-16",
@@ -41,13 +41,13 @@
      "return_pct": -0.0
     },
     {
-     "ticker": "WYNN",
-     "name": "Wynn Resorts, Limited",
-     "return_pct": 0.0
-    },
-    {
      "ticker": "WING",
      "name": "Wingstop Inc.",
+     "return_pct": -0.0
+    },
+    {
+     "ticker": "GPI",
+     "name": "Group 1 Automotive, Inc.",
      "return_pct": -0.0
     }
    ]
