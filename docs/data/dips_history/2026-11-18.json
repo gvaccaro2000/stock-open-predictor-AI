@@ -1,0 +1,53 @@
+{
+ "as_of_date": "2026-11-18",
+ "picks": [
+  {
+   "rank": 1,
+   "ticker": "CELH",
+   "name": "Celsius Holdings, Inc.",
+   "price": 31.18
+  },
+  {
+   "rank": 2,
+   "ticker": "LVS",
+   "name": "Las Vegas Sands Corp.",
+   "price": 39.32
+  },
+  {
+   "rank": 3,
+   "ticker": "ESAB",
+   "name": "ESAB Corporation",
+   "price": 78.96
+  },
+  {
+   "rank": 4,
+   "ticker": "PATK",
+   "name": "Patrick Industries, Inc.",
+   "price": 80.19
+  },
+  {
+   "rank": 5,
+   "ticker": "PLNT",
+   "name": "Planet Fitness, Inc.",
+   "price": 61.14
+  },
+  {
+   "rank": 6,
+   "ticker": "RRX",
+   "name": "Regal Rexnord Corporation",
+   "price": 164.94
+  },
+  {
+   "rank": 7,
+   "ticker": "MZTI",
+   "name": "The Marzetti Company",
+   "price": 108.37
+  },
+  {
+   "rank": 8,
+   "ticker": "CHRW",
+   "name": "C.H. Robinson Worldwide, Inc.",
+   "price": 137.95
+  }
+ ]
+}

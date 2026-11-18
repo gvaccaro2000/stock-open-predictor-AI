@@ -1,9 +1,9 @@
 {
- "updated_at": "2026-11-17T22:56-05:00",
+ "updated_at": "2026-11-18T03:38-05:00",
  "lists": [
   {
    "as_of_date": "2026-11-17",
-   "days": 0,
+   "days": 1,
    "n": 8,
    "avg_return_pct": 0.0,
    "spy_return_pct": 0.0,
@@ -11,14 +11,14 @@
    "winners": 0,
    "picks": [
     {
-     "ticker": "CELH",
-     "name": "Celsius Holdings, Inc.",
-     "return_pct": 0.0
-    },
-    {
      "ticker": "LVS",
      "name": "Las Vegas Sands Corp.",
      "return_pct": -0.0
+    },
+    {
+     "ticker": "CELH",
+     "name": "Celsius Holdings, Inc.",
+     "return_pct": 0.0
     },
     {
      "ticker": "ESAB",
@@ -31,30 +31,30 @@
      "return_pct": 0.0
     },
     {
+     "ticker": "RRX",
+     "name": "Regal Rexnord Corporation",
+     "return_pct": 0.0
+    },
+    {
      "ticker": "PLNT",
      "name": "Planet Fitness, Inc.",
      "return_pct": -0.0
     },
     {
-     "ticker": "RRX",
-     "name": "Regal Rexnord Corporation",
+     "ticker": "WYNN",
+     "name": "Wynn Resorts, Limited",
      "return_pct": 0.0
     },
     {
      "ticker": "MZTI",
      "name": "The Marzetti Company",
      "return_pct": 0.0
-    },
-    {
-     "ticker": "CHRW",
-     "name": "C.H. Robinson Worldwide, Inc.",
-     "return_pct": -0.0
     }
    ]
   },
   {
    "as_of_date": "2026-11-16",
-   "days": 1,
+   "days": 2,
    "n": 8,
    "avg_return_pct": -1.26,
    "spy_return_pct": -1.01,
