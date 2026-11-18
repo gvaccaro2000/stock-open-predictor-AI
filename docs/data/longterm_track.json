@@ -1,74 +1,74 @@
 {
- "updated_at": "2026-11-18T03:38-05:00",
+ "updated_at": "2026-11-18T16:39-05:00",
  "lists": [
   {
    "as_of_date": "2026-11-16",
    "days": 2,
    "n": 12,
-   "avg_return_pct": -2.37,
-   "spy_return_pct": -1.01,
+   "avg_return_pct": -2.76,
+   "spy_return_pct": -1.32,
    "beat_spy": false,
-   "winners": 0,
+   "winners": 4,
    "picks": [
     {
      "ticker": "MU",
      "name": "Micron Technology, Inc.",
-     "return_pct": -8.47
+     "return_pct": -9.38
     },
     {
      "ticker": "ENVA",
      "name": "Enova International, Inc.",
-     "return_pct": -0.09
+     "return_pct": 0.03
     },
     {
      "ticker": "HALO",
      "name": "Halozyme Therapeutics, Inc.",
-     "return_pct": -4.29
+     "return_pct": -4.46
     },
     {
      "ticker": "CENX",
      "name": "Century Aluminum Company",
-     "return_pct": -3.14
+     "return_pct": -6.7
     },
     {
      "ticker": "PBI",
      "name": "Pitney Bowes Inc.",
-     "return_pct": -3.14
+     "return_pct": -2.63
     },
     {
      "ticker": "LQDA",
      "name": "Liquidia Corporation",
-     "return_pct": -1.18
+     "return_pct": -1.76
     },
     {
      "ticker": "IESC",
      "name": "IES Holdings, Inc.",
-     "return_pct": -1.14
+     "return_pct": -2.48
     },
     {
      "ticker": "BGC",
      "name": "BGC Group, Inc.",
-     "return_pct": 0.0
+     "return_pct": 1.71
     },
     {
      "ticker": "FIX",
      "name": "Comfort Systems USA, Inc.",
-     "return_pct": -1.21
+     "return_pct": 2.52
     },
     {
      "ticker": "JAZZ",
      "name": "Jazz Pharmaceuticals plc",
-     "return_pct": -0.35
+     "return_pct": 2.58
     },
     {
      "ticker": "EQH",
      "name": "Equitable Holdings, Inc.",
-     "return_pct": -3.78
+     "return_pct": -4.88
     },
     {
      "ticker": "NEM",
      "name": "Newmont Corporation",
-     "return_pct": -1.66
+     "return_pct": -7.61
     }
    ]
   },
@@ -76,70 +76,70 @@
    "as_of_date": "2026-11-15",
    "days": 3,
    "n": 12,
-   "avg_return_pct": -1.73,
-   "spy_return_pct": -2.91,
+   "avg_return_pct": -1.59,
+   "spy_return_pct": -3.2,
    "beat_spy": true,
-   "winners": 1,
+   "winners": 6,
    "picks": [
     {
      "ticker": "ENVA",
      "name": "Enova International, Inc.",
-     "return_pct": -0.09
+     "return_pct": 0.03
     },
     {
      "ticker": "HALO",
      "name": "Halozyme Therapeutics, Inc.",
-     "return_pct": -4.29
+     "return_pct": -4.46
     },
     {
      "ticker": "CENX",
      "name": "Century Aluminum Company",
-     "return_pct": -3.14
+     "return_pct": -6.7
     },
     {
      "ticker": "JAZZ",
      "name": "Jazz Pharmaceuticals plc",
-     "return_pct": -0.35
+     "return_pct": 2.58
     },
     {
      "ticker": "BGC",
      "name": "BGC Group, Inc.",
-     "return_pct": 0.0
+     "return_pct": 1.71
     },
     {
      "ticker": "IESC",
      "name": "IES Holdings, Inc.",
-     "return_pct": -1.14
+     "return_pct": -2.48
     },
     {
      "ticker": "FIX",
      "name": "Comfort Systems USA, Inc.",
-     "return_pct": -1.21
+     "return_pct": 2.52
     },
     {
      "ticker": "DAR",
      "name": "Darling Ingredients Inc.",
-     "return_pct": -5.66
+     "return_pct": -7.25
     },
     {
      "ticker": "EQH",
      "name": "Equitable Holdings, Inc.",
-     "return_pct": -3.78
+     "return_pct": -4.88
     },
     {
      "ticker": "HRB",
      "name": "H&R Block, Inc.",
-     "return_pct": -3.88
+     "return_pct": -3.96
     },
     {
      "ticker": "CVSA",
      "name": "Covista Inc.",
-     "return_pct": -1.03
+     "return_pct": 1.39
     },
     {
      "ticker": "CXW",
      "name": "CoreCivic, Inc.",
-     "return_pct": 3.81
+     "return_pct": 2.37
     }
    ]
   },
@@ -147,70 +147,70 @@
    "as_of_date": "2026-11-13",
    "days": 5,
    "n": 12,
-   "avg_return_pct": -2.32,
-   "spy_return_pct": -2.91,
+   "avg_return_pct": -2.17,
+   "spy_return_pct": -3.2,
    "beat_spy": true,
-   "winners": 3,
+   "winners": 6,
    "picks": [
     {
      "ticker": "ENVA",
      "name": "Enova International, Inc.",
-     "return_pct": 1.6
+     "return_pct": 1.73
     },
     {
      "ticker": "HALO",
      "name": "Halozyme Therapeutics, Inc.",
-     "return_pct": -4.67
+     "return_pct": -4.84
     },
     {
      "ticker": "JAZZ",
      "name": "Jazz Pharmaceuticals plc",
-     "return_pct": 0.14
+     "return_pct": 3.08
     },
     {
      "ticker": "BGC",
      "name": "BGC Group, Inc.",
-     "return_pct": -0.36
+     "return_pct": 1.35
     },
     {
      "ticker": "CENX",
      "name": "Century Aluminum Company",
-     "return_pct": -7.18
+     "return_pct": -10.59
     },
     {
      "ticker": "EQH",
      "name": "Equitable Holdings, Inc.",
-     "return_pct": -2.97
+     "return_pct": -4.08
     },
     {
      "ticker": "FIX",
      "name": "Comfort Systems USA, Inc.",
-     "return_pct": -2.58
+     "return_pct": 1.11
     },
     {
      "ticker": "IESC",
      "name": "IES Holdings, Inc.",
-     "return_pct": -3.35
+     "return_pct": -4.66
     },
     {
      "ticker": "DAR",
      "name": "Darling Ingredients Inc.",
-     "return_pct": -4.59
+     "return_pct": -6.2
     },
     {
      "ticker": "HRB",
      "name": "H&R Block, Inc.",
-     "return_pct": -5.24
+     "return_pct": -5.32
     },
     {
      "ticker": "CVSA",
      "name": "Covista Inc.",
-     "return_pct": -1.72
+     "return_pct": 0.68
     },
     {
      "ticker": "CXW",
      "name": "CoreCivic, Inc.",
-     "return_pct": 3.11
+     "return_pct": 1.68
     }
    ]
   }

@@ -5,49 +5,49 @@
    "rank": 1,
    "ticker": "CELH",
    "name": "Celsius Holdings, Inc.",
-   "price": 31.18
+   "price": 32.75
   },
   {
    "rank": 2,
    "ticker": "LVS",
    "name": "Las Vegas Sands Corp.",
-   "price": 39.32
+   "price": 39.27
   },
   {
    "rank": 3,
-   "ticker": "ESAB",
-   "name": "ESAB Corporation",
-   "price": 78.96
+   "ticker": "LKQ",
+   "name": "LKQ Corporation",
+   "price": 19.1
   },
   {
    "rank": 4,
-   "ticker": "PATK",
-   "name": "Patrick Industries, Inc.",
-   "price": 80.19
+   "ticker": "ESAB",
+   "name": "ESAB Corporation",
+   "price": 79.09
   },
   {
    "rank": 5,
-   "ticker": "PLNT",
-   "name": "Planet Fitness, Inc.",
-   "price": 61.14
+   "ticker": "PATK",
+   "name": "Patrick Industries, Inc.",
+   "price": 82.31
   },
   {
    "rank": 6,
-   "ticker": "RRX",
-   "name": "Regal Rexnord Corporation",
-   "price": 164.94
+   "ticker": "DECK",
+   "name": "Deckers Outdoor Corporation",
+   "price": 83.6
   },
   {
    "rank": 7,
    "ticker": "MZTI",
    "name": "The Marzetti Company",
-   "price": 108.37
+   "price": 110.26
   },
   {
    "rank": 8,
-   "ticker": "CHRW",
-   "name": "C.H. Robinson Worldwide, Inc.",
-   "price": 137.95
+   "ticker": "APP",
+   "name": "AppLovin Corporation",
+   "price": 390.91
   }
  ]
 }
