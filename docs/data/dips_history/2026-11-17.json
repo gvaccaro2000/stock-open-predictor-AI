@@ -3,21 +3,21 @@
  "picks": [
   {
    "rank": 1,
-   "ticker": "ESAB",
-   "name": "ESAB Corporation",
-   "price": 78.96
-  },
-  {
-   "rank": 2,
    "ticker": "CELH",
    "name": "Celsius Holdings, Inc.",
    "price": 31.18
   },
   {
-   "rank": 3,
+   "rank": 2,
    "ticker": "LVS",
    "name": "Las Vegas Sands Corp.",
    "price": 39.32
+  },
+  {
+   "rank": 3,
+   "ticker": "ESAB",
+   "name": "ESAB Corporation",
+   "price": 78.96
   },
   {
    "rank": 4,
@@ -45,9 +45,9 @@
   },
   {
    "rank": 8,
-   "ticker": "GPI",
-   "name": "Group 1 Automotive, Inc.",
-   "price": 258.44
+   "ticker": "CHRW",
+   "name": "C.H. Robinson Worldwide, Inc.",
+   "price": 137.95
   }
  ]
 }
