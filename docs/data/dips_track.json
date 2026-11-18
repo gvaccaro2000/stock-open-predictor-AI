@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-17T21:57-05:00",
+ "updated_at": "2026-11-17T22:56-05:00",
  "lists": [
   {
    "as_of_date": "2026-11-17",
@@ -11,11 +11,6 @@
    "winners": 0,
    "picks": [
     {
-     "ticker": "ESAB",
-     "name": "ESAB Corporation",
-     "return_pct": -0.0
-    },
-    {
      "ticker": "CELH",
      "name": "Celsius Holdings, Inc.",
      "return_pct": 0.0
@@ -23,6 +18,11 @@
     {
      "ticker": "LVS",
      "name": "Las Vegas Sands Corp.",
+     "return_pct": -0.0
+    },
+    {
+     "ticker": "ESAB",
+     "name": "ESAB Corporation",
      "return_pct": -0.0
     },
     {
@@ -46,9 +46,9 @@
      "return_pct": 0.0
     },
     {
-     "ticker": "GPI",
-     "name": "Group 1 Automotive, Inc.",
-     "return_pct": 0.0
+     "ticker": "CHRW",
+     "name": "C.H. Robinson Worldwide, Inc.",
+     "return_pct": -0.0
     }
    ]
   },

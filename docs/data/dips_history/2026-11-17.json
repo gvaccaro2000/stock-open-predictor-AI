@@ -3,15 +3,15 @@
  "picks": [
   {
    "rank": 1,
-   "ticker": "CELH",
-   "name": "Celsius Holdings, Inc.",
-   "price": 31.18
-  },
-  {
-   "rank": 2,
    "ticker": "LVS",
    "name": "Las Vegas Sands Corp.",
    "price": 39.32
+  },
+  {
+   "rank": 2,
+   "ticker": "CELH",
+   "name": "Celsius Holdings, Inc.",
+   "price": 31.18
   },
   {
    "rank": 3,
@@ -27,27 +27,27 @@
   },
   {
    "rank": 5,
-   "ticker": "PLNT",
-   "name": "Planet Fitness, Inc.",
-   "price": 61.14
-  },
-  {
-   "rank": 6,
    "ticker": "RRX",
    "name": "Regal Rexnord Corporation",
    "price": 164.94
   },
   {
+   "rank": 6,
+   "ticker": "PLNT",
+   "name": "Planet Fitness, Inc.",
+   "price": 61.14
+  },
+  {
    "rank": 7,
-   "ticker": "MZTI",
-   "name": "The Marzetti Company",
-   "price": 108.37
+   "ticker": "WYNN",
+   "name": "Wynn Resorts, Limited",
+   "price": 81.68
   },
   {
    "rank": 8,
-   "ticker": "CHRW",
-   "name": "C.H. Robinson Worldwide, Inc.",
-   "price": 137.95
+   "ticker": "MZTI",
+   "name": "The Marzetti Company",
+   "price": 108.37
   }
  ]
 }
