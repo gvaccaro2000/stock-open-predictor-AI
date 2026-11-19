@@ -15,15 +15,15 @@
   },
   {
    "rank": 3,
-   "ticker": "LKQ",
-   "name": "LKQ Corporation",
-   "price": 19.1
-  },
-  {
-   "rank": 4,
    "ticker": "ESAB",
    "name": "ESAB Corporation",
    "price": 79.09
+  },
+  {
+   "rank": 4,
+   "ticker": "LKQ",
+   "name": "LKQ Corporation",
+   "price": 19.1
   },
   {
    "rank": 5,

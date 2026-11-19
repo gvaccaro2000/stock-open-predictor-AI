@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-18T21:39-05:00",
+ "updated_at": "2026-11-18T22:54-05:00",
  "lists": [
   {
    "as_of_date": "2026-11-18",
@@ -41,13 +41,13 @@
      "return_pct": -0.0
     },
     {
-     "ticker": "MZTI",
-     "name": "The Marzetti Company",
-     "return_pct": 0.0
+     "ticker": "WYNN",
+     "name": "Wynn Resorts, Limited",
+     "return_pct": -0.0
     },
     {
-     "ticker": "APP",
-     "name": "AppLovin Corporation",
+     "ticker": "MZTI",
+     "name": "The Marzetti Company",
      "return_pct": 0.0
     }
    ]
