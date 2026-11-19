@@ -39,15 +39,15 @@
   },
   {
    "rank": 7,
-   "ticker": "MZTI",
-   "name": "The Marzetti Company",
-   "price": 110.26
+   "ticker": "WYNN",
+   "name": "Wynn Resorts, Limited",
+   "price": 83.2
   },
   {
    "rank": 8,
-   "ticker": "APP",
-   "name": "AppLovin Corporation",
-   "price": 390.91
+   "ticker": "MZTI",
+   "name": "The Marzetti Company",
+   "price": 110.26
   }
  ]
 }
