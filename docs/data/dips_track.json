@@ -1,9 +1,9 @@
 {
- "updated_at": "2026-11-18T22:54-05:00",
+ "updated_at": "2026-11-19T03:53-05:00",
  "lists": [
   {
    "as_of_date": "2026-11-18",
-   "days": 0,
+   "days": 1,
    "n": 8,
    "avg_return_pct": 0.0,
    "spy_return_pct": 0.0,
@@ -21,14 +21,14 @@
      "return_pct": 0.0
     },
     {
-     "ticker": "LKQ",
-     "name": "LKQ Corporation",
-     "return_pct": 0.0
-    },
-    {
      "ticker": "ESAB",
      "name": "ESAB Corporation",
      "return_pct": -0.0
+    },
+    {
+     "ticker": "LKQ",
+     "name": "LKQ Corporation",
+     "return_pct": 0.0
     },
     {
      "ticker": "PATK",
@@ -54,7 +54,7 @@
   },
   {
    "as_of_date": "2026-11-17",
-   "days": 1,
+   "days": 2,
    "n": 8,
    "avg_return_pct": 2.01,
    "spy_return_pct": -0.31,
@@ -105,7 +105,7 @@
   },
   {
    "as_of_date": "2026-11-16",
-   "days": 2,
+   "days": 3,
    "n": 8,
    "avg_return_pct": 0.71,
    "spy_return_pct": -1.32,
