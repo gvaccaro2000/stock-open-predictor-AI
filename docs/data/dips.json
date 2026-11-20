@@ -1,13 +1,13 @@
 {
- "generated_at": "2026-11-19T21:24-05:00",
+ "generated_at": "2026-11-19T22:47-05:00",
  "as_of_date": "2026-11-19",
- "checked": 1476,
+ "checked": 1477,
  "big_drops": 74,
  "passed_checks": 26,
  "excluded_lasting_damage": [
   {
    "ticker": "LQDA",
-   "why_fell": "On 2026-09-30 the shares fell 57.2% in one day after a patent litigation setback against United Therapeutics. Analysts said losing the Yutrepia patent case clouds the drug's path."
+   "why_fell": "On 2026-09-30 the shares fell 57.2% in one day after a patent litigation loss to United Therapeutics. Analysts said losing the Yutrepia patent case clouds the product's path."
   }
  ],
  "criteria": {
@@ -92,15 +92,15 @@
    },
    "analysis": {
     "cause_type": "temporary",
-    "why_fell": "The shares fell 18.5% in one day on 2026-08-06 after headlines about weak core results and an activist push, led by the Rockstar founder, to oust the CEO. Earlier drops followed a Texas child-safety probe and profit-taking.",
-    "why_recover": "The business looks healthy: sales grew 16.8%, the operating margin is 20.6% (sector 11.9%), and debt is modest. S&P lifted its outlook to positive as leverage fell to 1.7x. The 22 analysts lean buy, with an average target of $41.59, about 35% above the price. Next-year EPS is expected to grow 87.8%, and the forward P/E of 18.4 is only a little above the sector's 15.9. A recovery mainly depends on the leadership dispute being settled and core results improving.",
+    "why_fell": "The shares fell 18.5% in one day on 2026-08-06 after headlines about weak core results and an activist push, led by the Rockstar founder, to oust the CEO. Earlier drops followed a Texas child-safety probe and general market weakness.",
+    "why_recover": "The business looks healthy. Sales grew 16.8%, the operating margin is 20.6% against a sector median of 11.9%, and debt is low. S&P lifted its outlook to positive as leverage fell to 1.7x. 22 analysts have a consensus buy and an average target of $41.59, about 35% above the price. The forward P/E of 18.4 is only a little above the sector's 15.9, and next-year EPS is expected to grow 87.8%. A recovery mainly depends on steadier core results and a resolution of the leadership fight.",
     "risks": [
-     "Boardroom fight and possible CEO change could distract management and create uncertainty",
-     "Weak core results may continue; customer concentration is flagged as a risk",
-     "Texas child-safety probe could bring regulatory or reputational costs"
+     "Leadership fight could drag on and distract management from running the business",
+     "Weak core results may continue, and one customer is a large share of sales (concentration risk)",
+     "Texas child-safety probe could bring fines, regulation or brand damage"
     ],
     "conviction": "medium",
-    "one_liner": "Strong margins and growth, hit by weak core results and a CEO fight; fixable but uncertain"
+    "one_liner": "Strong margins and growth, hit by weak results and a CEO fight; recovery needs stability"
    },
    "news": [
     {
@@ -977,15 +977,15 @@
    },
    "analysis": {
     "cause_type": "temporary",
-    "why_fell": "Shares fell after earnings showed sales rising but profit falling, with headlines pointing to pricing not keeping up with costs and squeezed near-term margins. Analysts also trimmed price targets, though most kept Buy ratings.",
-    "why_recover": "Sales grew 13.3% and the operating margin of 14.8% is above the sector's 13.3%. The shares trade at 12.4x forward earnings against a sector median of 18.3x, and analysts expect next-year EPS to rise sharply. The 11 analysts rate it a strong buy with an average target of $116.73, and the shares are already 22.6% above their recent low. Recovery mainly depends on pricing catching up with costs and on the Eddyfi acquisition being integrated smoothly, so that profit growth returns.",
+    "why_fell": "Shares slid after earnings showed sales rising but profit falling, with headlines pointing to pricing not keeping up with costs and squeezing near-term margins. Several analysts also cut price targets, though most kept Buy-type ratings.",
+    "why_recover": "Sales grew 13.3% and the operating margin of 14.8% is above the sector's 13.3%, so the core business looks intact. The shares trade at a forward P/E of 12.4 against a sector median of 18.3, and analysts expect next-year EPS to rise sharply. Eleven analysts rate it a consensus strong buy, with an average target of $116.73, about 51% above the price. A recovery mainly depends on ESAB lifting prices or cutting costs enough to restore profit margins, and on the Eddyfi integration going smoothly.",
     "risks": [
-     "Profit fell 35.6% and cost pressure may last longer than expected, keeping margins squeezed",
+     "Profit fell 35.6% while sales rose, so the margin squeeze from pricing and costs may last longer than hoped",
      "Debt/equity of 95% and the Eddyfi integration add financial and execution risk",
-     "Price targets are being cut, and Evercore's In-Line target of about $100 is far below the highs"
+     "Targets are being cut repeatedly (Evercore to $99, in-line); the 125% EPS rebound forecast may be missed"
     ],
     "conviction": "medium",
-    "one_liner": "Margin squeeze after earnings; cheap vs sector, strong analyst support, but profit must recover"
+    "one_liner": "Sales up but profit squeezed by costs; cheap vs sector, analysts bullish, margins must recover"
    },
    "news": [
     {
@@ -1862,15 +1862,15 @@
    },
    "analysis": {
     "cause_type": "temporary",
-    "why_fell": "Shares fell in steps after earnings misses tied to problems in Europe, including an ERP (software system) disruption. The biggest drop, -22.5% on 2026-10-23, came with another miss, a CEO change and an analyst downgrade.",
-    "why_recover": "The business looks cheap against its sector: forward P/E is 8.1 versus 14.9, and EV/EBITDA is 7.3 versus 11.8. Free-cash-flow yield is 22.3%, and analysts expect next-year EPS to grow 129%. Seven analysts have a consensus buy, with an average target of $23.86 (26.8% above the price). A recovery mostly depends on the new CEO fixing the Europe operations so that earnings and margins rebound.",
+    "why_fell": "Shares fell in steps after earnings misses tied to Europe problems, including an ERP (IT system) disruption in Q2. The biggest drop, -22.5% on 2026-10-23, came with another Q3 miss, a CEO change and an analyst downgrade.",
+    "why_recover": "The core parts distribution business looks intact, and the headlines point to a fixable Europe execution problem rather than lasting damage. The shares trade at a forward P/E of 8.1 against a sector median of 14.9, and the free-cash-flow yield is 22.3%. Analysts expect EPS growth of 129% next year, and the consensus is buy with an average target of $23.86 (26.8% above the price). A recovery mostly depends on the new CEO fixing the Europe operations and on margins moving back toward the sector level.",
     "risks": [
-     "Europe problems could last longer than expected, causing more earnings misses; this is the third big drop this year",
-     "Sales are shrinking (-5.1%) and the operating margin of 6.6% trails the sector's 11.1%",
-     "A new CEO brings uncertainty, and debt/equity of 80% leaves less room for error"
+     "Repeated earnings misses and a CEO change show execution risk. Europe may take longer to fix than expected.",
+     "Sales are down 5.1% and the operating margin of 6.6% is well below the sector's 11.1%.",
+     "The 129% EPS growth forecast is a rebound from a low base and could be cut again. Debt/equity of 80% adds pressure."
     ],
     "conviction": "medium",
-    "one_liner": "Cheap on earnings after Europe stumbles and a CEO change; a recovery depends on fixing Europe"
+    "one_liner": "Europe stumbles and a CEO change hit a cheap parts distributor; fix-it story"
    },
    "news": [
     {
@@ -2747,15 +2747,15 @@
    },
    "analysis": {
     "cause_type": "temporary",
-    "why_fell": "The biggest drop (-14% on 29 Jan) came when Macau operations disappointed. A further 8.6% fall on 23 Apr followed Q1 results that headlines called strong, so that drop looks like profit-taking or worry about growth. Sales are down 3.5% and profit down 22%.",
-    "why_recover": "The business is still profitable, with an operating margin of 22.2% against a sector median of 11.1%. The shares trade at a forward P/E of 12.8 against 14.9 for the sector, and at 8.4x EV/EBITDA against 11.8. Free-cash-flow yield is 8.5%. Analysts expect next-year EPS to grow 25.7%, and 19 of them rate the stock a consensus buy with an average target of $49.15, 25% above the price. A recovery mostly depends on Macau results improving and on the market share gains there not costing too much.",
+    "why_fell": "The biggest drop (-14% on 29 Jan) came when Macau operations disappointed. A further -8.6% fall on 23 Apr followed Q1 results that headlines called strong, so that move isn't clearly explained. Sales are down 3.5% and profit down 22%.",
+    "why_recover": "The business still looks healthy. Its operating margin is 22.2% against a sector figure of 11.1%, and free-cash-flow yield is 8.5%. The shares trade at 12.8x forward earnings against a sector median of 14.9x, and at a lower EV/EBITDA multiple (8.4 vs 11.8). Analysts expect EPS to grow 25.7% next year, and 19 analysts rate it a buy with an average target of $49.15, 25% above the price. A recovery mainly depends on Macau results improving and earnings growth showing up as forecast.",
     "risks": [
-     "Macau operations disappointed, and one headline says market share there is getting more expensive to win",
-     "One headline argues Singapore has little room left to grow, which limits a second growth engine",
-     "Sales and profit are falling, and the current ratio of 0.83 shows thin short-term liquidity"
+     "Macau operations disappointed and market share there is getting more expensive to defend",
+     "One commentator says Singapore has little room left to grow",
+     "Sales and profit are shrinking, and the 25.7% EPS growth forecast may not be met"
     ],
     "conviction": "medium",
-    "one_liner": "Macau wobble hit a high-margin casino operator that now trades below sector valuations"
+    "one_liner": "Macau disappointment hit a high-margin, cheaper-than-sector casino operator; recovery needs growth."
    },
    "news": [
     {
@@ -3632,15 +3632,15 @@
    },
    "analysis": {
     "cause_type": "temporary",
-    "why_fell": "The shares fell mainly in a sector sell-off: on 2026-04-15 RV and boat stocks dropped after BRP suspended guidance over U.S. tariffs. Analysts later trimmed targets (Roth to $140, Truist to $113). Profit growth is -36.6%.",
-    "why_recover": "The drop looks tied to tariff worries and weak RV demand, not to damage to the business. Sales are flat, the current ratio is a healthy 2.51, free-cash-flow yield is 6.1% and EV/EBITDA of 9.6 is below the sector's 11.8. 12 analysts rate it a buy, with an average target of $97.58, about 20% above the price. Expected EPS growth is 30.3%. The dividend was raised and buybacks were replenished. Shareholders approved an all-stock merger with LCI Industries. A recovery mostly needs tariff fears to ease and earnings to rebound as forecast.",
+    "why_fell": "Shares have slid about 43% from the February high. The biggest drop (-10.9% on 15 April) came as RV and boating stocks sold off after BRP suspended guidance over U.S. tariffs. Analysts also trimmed price targets, and profit fell 36.6%.",
+    "why_recover": "Sales are flat, and the business has a healthy current ratio of 2.51 and a 6.1% free-cash-flow yield. It trades at a lower EV/EBITDA (9.6) than the sector (11.8). Analysts expect EPS to grow 30.3% next year, rate it a consensus buy, and see an average target of $97.58, about 20% above the price. The stock is already 28% above its recent low, and the dividend was raised and buybacks replenished. A recovery mainly depends on tariff worries easing, RV demand steadying and the LCI merger going ahead smoothly.",
     "risks": [
-     "Profit fell 36.6% and operating margin of 6.8% is well below the sector's 11.1%.",
-     "Debt/equity of 141% is high, which adds risk if demand stays weak.",
-     "The all-stock LCI merger brings integration risk, and tariffs could keep hurting RV demand."
+     "Tariffs and weak RV and marine demand could keep squeezing profit; margin is 6.8% vs 11.1% for the sector.",
+     "Debt is high (debt/equity 141%), which adds risk if earnings stay weak.",
+     "The all-stock merger with LCI brings integration risk, and Patrick holders' value depends on LCI's share price."
     ],
     "conviction": "medium",
-    "one_liner": "Tariff-driven RV sector sell-off; cheap on cash flow, but margins and debt are weak."
+    "one_liner": "Tariff-driven RV sell-off; cheaper than sector on EV/EBITDA, but debt and merger risks remain."
    },
    "news": [
     {
@@ -4517,15 +4517,15 @@
    },
    "analysis": {
     "cause_type": "temporary",
-    "why_fell": "The shares fell 31.2% in one day on 2026-05-07 after earnings, with analysts citing member growth and marketing headwinds. Further falls in August and September followed worries about a second-half slowdown, pricing and cheaper competitors.",
-    "why_recover": "The business still looks healthy: sales are growing 6.2% and the operating margin is 31.8% against a sector level of 11.1%. The shares are already 54.5% above their recent low of $40.50. Analysts expect next-year EPS to grow 26.3%. Sixteen analysts rate it a consensus buy, with an average target of $70.64, and UBS raised its target to $83. A recovery mainly depends on member growth picking up again and the marketing and pricing changes working without hurting margins.",
+    "why_fell": "The big drop came on 2026-05-07 (-31.2%) after earnings, with analyst downgrades and worries about slowing member growth and marketing. Later falls of about 9.5% each (August, September) cited second-half slowdown, pricing uncertainty and cheaper competitors.",
+    "why_recover": "The business still looks healthy: sales grew 6.2%, operating margin is 31.8% (sector 11.1%), and EPS is expected to grow 26.3% next year. The shares are already up 54.5% from the $40.50 low, and some analysts are turning more positive (UBS target $83, TD Cowen raised its target to $61). The 16 analysts rate it a consensus buy, with an average target of $70.64, about 16% above the price. Valuation is only slightly above the sector (forward P/E 16.4 vs 14.9). Recovery depends on member growth stabilising and the marketing and pricing changes working.",
     "risks": [
-     "Analysts flag a second-half slowdown, pricing uncertainty and weaker member growth",
-     "Low-price, high-volume rivals could limit growth, according to Deutsche Bank",
-     "Valuation (forward P/E 16.4) is above the sector's 14.9, leaving little room for disappointment"
+     "Pricing tests and marketing reset could fail to restore member growth; profit growth is currently -0.5%.",
+     "Low-price, high-volume rivals (Deutsche Bank) may pressure growth and pricing power.",
+     "Shares have already rebounded 54.5% from the low, leaving less room, and valuation is above the sector."
     ],
     "conviction": "medium",
-    "one_liner": "Gym franchisor down 44% on growth worries; strong margins and a rebound off lows"
+    "one_liner": "Sharp fall on member-growth worries; strong margins and a rebound under way, but fixes unproven."
    },
    "news": [
     {
@@ -5402,15 +5402,15 @@
    },
    "analysis": {
     "cause_type": "temporary",
-    "why_fell": "Shares slid from the June high after sharp falls in late June (no clear reason in the headlines). They fell again after Q3 results, when warranty charges and cost inflation outweighed strong product launches. The CFO's planned exit added pressure.",
-    "why_recover": "The Q3 problems (a warranty charge and cost inflation) look fixable, and the headlines cite strong product launches. The shares trade at 8.2x forward earnings against a sector median of 14.9, and analysts expect next-year EPS to grow 171%. Ten analysts rate it a consensus buy with an average target of $109.90, about 35% above the price. A recovery mainly needs clean quarters without more warranty charges and with margins improving from the current 5.5%.",
+    "why_fell": "Shares slid from a June high after sharp falls in late June (no clear cause in headlines) and again on 23 Oct when Q3 results were hit by warranty charges and cost inflation. The CFO's planned exit to Goodyear added pressure.",
+    "why_recover": "Q3 was dragged by warranty charges and cost inflation, yet headlines say product launches were strong, so the core business looks intact. The shares trade at 8.2x expected earnings versus a sector median of 14.9, and EPS is expected to grow 171% next year. Ten analysts rate it a consensus buy, with an average target of $109.90, about 35% above the price. A recovery mainly needs warranty costs to fade and margins to improve from today's 5.5%.",
     "risks": [
-     "Operating margin of 5.5% is half the sector's 11.1%, and cost inflation could keep squeezing it",
-     "More warranty charges would show the Q3 hit was not a one-off",
-     "CFO departure creates leadership uncertainty; free-cash-flow yield is only 1.8%"
+     "Operating margin of 5.5% is half the sector's 11.1%; cost inflation could keep squeezing profits",
+     "More warranty charges would undermine the 'one-off' case",
+     "CFO departure creates leadership uncertainty; the late-June drops are unexplained"
     ],
     "conviction": "medium",
-    "one_liner": "Warranty hit and CFO exit hurt, but cheap at 8x earnings with analysts targeting about $110"
+    "one_liner": "Warranty hit and CFO exit hurt shares; cheap at 8x earnings, but margins must recover"
    },
    "news": [
     {
@@ -6287,15 +6287,15 @@
    },
    "analysis": {
     "cause_type": "temporary",
-    "why_fell": "The shares fell in sharp steps during market-wide tech sell-offs tied to AI disruption fears, a Fed policy pause and a rate-chief nomination. Analysts also trimmed price targets after the August drop. The business itself kept growing.",
-    "why_recover": "The business looks healthy: sales grew 55.5%, profit grew 75.5%, and the operating margin is 77.8% against a sector figure of 18.1%. The shares have already bounced 71% from their recent low. 30 analysts rate it a consensus buy, with an average target of $455.61, about 20% above the price. Next-year EPS is expected to grow 40.5%, and the forward P/E of 18.2 is only modestly above the sector's 12.8. A recovery mainly depends on growth staying strong while the AI-disruption worries fade.",
+    "why_fell": "The shares fell in sharp steps during a tech sell-off driven by AI-disruption fears, rate worries and a Google \"Project Genie\" scare. Another 19.7% drop came in August with analysts cutting price targets, even though growth and profit beat expectations.",
+    "why_recover": "The business looks healthy: sales grew 55.5%, profit grew 75.5%, and the operating margin is 77.8% against a sector figure of 18.1%. The shares have already bounced 71% from their recent low. Analysts are strongly positive (30 covering, consensus buy, average target $455.61, about 20% above the price), and next-year EPS is expected to grow 40.5%. The valuation is only modestly above the sector (forward P/E 18.2 vs 12.8). Recovery mainly depends on growth staying strong and the AI-disruption worries fading.",
     "risks": [
-     "Valuation is above the sector on forward P/E (18.2 vs 12.8) and EV/EBITDA (20.8 vs 12.2), leaving less room for error.",
-     "Competition, including new AI products from big tech, could slow ad growth; one headline notes competitive risks remain.",
-     "Debt/equity of 107% and very large one-day falls (about -20%) show the shares are volatile."
+     "Competition from big players and AI-related disruption fears could keep investors nervous, as one headline notes",
+     "Debt/equity of 107% and a 3.0% free-cash-flow yield leave less room for error",
+     "Volatile: three one-day falls of 17-20% show how quickly sentiment can swing, and analysts have been cutting targets"
     ],
     "conviction": "medium",
-    "one_liner": "Growth and margins remain strong; the drop looks like sector fear and price-target cuts."
+    "one_liner": "Sell-off on AI fears despite 55% sales growth and huge margins; sharp rebound already under way"
    },
    "news": [
     {
