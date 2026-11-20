@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-11-19T22:47-05:00",
+ "updated_at": "2026-11-20T03:40-05:00",
  "lists": [
   {
    "as_of_date": "2026-11-16",
-   "days": 3,
+   "days": 4,
    "n": 12,
-   "avg_return_pct": -4.73,
+   "avg_return_pct": -5.09,
    "spy_return_pct": -3.25,
    "beat_spy": false,
-   "winners": 3,
+   "winners": 2,
    "picks": [
     {
      "ticker": "MU",
@@ -18,7 +18,7 @@
     {
      "ticker": "ENVA",
      "name": "Enova International, Inc.",
-     "return_pct": 0.03
+     "return_pct": -2.04
     },
     {
      "ticker": "HALO",
@@ -38,7 +38,7 @@
     {
      "ticker": "LQDA",
      "name": "Liquidia Corporation",
-     "return_pct": -1.76
+     "return_pct": -1.36
     },
     {
      "ticker": "IESC",
@@ -63,7 +63,7 @@
     {
      "ticker": "EQH",
      "name": "Equitable Holdings, Inc.",
-     "return_pct": -4.88
+     "return_pct": -7.59
     },
     {
      "ticker": "NEM",
@@ -74,17 +74,17 @@
   },
   {
    "as_of_date": "2026-11-15",
-   "days": 4,
+   "days": 5,
    "n": 12,
-   "avg_return_pct": -3.6,
+   "avg_return_pct": -4.0,
    "spy_return_pct": -5.1,
    "beat_spy": true,
-   "winners": 3,
+   "winners": 2,
    "picks": [
     {
      "ticker": "ENVA",
      "name": "Enova International, Inc.",
-     "return_pct": 0.03
+     "return_pct": -2.04
     },
     {
      "ticker": "HALO",
@@ -124,7 +124,7 @@
     {
      "ticker": "EQH",
      "name": "Equitable Holdings, Inc.",
-     "return_pct": -4.88
+     "return_pct": -7.59
     },
     {
      "ticker": "HRB",
@@ -145,17 +145,17 @@
   },
   {
    "as_of_date": "2026-11-13",
-   "days": 6,
+   "days": 7,
    "n": 12,
-   "avg_return_pct": -4.16,
+   "avg_return_pct": -4.56,
    "spy_return_pct": -5.1,
    "beat_spy": true,
-   "winners": 1,
+   "winners": 0,
    "picks": [
     {
      "ticker": "ENVA",
      "name": "Enova International, Inc.",
-     "return_pct": 1.73
+     "return_pct": -0.37
     },
     {
      "ticker": "HALO",
@@ -180,7 +180,7 @@
     {
      "ticker": "EQH",
      "name": "Equitable Holdings, Inc.",
-     "return_pct": -4.08
+     "return_pct": -6.81
     },
     {
      "ticker": "FIX",

@@ -1,11 +1,11 @@
 {
- "updated_at": "2026-11-19T22:47-05:00",
+ "updated_at": "2026-11-20T03:40-05:00",
  "lists": [
   {
    "as_of_date": "2026-11-19",
-   "days": 0,
+   "days": 1,
    "n": 8,
-   "avg_return_pct": 0.0,
+   "avg_return_pct": -0.98,
    "spy_return_pct": 0.0,
    "beat_spy": false,
    "winners": 0,
@@ -18,7 +18,7 @@
     {
      "ticker": "ESAB",
      "name": "ESAB Corporation",
-     "return_pct": -0.0
+     "return_pct": -2.31
     },
     {
      "ticker": "LKQ",
@@ -38,7 +38,7 @@
     {
      "ticker": "PLNT",
      "name": "Planet Fitness, Inc.",
-     "return_pct": 0.0
+     "return_pct": -2.49
     },
     {
      "ticker": "VC",
@@ -48,15 +48,15 @@
     {
      "ticker": "APP",
      "name": "AppLovin Corporation",
-     "return_pct": 0.0
+     "return_pct": -3.04
     }
    ]
   },
   {
    "as_of_date": "2026-11-18",
-   "days": 1,
+   "days": 2,
    "n": 8,
-   "avg_return_pct": -2.49,
+   "avg_return_pct": -2.78,
    "spy_return_pct": -1.96,
    "beat_spy": false,
    "winners": 1,
@@ -74,7 +74,7 @@
     {
      "ticker": "ESAB",
      "name": "ESAB Corporation",
-     "return_pct": -0.0
+     "return_pct": -2.31
     },
     {
      "ticker": "LKQ",
@@ -105,12 +105,12 @@
   },
   {
    "as_of_date": "2026-11-17",
-   "days": 2,
+   "days": 3,
    "n": 8,
-   "avg_return_pct": -0.05,
+   "avg_return_pct": -0.66,
    "spy_return_pct": -2.26,
    "beat_spy": true,
-   "winners": 5,
+   "winners": 3,
    "picks": [
     {
      "ticker": "LVS",
@@ -125,7 +125,7 @@
     {
      "ticker": "ESAB",
      "name": "ESAB Corporation",
-     "return_pct": 0.16
+     "return_pct": -2.15
     },
     {
      "ticker": "PATK",
@@ -140,7 +140,7 @@
     {
      "ticker": "PLNT",
      "name": "Planet Fitness, Inc.",
-     "return_pct": 2.32
+     "return_pct": -0.23
     },
     {
      "ticker": "WYNN",
@@ -156,12 +156,12 @@
   },
   {
    "as_of_date": "2026-11-16",
-   "days": 3,
+   "days": 4,
    "n": 8,
-   "avg_return_pct": -1.31,
+   "avg_return_pct": -1.96,
    "spy_return_pct": -3.25,
    "beat_spy": true,
-   "winners": 1,
+   "winners": 0,
    "picks": [
     {
      "ticker": "CELH",
@@ -176,7 +176,7 @@
     {
      "ticker": "ESAB",
      "name": "ESAB Corporation",
-     "return_pct": -0.08
+     "return_pct": -2.39
     },
     {
      "ticker": "LKQ",
@@ -196,7 +196,7 @@
     {
      "ticker": "WING",
      "name": "Wingstop Inc.",
-     "return_pct": 2.68
+     "return_pct": -0.24
     },
     {
      "ticker": "GPI",
