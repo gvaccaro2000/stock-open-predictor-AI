@@ -1,4 +1,53 @@
 {
  "as_of_date": "2026-11-19",
- "picks": []
+ "picks": [
+  {
+   "rank": 1,
+   "ticker": "CELH",
+   "name": "Celsius Holdings, Inc.",
+   "price": 30.72
+  },
+  {
+   "rank": 2,
+   "ticker": "ESAB",
+   "name": "ESAB Corporation",
+   "price": 79.09
+  },
+  {
+   "rank": 3,
+   "ticker": "LKQ",
+   "name": "LKQ Corporation",
+   "price": 18.81
+  },
+  {
+   "rank": 4,
+   "ticker": "LVS",
+   "name": "Las Vegas Sands Corp.",
+   "price": 39.33
+  },
+  {
+   "rank": 5,
+   "ticker": "PATK",
+   "name": "Patrick Industries, Inc.",
+   "price": 81.15
+  },
+  {
+   "rank": 6,
+   "ticker": "PLNT",
+   "name": "Planet Fitness, Inc.",
+   "price": 62.56
+  },
+  {
+   "rank": 7,
+   "ticker": "VC",
+   "name": "Visteon Corporation",
+   "price": 81.3
+  },
+  {
+   "rank": 8,
+   "ticker": "APP",
+   "name": "AppLovin Corporation",
+   "price": 390.91
+  }
+ ]
 }

@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-11-19T16:39-05:00",
+ "updated_at": "2026-11-19T21:24-05:00",
  "lists": [
   {
    "as_of_date": "2026-11-16",
    "days": 3,
    "n": 12,
-   "avg_return_pct": -5.09,
+   "avg_return_pct": -4.73,
    "spy_return_pct": -3.25,
    "beat_spy": false,
-   "winners": 2,
+   "winners": 3,
    "picks": [
     {
      "ticker": "MU",
@@ -18,7 +18,7 @@
     {
      "ticker": "ENVA",
      "name": "Enova International, Inc.",
-     "return_pct": -2.04
+     "return_pct": 0.03
     },
     {
      "ticker": "HALO",
@@ -38,7 +38,7 @@
     {
      "ticker": "LQDA",
      "name": "Liquidia Corporation",
-     "return_pct": -1.36
+     "return_pct": -1.76
     },
     {
      "ticker": "IESC",
@@ -63,7 +63,7 @@
     {
      "ticker": "EQH",
      "name": "Equitable Holdings, Inc.",
-     "return_pct": -7.59
+     "return_pct": -4.88
     },
     {
      "ticker": "NEM",
@@ -76,15 +76,15 @@
    "as_of_date": "2026-11-15",
    "days": 4,
    "n": 12,
-   "avg_return_pct": -4.0,
+   "avg_return_pct": -3.6,
    "spy_return_pct": -5.1,
    "beat_spy": true,
-   "winners": 2,
+   "winners": 3,
    "picks": [
     {
      "ticker": "ENVA",
      "name": "Enova International, Inc.",
-     "return_pct": -2.04
+     "return_pct": 0.03
     },
     {
      "ticker": "HALO",
@@ -124,7 +124,7 @@
     {
      "ticker": "EQH",
      "name": "Equitable Holdings, Inc.",
-     "return_pct": -7.59
+     "return_pct": -4.88
     },
     {
      "ticker": "HRB",
@@ -147,15 +147,15 @@
    "as_of_date": "2026-11-13",
    "days": 6,
    "n": 12,
-   "avg_return_pct": -4.56,
+   "avg_return_pct": -4.16,
    "spy_return_pct": -5.1,
    "beat_spy": true,
-   "winners": 0,
+   "winners": 1,
    "picks": [
     {
      "ticker": "ENVA",
      "name": "Enova International, Inc.",
-     "return_pct": -0.37
+     "return_pct": 1.73
     },
     {
      "ticker": "HALO",
@@ -180,7 +180,7 @@
     {
      "ticker": "EQH",
      "name": "Equitable Holdings, Inc.",
-     "return_pct": -6.81
+     "return_pct": -4.08
     },
     {
      "ticker": "FIX",
