@@ -1,54 +1,54 @@
 {
- "updated_at": "2026-11-20T21:27-05:00",
+ "updated_at": "2026-11-20T22:38-05:00",
  "lists": [
   {
    "as_of_date": "2026-11-20",
    "days": 0,
    "n": 8,
-   "avg_return_pct": 2.55,
+   "avg_return_pct": -5.38,
    "spy_return_pct": 0.0,
-   "beat_spy": true,
-   "winners": 6,
+   "beat_spy": false,
+   "winners": 0,
    "picks": [
     {
-     "ticker": "APP",
-     "name": "AppLovin Corporation",
-     "return_pct": 8.82
+     "ticker": "CELH",
+     "name": "Celsius Holdings, Inc.",
+     "return_pct": -7.36
+    },
+    {
+     "ticker": "ESAB",
+     "name": "ESAB Corporation",
+     "return_pct": -3.26
     },
     {
      "ticker": "LVS",
      "name": "Las Vegas Sands Corp.",
-     "return_pct": 1.24
+     "return_pct": -1.22
+    },
+    {
+     "ticker": "APP",
+     "name": "AppLovin Corporation",
+     "return_pct": -8.11
     },
     {
      "ticker": "PLNT",
      "name": "Planet Fitness, Inc.",
-     "return_pct": 3.55
+     "return_pct": -3.43
+    },
+    {
+     "ticker": "ONTO",
+     "name": "Onto Innovation Inc.",
+     "return_pct": -13.15
     },
     {
      "ticker": "PATK",
      "name": "Patrick Industries, Inc.",
-     "return_pct": 0.72
+     "return_pct": -0.71
     },
     {
-     "ticker": "WING",
-     "name": "Wingstop Inc.",
-     "return_pct": -0.11
-    },
-    {
-     "ticker": "UFPI",
-     "name": "UFP Industries, Inc.",
-     "return_pct": -0.37
-    },
-    {
-     "ticker": "PSN",
-     "name": "Parsons Corporation",
-     "return_pct": 3.8
-    },
-    {
-     "ticker": "BOOT",
-     "name": "Boot Barn Holdings, Inc.",
-     "return_pct": 2.78
+     "ticker": "GNRC",
+     "name": "Generac Holdings Inc.",
+     "return_pct": -5.79
     }
    ]
   },
@@ -56,50 +56,50 @@
    "as_of_date": "2026-11-19",
    "days": 1,
    "n": 8,
-   "avg_return_pct": -0.98,
-   "spy_return_pct": 0.0,
+   "avg_return_pct": -4.33,
+   "spy_return_pct": -3.64,
    "beat_spy": false,
    "winners": 0,
    "picks": [
     {
      "ticker": "CELH",
      "name": "Celsius Holdings, Inc.",
-     "return_pct": -0.0
+     "return_pct": -7.36
     },
     {
      "ticker": "ESAB",
      "name": "ESAB Corporation",
-     "return_pct": -2.31
+     "return_pct": -5.5
     },
     {
      "ticker": "LKQ",
      "name": "LKQ Corporation",
-     "return_pct": -0.0
+     "return_pct": -1.59
     },
     {
      "ticker": "LVS",
      "name": "Las Vegas Sands Corp.",
-     "return_pct": 0.0
+     "return_pct": -1.22
     },
     {
      "ticker": "PATK",
      "name": "Patrick Industries, Inc.",
-     "return_pct": 0.0
+     "return_pct": -0.71
     },
     {
      "ticker": "PLNT",
      "name": "Planet Fitness, Inc.",
-     "return_pct": -2.49
+     "return_pct": -5.83
     },
     {
      "ticker": "VC",
      "name": "Visteon Corporation",
-     "return_pct": 0.0
+     "return_pct": -1.54
     },
     {
      "ticker": "APP",
      "name": "AppLovin Corporation",
-     "return_pct": -3.04
+     "return_pct": -10.9
     }
    ]
   },
@@ -107,50 +107,50 @@
    "as_of_date": "2026-11-18",
    "days": 2,
    "n": 8,
-   "avg_return_pct": -2.78,
-   "spy_return_pct": -1.96,
-   "beat_spy": false,
-   "winners": 1,
+   "avg_return_pct": -4.98,
+   "spy_return_pct": -5.53,
+   "beat_spy": true,
+   "winners": 0,
    "picks": [
     {
      "ticker": "CELH",
      "name": "Celsius Holdings, Inc.",
-     "return_pct": -6.2
+     "return_pct": -13.1
     },
     {
      "ticker": "LVS",
      "name": "Las Vegas Sands Corp.",
-     "return_pct": 0.15
+     "return_pct": -1.07
     },
     {
      "ticker": "ESAB",
      "name": "ESAB Corporation",
-     "return_pct": -2.31
+     "return_pct": -5.5
     },
     {
      "ticker": "LKQ",
      "name": "LKQ Corporation",
-     "return_pct": -1.52
+     "return_pct": -3.09
     },
     {
      "ticker": "PATK",
      "name": "Patrick Industries, Inc.",
-     "return_pct": -1.41
+     "return_pct": -2.11
     },
     {
      "ticker": "DECK",
      "name": "Deckers Outdoor Corporation",
-     "return_pct": -5.56
+     "return_pct": -6.77
     },
     {
      "ticker": "WYNN",
      "name": "Wynn Resorts, Limited",
-     "return_pct": -1.32
+     "return_pct": -3.37
     },
     {
      "ticker": "MZTI",
      "name": "The Marzetti Company",
-     "return_pct": -4.08
+     "return_pct": -4.86
     }
    ]
   },
@@ -158,50 +158,50 @@
    "as_of_date": "2026-11-17",
    "days": 3,
    "n": 8,
-   "avg_return_pct": -0.66,
-   "spy_return_pct": -2.26,
+   "avg_return_pct": -3.85,
+   "spy_return_pct": -5.82,
    "beat_spy": true,
-   "winners": 3,
+   "winners": 1,
    "picks": [
     {
      "ticker": "LVS",
      "name": "Las Vegas Sands Corp.",
-     "return_pct": 0.03
+     "return_pct": -1.2
     },
     {
      "ticker": "CELH",
      "name": "Celsius Holdings, Inc.",
-     "return_pct": -1.48
+     "return_pct": -8.72
     },
     {
      "ticker": "ESAB",
      "name": "ESAB Corporation",
-     "return_pct": -2.15
+     "return_pct": -5.34
     },
     {
      "ticker": "PATK",
      "name": "Patrick Industries, Inc.",
-     "return_pct": 1.2
+     "return_pct": 0.47
     },
     {
      "ticker": "RRX",
      "name": "Regal Rexnord Corporation",
-     "return_pct": -0.71
+     "return_pct": -7.63
     },
     {
      "ticker": "PLNT",
      "name": "Planet Fitness, Inc.",
-     "return_pct": -0.23
+     "return_pct": -3.65
     },
     {
      "ticker": "WYNN",
      "name": "Wynn Resorts, Limited",
-     "return_pct": 0.51
+     "return_pct": -1.57
     },
     {
      "ticker": "MZTI",
      "name": "The Marzetti Company",
-     "return_pct": -2.41
+     "return_pct": -3.2
     }
    ]
   },
@@ -209,50 +209,50 @@
    "as_of_date": "2026-11-16",
    "days": 4,
    "n": 8,
-   "avg_return_pct": -1.96,
-   "spy_return_pct": -3.25,
+   "avg_return_pct": -4.01,
+   "spy_return_pct": -6.78,
    "beat_spy": true,
    "winners": 0,
    "picks": [
     {
      "ticker": "CELH",
      "name": "Celsius Holdings, Inc.",
-     "return_pct": -2.69
+     "return_pct": -9.85
     },
     {
      "ticker": "LVS",
      "name": "Las Vegas Sands Corp.",
-     "return_pct": -1.23
+     "return_pct": -2.44
     },
     {
      "ticker": "ESAB",
      "name": "ESAB Corporation",
-     "return_pct": -2.39
+     "return_pct": -5.57
     },
     {
      "ticker": "LKQ",
      "name": "LKQ Corporation",
-     "return_pct": -2.39
+     "return_pct": -3.94
     },
     {
      "ticker": "PATK",
      "name": "Patrick Industries, Inc.",
-     "return_pct": -0.73
+     "return_pct": -1.44
     },
     {
      "ticker": "DECK",
      "name": "Deckers Outdoor Corporation",
-     "return_pct": -5.4
+     "return_pct": -6.61
     },
     {
      "ticker": "WING",
      "name": "Wingstop Inc.",
-     "return_pct": -0.24
+     "return_pct": -0.13
     },
     {
      "ticker": "GPI",
      "name": "Group 1 Automotive, Inc.",
-     "return_pct": -0.61
+     "return_pct": -2.13
     }
    ]
   }
