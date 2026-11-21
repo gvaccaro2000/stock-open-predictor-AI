@@ -1,0 +1,53 @@
+{
+ "as_of_date": "2026-11-21",
+ "picks": [
+  {
+   "rank": 1,
+   "ticker": "APP",
+   "name": "AppLovin Corporation",
+   "price": 348.29
+  },
+  {
+   "rank": 2,
+   "ticker": "LVS",
+   "name": "Las Vegas Sands Corp.",
+   "price": 38.85
+  },
+  {
+   "rank": 3,
+   "ticker": "PLNT",
+   "name": "Planet Fitness, Inc.",
+   "price": 58.91
+  },
+  {
+   "rank": 4,
+   "ticker": "PATK",
+   "name": "Patrick Industries, Inc.",
+   "price": 80.57
+  },
+  {
+   "rank": 5,
+   "ticker": "GNRC",
+   "name": "Generac Holdings Inc.",
+   "price": 193.22
+  },
+  {
+   "rank": 6,
+   "ticker": "WING",
+   "name": "Wingstop Inc.",
+   "price": 151.53
+  },
+  {
+   "rank": 7,
+   "ticker": "UFPI",
+   "name": "UFP Industries, Inc.",
+   "price": 79.18
+  },
+  {
+   "rank": 8,
+   "ticker": "PSN",
+   "name": "Parsons Corporation",
+   "price": 50.05
+  }
+ ]
+}

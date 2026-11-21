@@ -1,9 +1,9 @@
 {
- "updated_at": "2026-11-20T22:38-05:00",
+ "updated_at": "2026-11-21T03:22-05:00",
  "lists": [
   {
    "as_of_date": "2026-11-16",
-   "days": 4,
+   "days": 5,
    "n": 12,
    "avg_return_pct": -9.29,
    "spy_return_pct": -6.78,
@@ -74,7 +74,7 @@
   },
   {
    "as_of_date": "2026-11-15",
-   "days": 5,
+   "days": 6,
    "n": 12,
    "avg_return_pct": -7.47,
    "spy_return_pct": -8.56,
@@ -145,7 +145,7 @@
   },
   {
    "as_of_date": "2026-11-13",
-   "days": 7,
+   "days": 8,
    "n": 12,
    "avg_return_pct": -7.99,
    "spy_return_pct": -8.56,
