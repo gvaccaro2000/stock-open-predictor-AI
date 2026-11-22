@@ -1,0 +1,77 @@
+{
+ "as_of_date": "2026-11-22",
+ "picks": [
+  {
+   "rank": 1,
+   "ticker": "HALO",
+   "name": "Halozyme Therapeutics, Inc.",
+   "price": 91.35
+  },
+  {
+   "rank": 2,
+   "ticker": "ENVA",
+   "name": "Enova International, Inc.",
+   "price": 163.82
+  },
+  {
+   "rank": 3,
+   "ticker": "BGC",
+   "name": "BGC Group, Inc.",
+   "price": 10.96
+  },
+  {
+   "rank": 4,
+   "ticker": "DAR",
+   "name": "Darling Ingredients Inc.",
+   "price": 50.62
+  },
+  {
+   "rank": 5,
+   "ticker": "EQH",
+   "name": "Equitable Holdings, Inc.",
+   "price": 50.32
+  },
+  {
+   "rank": 6,
+   "ticker": "CENX",
+   "name": "Century Aluminum Company",
+   "price": 28.32
+  },
+  {
+   "rank": 7,
+   "ticker": "CVSA",
+   "name": "Covista Inc.",
+   "price": 109.13
+  },
+  {
+   "rank": 8,
+   "ticker": "HRB",
+   "name": "H&R Block, Inc.",
+   "price": 46.01
+  },
+  {
+   "rank": 9,
+   "ticker": "FIX",
+   "name": "Comfort Systems USA, Inc.",
+   "price": 1042.47
+  },
+  {
+   "rank": 10,
+   "ticker": "ETSY",
+   "name": "Etsy, Inc.",
+   "price": 76.52
+  },
+  {
+   "rank": 11,
+   "ticker": "JAZZ",
+   "name": "Jazz Pharmaceuticals plc",
+   "price": 230.26
+  },
+  {
+   "rank": 12,
+   "ticker": "IESC",
+   "name": "IES Holdings, Inc.",
+   "price": 156.06
+  }
+ ]
+}

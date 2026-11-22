@@ -1,82 +1,82 @@
 {
- "as_of_date": "2026-11-16",
+ "as_of_date": "2026-11-22",
  "sectors": {
   "Basic Materials": {
-   "forward_pe": 15.67,
-   "ev_ebitda": 10.84,
-   "op_margin": 13.62,
-   "roe": 12.18,
-   "rev_growth": 9.6
+   "forward_pe": 11.75,
+   "ev_ebitda": 8.75,
+   "op_margin": 14.39,
+   "roe": 10.28,
+   "rev_growth": 11.9
   },
   "Communication Services": {
-   "forward_pe": 12.82,
-   "ev_ebitda": 12.25,
-   "op_margin": 18.09,
-   "roe": 16.57,
-   "rev_growth": 9.45
+   "forward_pe": 11.79,
+   "ev_ebitda": 10.29,
+   "op_margin": 22.3,
+   "roe": 31.74,
+   "rev_growth": 15.5
   },
   "Consumer Cyclical": {
-   "forward_pe": 14.94,
-   "ev_ebitda": 11.8,
-   "op_margin": 11.05,
-   "roe": 18.61,
-   "rev_growth": 4.7
+   "forward_pe": 13.13,
+   "ev_ebitda": 10.95,
+   "op_margin": 11.73,
+   "roe": 19.43,
+   "rev_growth": 4.8
   },
   "Consumer Defensive": {
-   "forward_pe": 15.92,
-   "ev_ebitda": 12.51,
+   "forward_pe": 17.02,
+   "ev_ebitda": 12.98,
    "op_margin": 11.86,
    "roe": 16.22,
-   "rev_growth": 4.6
+   "rev_growth": 5.4
   },
   "Energy": {
-   "forward_pe": 12.49,
-   "ev_ebitda": 6.86,
-   "op_margin": 19.1,
-   "roe": 15.04,
-   "rev_growth": 24.65
+   "forward_pe": 10.45,
+   "ev_ebitda": 5.68,
+   "op_margin": 24.61,
+   "roe": 16.25,
+   "rev_growth": 15.8
   },
   "Financial Services": {
-   "forward_pe": 10.78,
-   "ev_ebitda": 11.63,
-   "op_margin": 34.95,
-   "roe": 13.81,
-   "rev_growth": 7.85
-  },
-  "Healthcare": {
-   "forward_pe": 18.59,
-   "ev_ebitda": 15.91,
-   "op_margin": 15.41,
-   "roe": 12.75,
+   "forward_pe": 9.91,
+   "ev_ebitda": 10.1,
+   "op_margin": 34.02,
+   "roe": 12.84,
    "rev_growth": 8.3
   },
+  "Healthcare": {
+   "forward_pe": 17.31,
+   "ev_ebitda": 14.85,
+   "op_margin": 15.17,
+   "roe": 12.02,
+   "rev_growth": 7.6
+  },
   "Industrials": {
-   "forward_pe": 18.3,
-   "ev_ebitda": 15.07,
-   "op_margin": 13.29,
-   "roe": 16.84,
-   "rev_growth": 11.0
+   "forward_pe": 16.7,
+   "ev_ebitda": 14.01,
+   "op_margin": 13.33,
+   "roe": 16.16,
+   "rev_growth": 11.7
   },
   "Real Estate": {
-   "forward_pe": 32.72,
-   "ev_ebitda": 17.63,
-   "op_margin": 26.3,
-   "roe": 7.6,
-   "rev_growth": 8.2
+   "forward_pe": 31.59,
+   "ev_ebitda": 17.4,
+   "op_margin": 25.4,
+   "roe": 7.64,
+   "rev_growth": 7.2
   },
   "Technology": {
-   "forward_pe": 16.4,
-   "ev_ebitda": 18.56,
-   "op_margin": 15.11,
-   "roe": 17.54,
-   "rev_growth": 17.6
+   "forward_pe": 14.96,
+   "ev_ebitda": 17.0,
+   "op_margin": 15.43,
+   "roe": 18.29,
+   "rev_growth": 14.6
   },
   "Utilities": {
-   "forward_pe": 18.35,
-   "ev_ebitda": 13.04,
-   "op_margin": 22.6,
-   "roe": 9.63,
-   "rev_growth": 8.35
+   "forward_pe": 18.07,
+   "ev_ebitda": 12.77,
+   "op_margin": 23.93,
+   "roe": 9.87,
+   "rev_growth": 8.4
   }
  }
 }
