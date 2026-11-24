@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-24T01:34-05:00",
+ "generated_at": "2026-11-24T06:06-05:00",
  "as_of_date": "2026-11-24",
  "checked": 1477,
  "big_drops": 83,
@@ -7,7 +7,7 @@
  "excluded_lasting_damage": [
   {
    "ticker": "LQDA",
-   "why_fell": "Shares fell 57.2% in one day on 2026-09-30 after a patent litigation setback against United Therapeutics. Analysts said the Yutrepia patent loss clouds the product's path. Yutrepia is Liquidia's lead product."
+   "why_fell": "On 2026-09-30 the shares fell 57.2% in one day after a patent litigation setback against United Therapeutics. Analysts said the Yutrepia patent loss clouds the product's path."
   }
  ],
  "criteria": {
@@ -71,7 +71,7 @@
     "fcf_yield": 4.96,
     "rev_growth": 45.6,
     "earn_growth": 14.4,
-    "fwd_eps_growth": 77.7,
+    "fwd_eps_growth": 88.74,
     "op_margin": 8.06,
     "roe": 19.2,
     "debt_to_equity": 147.7,
@@ -92,15 +92,15 @@
    },
    "analysis": {
     "cause_type": "temporary",
-    "why_fell": "Shares fell about 59% from the May 2026 high. The biggest drops came after Q2 results in August, which beat estimates and raised the outlook, and again in November. The headlines show no lasting damage, and analysts have cut price targets.",
-    "why_recover": "Sales grew 45.6%, and free cash flow reportedly jumped nearly 200%. Expected EPS growth next year is 77.7%. The shares trade at 10.6x forward earnings against a sector median of 16.7x, and at 10.0x EV/EBITDA against 14.0x. All 11 analysts rate it a strong buy, with an average target of $490, though several targets were cut (Wells Fargo to $300). A recovery likely needs fiber and AI-infrastructure demand to hold up and the company to keep delivering earnings beats, including in the upcoming Q3 report.",
+    "why_fell": "Shares slid after Q2 results in late August (-7.7% and -11.6% days) despite a beat and raised outlook, and fell again in November. Headlines point to cost worries (fuel, workforce) and lower analyst price targets, not damage to the business.",
+    "why_recover": "Sales are growing 45.6% and profit 14.4%, with next-year EPS expected to rise 88.7%. The forward P/E of 10.6 and EV/EBITDA of 10.0 are below sector medians (16.7 and 14.0). Free cash flow reportedly jumped nearly 200%, and 11 analysts rate it a strong buy with an average target of $490, though Wells Fargo cut its target to $300. A recovery mainly needs the Q3 report to show fiber and AI-related demand holding up while costs stay under control.",
     "risks": [
-     "The exact cause of the drop is not clear. The shares fell despite a good Q2, which may mean the earlier high price was too optimistic.",
-     "Higher fuel and workforce costs could squeeze margins. Operating margin is 8.1% against a sector figure of 13.3%.",
-     "Debt/equity of 148% adds risk if demand from telecom customers slows. Analysts have been cutting price targets."
+     "Debt/equity of 148% and an operating margin of 8.1% (sector 13.3%) leave less room for cost shocks",
+     "Higher fuel and workforce costs could squeeze margins, and analysts keep trimming price targets",
+     "The stock is tied to AI and fiber spending, so a sector sell-off or slower demand could hit it again"
     ],
     "conviction": "medium",
-    "one_liner": "Down 59% despite strong growth and beats; cheap vs sector, but the cause is murky."
+    "one_liner": "Growth and cheap valuation after a 59% fall; cost worries and falling targets weigh"
    },
    "news": [
     {
@@ -974,15 +974,15 @@
    },
    "analysis": {
     "cause_type": "temporary",
-    "why_fell": "Shares fell after earnings showed sales rising but profit falling, with headlines pointing to pricing not keeping up with costs hurting near-term margins. Several analysts also cut price targets, though most kept Buy ratings.",
-    "why_recover": "Sales grew 13.3% and the operating margin of 14.8% is above the sector's 13.3%. The shares trade at 12.6x expected earnings against a sector median of 16.7x. Analysts expect EPS to rebound strongly next year, and the consensus is Strong Buy with an average target about 48% above the price. A recovery mainly depends on ESAB raising prices to cover its costs and on the Eddyfi acquisition integrating smoothly, so that profits catch up with sales.",
+    "why_fell": "Shares fell about 41% from the February high after earnings showed sales rising but profit falling. Headlines point to pricing not keeping up with costs, squeezing margins, and a string of analyst price-target cuts.",
+    "why_recover": "Sales are growing 13.3% and the operating margin of 14.8% is above the sector's 13.3%, so the core business looks intact. The shares trade at 12.6x expected earnings versus 16.7x for the sector, and analysts expect next-year EPS to rise sharply. All 11 analysts rate it a strong buy, with an average target of $116.73, though several targets were cut. The shares are already 22% above their recent low. A recovery mostly depends on pricing catching up with costs so margins and profit rebound.",
     "risks": [
-     "Profit growth is -35.6%; if the pricing and cost gap persists, margins and earnings could keep disappointing",
-     "Debt/equity of 95% and return on equity of only 7.6% leave less room for error after the acquisition",
-     "Price targets keep being cut (Evercore to $99), so the 125% EPS rebound forecast may prove too optimistic"
+     "Profit fell 35.6% while sales rose; pricing may not catch up with cost pressure soon",
+     "Debt is fairly high (debt/equity 95%) and the Eddyfi integration could cause costs or missteps",
+     "Analysts keep cutting targets; Evercore has an In-Line rating at about $100"
     ],
     "conviction": "medium",
-    "one_liner": "Sales up but profit squeezed by costs; cheap vs sector, recovery hinges on pricing catching up"
+    "one_liner": "Sales up but margins squeezed; cheap vs sector, recovery depends on pricing catching up."
    },
    "news": [
     {
@@ -1856,17 +1856,24 @@
    },
    "analysis": {
     "cause_type": "temporary",
-    "why_fell": "Shares fell sharply on Q3 earnings day (-9.3%) despite strong results, then dropped again on Nov 4-5 (-15.1%, -11.6%). Headlines point to worries about AI data center policy risk and a wider AI-related selloff, not a company-specific failure.",
-    "why_recover": "The business looks healthy: sales grew 53.7%, profit 68.6%, and the operating margin of 16.8% beats the sector's 13.3%. Debt is low (debt/equity 11%). The forward P/E of 17.2 is close to the sector median of 16.7, even though next-year EPS is expected to grow 45.3%. All 11 analysts rate it a strong buy, with an average target 53% above the price. The shares are already 20% above their recent low. A recovery mainly depends on AI data center spending staying strong and on sentiment toward AI-linked stocks stabilising.",
+    "why_fell": "Shares fell about 44% from the June high, with big one-day drops on 23 Oct (-9.3%), 4 Nov (-15.1%) and 5 Nov (-11.6%). Headlines point to worries about AI data center policy risk and an AI-related sell-off, even after strong Q3 earnings.",
+    "why_recover": "The business looks healthy: sales are up 53.7%, profit up 68.6%, and the operating margin of 16.8% beats the sector's 13.3%. Debt is low (debt/equity 11%). The forward P/E of 17.2 is close to the sector's 16.7, and next-year EPS is expected to grow 45.3%. All 11 analysts rate it strong buy, with an average target 53% above the price. The shares are already 20% above their recent low. A recovery mostly depends on AI data center spending staying strong and the policy worries fading.",
     "risks": [
-     "Heavy reliance on AI data center demand; policy changes or an AI selloff could hit it again",
+     "Heavy reliance on AI data center demand; policy changes or an AI sell-off could keep pressure on the shares",
      "EV/EBITDA of 17.0 is above the sector's 14.0, so the shares are not cheap on that measure",
-     "Very volatile: three single-day falls of 9-15%, and the price is still 44% below its high"
+     "Headlines mention analysts trimming fair value over backlog and margins; growth may slow from current levels"
     ],
     "conviction": "medium",
-    "one_liner": "Strong growth and margins; the drop looks like AI-sentiment fear, not damage to the business"
+    "one_liner": "Strong earnings, AI-linked sell-off; fair P/E, 53% analyst upside, policy risk remains"
    },
    "news": [
+    {
+     "title": "Comfort Systems USA (FIX) Stock Gets Fair Value Trim As Analysts Weigh Backlog And Margins",
+     "summary": "The updated Fair Value estimate for Comfort Systems USA has moved from US$1,820.56 to US$1,772.27, signaling a slightly more conservative price target in current models. Analysts link this shift to a mix of enthusiasm about record backlogs and data center work, and caution around margins, sector sentiment, and the durability of hyperscaler related spending. As you read on, you will see how these moving pieces shape the evolving Comfort Systems USA story and what it could mean for your own...",
+     "source": "Simply Wall St.",
+     "url": "https://finance.yahoo.com/markets/stocks/articles/comfort-systems-usa-fix-stock-090921268.html",
+     "published": "2026-11-24T09:09:21+00:00"
+    },
     {
      "title": "Comfort Systems USA stands out as the top industrial stock to own",
      "summary": "Investing.com -- The best all-around candidate is Comfort Systems USA (FIX). It combines exceptional capital efficiency, accelerating demand, and unusually low leverage.",
@@ -1894,13 +1901,6 @@
      "source": "Zacks",
      "url": "https://finance.yahoo.com/markets/stocks/articles/mastec-completes-1-25b-murphy-160900018.html",
      "published": "2026-11-23T16:09:00+00:00"
-    },
-    {
-     "title": "The ETF That Copies Republican Lawmakers\u2019 Stock Trades Used to Be Called KRUZ. Now the Ticker Is Simply GOP",
-     "summary": "A little-known fund mirrors what Republican lawmakers buy and sell, yet the filings behind it arrive weeks late. Can a basket built on stale disclosures compete with the S&P 500 fund most retirees already hold?",
-     "source": "24/7 Wall St.",
-     "url": "https://247wallst.com/investing/etf/2026/11/23/the-etf-that-copies-republican-lawmakers-stock-trades-used-to-be-called-kruz-now-the-ticker-is-simply-gop/",
-     "published": "2026-11-23T14:43:08+00:00"
     }
    ],
    "history": {
@@ -2717,7 +2717,7 @@
     "fcf_yield": 8.59,
     "rev_growth": -3.5,
     "earn_growth": -22.0,
-    "fwd_eps_growth": 24.63,
+    "fwd_eps_growth": 25.66,
     "op_margin": 22.24,
     "roe": 207.08,
     "debt_to_equity": null,
@@ -2738,15 +2738,15 @@
    },
    "analysis": {
     "cause_type": "temporary",
-    "why_fell": "The biggest drop (-14% on 29 Jan) came as Macau operations disappointed. A further -8.6% fall on 23 Apr followed Q1 results that headlines called strong, with buybacks completed, so that drop looks more like profit-taking or a reset in expectations.",
-    "why_recover": "The business remains profitable: operating margin is 22.2% against a sector figure of 11.7%, and free-cash-flow yield is 8.6%. The shares trade on 8.4x EV/EBITDA against 10.9x for the sector, and a forward P/E of 12.8 is in line with the sector. Analysts expect EPS to grow 24.6% next year. 19 analysts rate it a consensus buy, with an average target of $49.15, 25.6% above the price. A recovery mainly depends on Macau results improving and on market share holding without heavy extra spending.",
+    "why_fell": "The biggest drop (-14% on 29 Jan) came as Macau operations disappointed. A further -8.6% fell on 23 Apr, even after headlines called Q1 results strong. Sales are down 3.5% and profit down 22%.",
+    "why_recover": "The business looks intact: operating margin is 22.2% against a sector figure of 11.7%, and free-cash-flow yield is 8.6%. The shares trade at 12.8x forward earnings, in line with the sector, and at 8.4x EV/EBITDA against a sector 10.9x. Analysts rate it a consensus buy, with an average target of $49.15 (about 26% above the price) and expected EPS growth of 25.7% next year. A recovery mainly depends on Macau market share and earnings stabilising and then growing again.",
     "risks": [
-     "Sales fell 3.5% and profit fell 22%; Macau weakness may last longer than expected",
-     "Commentary says Singapore has little room to grow and Macau share is getting costlier to win",
-     "Current ratio of 0.83 means thin short-term liquidity; buybacks are now complete"
+     "Sales and profit are shrinking (-3.5%, -22%); Macau results could disappoint again",
+     "One headline says Singapore has little room to grow and Macau share is getting costlier",
+     "Current ratio of 0.83 shows thin short-term liquidity; the debt data is not available"
     ],
     "conviction": "medium",
-    "one_liner": "Macau disappointment hit a high-margin, cheap-looking casino operator; recovery needs Macau to stabilise."
+    "one_liner": "Macau disappointment hit a high-margin, cheap-ish operator; recovery needs earnings to rebound"
    },
    "news": [
     {
@@ -3620,17 +3620,24 @@
    },
    "analysis": {
     "cause_type": "temporary",
-    "why_fell": "The drop looks tied to a broad tech sell-off and AI-disruption fears (including worries about Alphabet's Project Genie), plus Fed policy jitters. Several one-day falls of 17-20% followed, and analysts trimmed price targets after the latest results.",
-    "why_recover": "The business still looks healthy: sales grew 55.5% and profit grew 75.5%, with a 77.8% operating margin against a sector level of 22.3%. Headlines say the company grew 53% and beat on profit. 31 analysts rate it a consensus buy, with an average target of $458.11, 22.5% above the price. The shares already bounced 63.6% from the recent low. A recovery likely needs growth and margins to hold up while worries about AI disruption and the broad tech sell-off fade.",
+    "why_fell": "Shares fell in several sharp steps: fears that AI could disrupt ad-tech (including an Alphabet \"Project Genie\" worry), a broad tech sell-off, and analysts trimming price targets after an August drop. Results themselves were strong, with sales up about 53-55%.",
+    "why_recover": "The business looks healthy: sales growth is 55.5%, profit growth 75.5% and the operating margin is 77.8%, far above the sector's 22.3%. Next-year EPS is expected to grow 40.5%. The forward P/E of 17.9 is above the sector's 11.8, but that looks modest given the growth. 31 analysts rate it a consensus buy, with an average target of $458 (about 22% above the price). The shares are already up 64% from their recent low. A recovery mostly needs growth and margins to hold up and the AI-disruption fear and tech sell-off to fade.",
     "risks": [
-     "Valuation is above the sector (forward P/E 17.9 vs 11.8), so there is little room for any slowdown",
-     "AI-competition fears (e.g. Alphabet) could prove real and hurt the advertising business",
-     "Debt/equity of 107%, and the Nasdaq-100 is in a bear market, so volatility could stay high"
+     "AI-disruption fears or a big tech rival entering ad-tech could hit the story again and cap the valuation",
+     "Debt/equity of 107% and a premium valuation to the sector leave less room for a slip in growth",
+     "Very volatile: three single-day falls of 17-20%, and analysts are cutting targets"
     ],
     "conviction": "medium",
-    "one_liner": "Strong growth and margins; sell-off looks driven by AI fears and market weakness."
+    "one_liner": "Strong growth and margins hit by AI-fear sell-off; recovery hinges on growth holding up"
    },
    "news": [
+    {
+     "title": "This Tech Stock Might Be the Biggest Surprise in 2027",
+     "summary": "Unity Software isn't on most people's radars after losing more than 70% over the past five years, but the rebound may finally be here.",
+     "source": "Motley Fool",
+     "url": "https://www.fool.com/investing/2026/11/24/this-tech-stock-might-be-the-biggest-surprise-in-2027/",
+     "published": "2026-11-24T09:15:02+00:00"
+    },
     {
      "title": "ValuEngine Weekly Market Commentary: Bear Market For Nasdaq-100 Headlines Historic Weekly Meltdown",
      "summary": "U.S. equity markets experienced a sharp and broad-based selloff this week, with all major ETFs and sector benchmarks posting significant declines.",
@@ -3658,13 +3665,6 @@
      "source": "TIKR",
      "url": "https://www.tikr.com/blog/a-1-7-billion-fund-dumps-these-2-stocks?ref=yahoofinance&tlnk=yf-261123-63rqph6m",
      "published": "2026-11-23T16:50:13+00:00"
-    },
-    {
-     "title": "AppLovin Q3 Beat & Q4 Guidance Put AI Growth & Margins to the Test",
-     "summary": "APP's Q3 earnings beat, 55% y/y revenue growth and robust Q4 guidance highlight AI-driven momentum, but model deployment risks could challenge sustained growth.",
-     "source": "Zacks",
-     "url": "https://finance.yahoo.com/technology/ai/articles/applovin-q3-beat-q4-guidance-153200673.html",
-     "published": "2026-11-23T15:32:00+00:00"
     }
    ],
    "history": {
@@ -4502,15 +4502,15 @@
    },
    "analysis": {
     "cause_type": "temporary",
-    "why_fell": "Shares fell in steps after earnings reports. Headlines point to profit pressure despite record revenue, and analysts trimmed price targets (e.g. JP Morgan to $50, Needham to $62). No sign of fraud or lost customers appears in the headlines.",
-    "why_recover": "Sales are growing 13.7%, and the company reported record revenue and software growth. Analysts are broadly positive: consensus is buy, with an average target of $57.67, about 66% above the price. The forward P/E of 14.2 is slightly below the sector's 15.0, and expected EPS growth is very high at 254%. Debt is very low and the current ratio is 3.04. A recovery mostly depends on profit margins improving so that earnings growth actually shows up.",
+    "why_fell": "Shares fell in steps after earnings reports. Headlines point to profit pressure despite record revenue, and analysts trimmed price targets (Needham to $62, JP Morgan to $50). The wider market was at record highs, so the drop looks company-specific.",
+    "why_recover": "Sales are growing 13.7% and headlines cite record revenue and software growth. The balance sheet is strong, with debt/equity of 3% and a current ratio of 3.04. The forward P/E of 14.2 is slightly below the sector's 15.0, and EPS is expected to grow 254% next year. All 6 analysts lean buy, with an average target of $57.67, well above the price. A recovery mainly requires profit margins to improve and earnings to rebound as forecast.",
     "risks": [
-     "Profit growth is -27.3% and the operating margin of 5.3% is far below the sector's 15.4%.",
-     "EV/EBITDA of 25.7 is above the sector's 17.0, and free-cash-flow yield is only 2.1%, so the shares are not clearly cheap.",
-     "The 254% EPS growth forecast is a big jump; if margins stay weak, more target cuts and falls could follow."
+     "Profit growth is -27.3% and operating margin of 5.3% is far below the sector's 15.4%",
+     "EV/EBITDA of 25.7 is above the sector's 17.0, and free-cash-flow yield is only 2.1%",
+     "The 254% EPS growth forecast is demanding; a miss could trigger further target cuts and selling"
     ],
     "conviction": "medium",
-    "one_liner": "Record sales but thin profits drove the drop; recovery depends on margins improving."
+    "one_liner": "Record sales but squeezed profits; solid balance sheet, analysts see big upside if margins recover."
    },
    "news": [
     {
@@ -5384,15 +5384,15 @@
    },
    "analysis": {
     "cause_type": "temporary",
-    "why_fell": "Shares fell in steps. Activist investors (D.E. Shaw, Third Point) challenged the Homes.com spending strategy in February, and analysts cut price targets after Q4 results. A further 14% one-day fall on 2026-10-28 isn't explained by the headlines.",
-    "why_recover": "The core business is growing: sales are up 14.1% and the data products are still in demand, with CoStar raising its US office forecasts. The forward P/E of 17.1 is well below the sector median of 31.6, and expected EPS growth is large, which would come from a low base. 20 analysts rate it a buy on average, with a $35.85 target about 19% above the price. A recovery mainly depends on Homes.com spending being reined in so margins improve from 5.8% toward the sector's 25.4%.",
+    "why_fell": "Shares fell in steps. In February activist investors (D.E. Shaw, Third Point) challenged the board and the Homes.com spending strategy, and analysts cut targets after Q4 results. A further 14% one-day drop came on 2026-10-28, and the headlines don't explain it.",
+    "why_recover": "The core business is still growing, with sales up 14.1%, and the data products look healthy, for example the upgraded office forecasts. The forward P/E of 17.1 is well below the sector median of 31.6. Next-year EPS is expected to rise sharply as margins improve, and 20 analysts rate it a consensus buy with an average target of $35.85, 18.7% above the price. A recovery mainly depends on Homes.com spending being reined in so that margins move toward the sector level.",
     "risks": [
-     "Operating margin of 5.8% is far below the sector's 25.4%; Homes.com spending may keep profits weak",
-     "The October 14% drop is unexplained, so a negative surprise may be missing from the data",
+     "Operating margin is only 5.8% vs 25.4% for the sector; heavy Homes.com spending may persist",
+     "The October 28 drop of 14% is unexplained, so there may be bad news not shown in the headlines",
      "EV/EBITDA of 23.0 is above the sector's 17.4, and the 300% EPS growth forecast may not be met"
     ],
     "conviction": "medium",
-    "one_liner": "Growing data leader hit by activist fight and Homes.com costs; cheap on forward P/E"
+    "one_liner": "Activist pressure and Homes.com costs hit shares; cheap on earnings, but margins must improve."
    },
    "news": [
     {
@@ -6266,15 +6266,15 @@
    },
    "analysis": {
     "cause_type": "temporary",
-    "why_fell": "The biggest drop (-31.2% on 2026-05-07) came with earnings and analyst downgrades citing member growth and marketing headwinds. Later falls followed worries about a slowdown in the second half, pricing uncertainty and cheaper rivals.",
-    "why_recover": "The business still looks healthy: sales are growing 6.2% and the operating margin is 31.8%, against 11.7% for the sector. Analysts expect EPS to grow 26.3% next year. The shares are up 45.6% from their recent low, and the 16 analysts rate them a consensus buy with an average target of $70.64 (about 20% above the price). UBS recently raised its target to $83. A recovery mostly depends on member growth picking up again and on the marketing and pricing changes working.",
+    "why_fell": "The biggest drop (-31.2% on 2026-05-07) followed earnings and several analyst downgrades and price-target cuts over member growth and marketing headwinds. Later falls (-9.5% twice) came with worries about a second-half slowdown, pricing, and low-price rivals.",
+    "why_recover": "The business still looks healthy: sales grew 6.2% and the operating margin is 31.8%, far above the sector's 11.7%. The shares have already bounced 45.6% from the recent low of $40.50. Analysts expect EPS to grow 26.3% next year, and 16 analysts have a consensus buy with an average target of $70.64 (about 20% above the price). UBS recently raised its target to $83. A recovery depends mainly on member growth picking up and on the marketing and pricing changes working.",
     "risks": [
-     "Competition from high-volume, low-price gyms could slow member growth and limit pricing power",
-     "Valuation (forward P/E 15.9) is above the sector median of 13.1, which leaves less room for disappointment",
-     "Profit growth is flat (-0.5%), and the marketing reset and pricing tests may not work"
+     "Competition from high-volume, low-price gyms could slow member growth",
+     "Pricing tests and the marketing reset may not lift growth in the second half",
+     "Valuation (forward P/E 15.9 vs sector 13.1) leaves little room for more disappointments"
     ],
     "conviction": "medium",
-    "one_liner": "Profitable gym franchisor hit by growth worries; rebound depends on members and marketing"
+    "one_liner": "Strong margins and a bounce from the lows, but growth and competition worries remain"
    },
    "news": [
     {

@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-24T01:34-05:00",
+ "updated_at": "2026-11-24T06:06-05:00",
  "lists": [
   {
    "as_of_date": "2026-11-24",
@@ -21,14 +21,14 @@
      "return_pct": -0.0
     },
     {
-     "ticker": "LVS",
-     "name": "Las Vegas Sands Corp.",
-     "return_pct": -0.0
-    },
-    {
      "ticker": "FIX",
      "name": "Comfort Systems USA, Inc.",
      "return_pct": 0.0
+    },
+    {
+     "ticker": "LVS",
+     "name": "Las Vegas Sands Corp.",
+     "return_pct": -0.0
     },
     {
      "ticker": "APP",
@@ -41,14 +41,14 @@
      "return_pct": -0.0
     },
     {
-     "ticker": "PLNT",
-     "name": "Planet Fitness, Inc.",
-     "return_pct": -0.0
-    },
-    {
      "ticker": "CSGP",
      "name": "CoStar Group, Inc.",
      "return_pct": 0.0
+    },
+    {
+     "ticker": "PLNT",
+     "name": "Planet Fitness, Inc.",
+     "return_pct": -0.0
     }
    ]
   },
