@@ -1,9 +1,60 @@
 {
- "updated_at": "2026-11-23T16:37-05:00",
+ "updated_at": "2026-11-24T00:22-05:00",
  "lists": [
   {
+   "as_of_date": "2026-11-23",
+   "days": 1,
+   "n": 8,
+   "avg_return_pct": 0.0,
+   "spy_return_pct": 0.0,
+   "beat_spy": false,
+   "winners": 0,
+   "picks": [
+    {
+     "ticker": "ESAB",
+     "name": "ESAB Corporation",
+     "return_pct": -0.0
+    },
+    {
+     "ticker": "FIX",
+     "name": "Comfort Systems USA, Inc.",
+     "return_pct": 0.0
+    },
+    {
+     "ticker": "LVS",
+     "name": "Las Vegas Sands Corp.",
+     "return_pct": -0.0
+    },
+    {
+     "ticker": "APP",
+     "name": "AppLovin Corporation",
+     "return_pct": 0.0
+    },
+    {
+     "ticker": "CALX",
+     "name": "Calix, Inc.",
+     "return_pct": -0.0
+    },
+    {
+     "ticker": "CSGP",
+     "name": "CoStar Group, Inc.",
+     "return_pct": 0.0
+    },
+    {
+     "ticker": "PLNT",
+     "name": "Planet Fitness, Inc.",
+     "return_pct": -0.0
+    },
+    {
+     "ticker": "VC",
+     "name": "Visteon Corporation",
+     "return_pct": -0.0
+    }
+   ]
+  },
+  {
    "as_of_date": "2026-11-21",
-   "days": 2,
+   "days": 3,
    "n": 8,
    "avg_return_pct": 2.59,
    "spy_return_pct": 4.71,
@@ -54,7 +105,7 @@
   },
   {
    "as_of_date": "2026-11-19",
-   "days": 4,
+   "days": 5,
    "n": 8,
    "avg_return_pct": -1.18,
    "spy_return_pct": 0.9,
@@ -105,7 +156,7 @@
   },
   {
    "as_of_date": "2026-11-18",
-   "days": 5,
+   "days": 6,
    "n": 8,
    "avg_return_pct": -2.35,
    "spy_return_pct": -1.08,
@@ -156,7 +207,7 @@
   },
   {
    "as_of_date": "2026-11-17",
-   "days": 6,
+   "days": 7,
    "n": 8,
    "avg_return_pct": -1.23,
    "spy_return_pct": -1.39,
@@ -207,7 +258,7 @@
   },
   {
    "as_of_date": "2026-11-16",
-   "days": 7,
+   "days": 8,
    "n": 8,
    "avg_return_pct": -2.04,
    "spy_return_pct": -2.39,

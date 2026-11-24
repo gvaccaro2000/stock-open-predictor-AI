@@ -1,0 +1,53 @@
+{
+ "as_of_date": "2026-11-24",
+ "picks": [
+  {
+   "rank": 1,
+   "ticker": "DY",
+   "name": "Dycom Industries, Inc.",
+   "price": 218.37
+  },
+  {
+   "rank": 2,
+   "ticker": "ESAB",
+   "name": "ESAB Corporation",
+   "price": 78.88
+  },
+  {
+   "rank": 3,
+   "ticker": "LVS",
+   "name": "Las Vegas Sands Corp.",
+   "price": 39.14
+  },
+  {
+   "rank": 4,
+   "ticker": "FIX",
+   "name": "Comfort Systems USA, Inc.",
+   "price": 1158.53
+  },
+  {
+   "rank": 5,
+   "ticker": "APP",
+   "name": "AppLovin Corporation",
+   "price": 373.92
+  },
+  {
+   "rank": 6,
+   "ticker": "CALX",
+   "name": "Calix, Inc.",
+   "price": 34.66
+  },
+  {
+   "rank": 7,
+   "ticker": "PLNT",
+   "name": "Planet Fitness, Inc.",
+   "price": 58.96
+  },
+  {
+   "rank": 8,
+   "ticker": "CSGP",
+   "name": "CoStar Group, Inc.",
+   "price": 30.2
+  }
+ ]
+}
