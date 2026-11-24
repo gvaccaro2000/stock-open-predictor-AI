@@ -1,6 +1,57 @@
 {
- "updated_at": "2026-11-24T00:22-05:00",
+ "updated_at": "2026-11-24T01:34-05:00",
  "lists": [
+  {
+   "as_of_date": "2026-11-24",
+   "days": 0,
+   "n": 8,
+   "avg_return_pct": 0.0,
+   "spy_return_pct": 0.0,
+   "beat_spy": false,
+   "winners": 0,
+   "picks": [
+    {
+     "ticker": "DY",
+     "name": "Dycom Industries, Inc.",
+     "return_pct": -0.0
+    },
+    {
+     "ticker": "ESAB",
+     "name": "ESAB Corporation",
+     "return_pct": -0.0
+    },
+    {
+     "ticker": "LVS",
+     "name": "Las Vegas Sands Corp.",
+     "return_pct": -0.0
+    },
+    {
+     "ticker": "FIX",
+     "name": "Comfort Systems USA, Inc.",
+     "return_pct": 0.0
+    },
+    {
+     "ticker": "APP",
+     "name": "AppLovin Corporation",
+     "return_pct": 0.0
+    },
+    {
+     "ticker": "CALX",
+     "name": "Calix, Inc.",
+     "return_pct": -0.0
+    },
+    {
+     "ticker": "PLNT",
+     "name": "Planet Fitness, Inc.",
+     "return_pct": -0.0
+    },
+    {
+     "ticker": "CSGP",
+     "name": "CoStar Group, Inc.",
+     "return_pct": 0.0
+    }
+   ]
+  },
   {
    "as_of_date": "2026-11-23",
    "days": 1,
