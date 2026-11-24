@@ -3,51 +3,51 @@
  "picks": [
   {
    "rank": 1,
-   "ticker": "DY",
-   "name": "Dycom Industries, Inc.",
-   "price": 218.37
+   "ticker": "ESAB",
+   "name": "ESAB Corporation",
+   "price": 77.61
   },
   {
    "rank": 2,
-   "ticker": "ESAB",
-   "name": "ESAB Corporation",
-   "price": 78.88
+   "ticker": "LVS",
+   "name": "Las Vegas Sands Corp.",
+   "price": 39.61
   },
   {
    "rank": 3,
-   "ticker": "FIX",
-   "name": "Comfort Systems USA, Inc.",
-   "price": 1158.53
+   "ticker": "APP",
+   "name": "AppLovin Corporation",
+   "price": 381.11
   },
   {
    "rank": 4,
-   "ticker": "LVS",
-   "name": "Las Vegas Sands Corp.",
-   "price": 39.14
+   "ticker": "PLNT",
+   "name": "Planet Fitness, Inc.",
+   "price": 57.95
   },
   {
    "rank": 5,
-   "ticker": "APP",
-   "name": "AppLovin Corporation",
-   "price": 373.92
+   "ticker": "CALX",
+   "name": "Calix, Inc.",
+   "price": 33.21
   },
   {
    "rank": 6,
-   "ticker": "CALX",
-   "name": "Calix, Inc.",
-   "price": 34.66
+   "ticker": "AMTM",
+   "name": "Amentum Holdings, Inc.",
+   "price": 24.8
   },
   {
    "rank": 7,
-   "ticker": "CSGP",
-   "name": "CoStar Group, Inc.",
-   "price": 30.2
+   "ticker": "DECK",
+   "name": "Deckers Outdoor Corporation",
+   "price": 84.29
   },
   {
    "rank": 8,
-   "ticker": "PLNT",
-   "name": "Planet Fitness, Inc.",
-   "price": 58.96
+   "ticker": "AKAM",
+   "name": "Akamai Technologies, Inc.",
+   "price": 89.32
   }
  ]
 }

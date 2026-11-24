@@ -1,54 +1,54 @@
 {
- "updated_at": "2026-11-24T06:06-05:00",
+ "updated_at": "2026-11-24T16:36-05:00",
  "lists": [
   {
    "as_of_date": "2026-11-24",
    "days": 0,
    "n": 8,
-   "avg_return_pct": 0.0,
+   "avg_return_pct": -2.46,
    "spy_return_pct": 0.0,
    "beat_spy": false,
-   "winners": 0,
+   "winners": 3,
    "picks": [
     {
      "ticker": "DY",
      "name": "Dycom Industries, Inc.",
-     "return_pct": -0.0
+     "return_pct": -18.02
     },
     {
      "ticker": "ESAB",
      "name": "ESAB Corporation",
-     "return_pct": -0.0
+     "return_pct": -1.61
     },
     {
      "ticker": "FIX",
      "name": "Comfort Systems USA, Inc.",
-     "return_pct": 0.0
+     "return_pct": -5.35
     },
     {
      "ticker": "LVS",
      "name": "Las Vegas Sands Corp.",
-     "return_pct": -0.0
+     "return_pct": 1.2
     },
     {
      "ticker": "APP",
      "name": "AppLovin Corporation",
-     "return_pct": 0.0
+     "return_pct": 1.92
     },
     {
      "ticker": "CALX",
      "name": "Calix, Inc.",
-     "return_pct": -0.0
+     "return_pct": -4.18
     },
     {
      "ticker": "CSGP",
      "name": "CoStar Group, Inc.",
-     "return_pct": 0.0
+     "return_pct": 8.08
     },
     {
      "ticker": "PLNT",
      "name": "Planet Fitness, Inc.",
-     "return_pct": -0.0
+     "return_pct": -1.71
     }
    ]
   },
@@ -56,50 +56,50 @@
    "as_of_date": "2026-11-23",
    "days": 1,
    "n": 8,
-   "avg_return_pct": 0.0,
-   "spy_return_pct": 0.0,
+   "avg_return_pct": -0.89,
+   "spy_return_pct": -0.49,
    "beat_spy": false,
-   "winners": 0,
+   "winners": 3,
    "picks": [
     {
      "ticker": "ESAB",
      "name": "ESAB Corporation",
-     "return_pct": -0.0
+     "return_pct": -1.61
     },
     {
      "ticker": "FIX",
      "name": "Comfort Systems USA, Inc.",
-     "return_pct": 0.0
+     "return_pct": -5.35
     },
     {
      "ticker": "LVS",
      "name": "Las Vegas Sands Corp.",
-     "return_pct": -0.0
+     "return_pct": 1.2
     },
     {
      "ticker": "APP",
      "name": "AppLovin Corporation",
-     "return_pct": 0.0
+     "return_pct": 1.92
     },
     {
      "ticker": "CALX",
      "name": "Calix, Inc.",
-     "return_pct": -0.0
+     "return_pct": -4.18
     },
     {
      "ticker": "CSGP",
      "name": "CoStar Group, Inc.",
-     "return_pct": 0.0
+     "return_pct": 8.08
     },
     {
      "ticker": "PLNT",
      "name": "Planet Fitness, Inc.",
-     "return_pct": -0.0
+     "return_pct": -1.71
     },
     {
      "ticker": "VC",
      "name": "Visteon Corporation",
-     "return_pct": -0.0
+     "return_pct": -5.49
     }
    ]
   },
@@ -107,50 +107,50 @@
    "as_of_date": "2026-11-21",
    "days": 3,
    "n": 8,
-   "avg_return_pct": 2.59,
-   "spy_return_pct": 4.71,
+   "avg_return_pct": 3.28,
+   "spy_return_pct": 4.2,
    "beat_spy": false,
    "winners": 7,
    "picks": [
     {
      "ticker": "APP",
      "name": "AppLovin Corporation",
-     "return_pct": 7.36
+     "return_pct": 9.42
     },
     {
      "ticker": "LVS",
      "name": "Las Vegas Sands Corp.",
-     "return_pct": 0.75
+     "return_pct": 1.96
     },
     {
      "ticker": "PLNT",
      "name": "Planet Fitness, Inc.",
-     "return_pct": 0.08
+     "return_pct": -1.63
     },
     {
      "ticker": "PATK",
      "name": "Patrick Industries, Inc.",
-     "return_pct": 3.52
+     "return_pct": 4.28
     },
     {
      "ticker": "GNRC",
      "name": "Generac Holdings Inc.",
-     "return_pct": 5.97
+     "return_pct": 2.66
     },
     {
      "ticker": "WING",
      "name": "Wingstop Inc.",
-     "return_pct": -3.65
+     "return_pct": 2.16
     },
     {
      "ticker": "UFPI",
      "name": "UFP Industries, Inc.",
-     "return_pct": 3.44
+     "return_pct": 4.14
     },
     {
      "ticker": "PSN",
      "name": "Parsons Corporation",
-     "return_pct": 3.26
+     "return_pct": 3.24
     }
    ]
   },
@@ -158,50 +158,50 @@
    "as_of_date": "2026-11-19",
    "days": 5,
    "n": 8,
-   "avg_return_pct": -1.18,
-   "spy_return_pct": 0.9,
+   "avg_return_pct": -1.94,
+   "spy_return_pct": 0.41,
    "beat_spy": false,
    "winners": 3,
    "picks": [
     {
      "ticker": "CELH",
      "name": "Celsius Holdings, Inc.",
-     "return_pct": -6.32
+     "return_pct": -7.19
     },
     {
      "ticker": "ESAB",
      "name": "ESAB Corporation",
-     "return_pct": -0.27
+     "return_pct": -1.87
     },
     {
      "ticker": "LKQ",
      "name": "LKQ Corporation",
-     "return_pct": 1.49
+     "return_pct": 1.44
     },
     {
      "ticker": "LVS",
      "name": "Las Vegas Sands Corp.",
-     "return_pct": -0.48
+     "return_pct": 0.71
     },
     {
      "ticker": "PATK",
      "name": "Patrick Industries, Inc.",
-     "return_pct": 2.78
+     "return_pct": 3.54
     },
     {
      "ticker": "PLNT",
      "name": "Planet Fitness, Inc.",
-     "return_pct": -5.75
+     "return_pct": -7.37
     },
     {
      "ticker": "VC",
      "name": "Visteon Corporation",
-     "return_pct": 3.44
+     "return_pct": -2.24
     },
     {
      "ticker": "APP",
      "name": "AppLovin Corporation",
-     "return_pct": -4.35
+     "return_pct": -2.51
     }
    ]
   },
@@ -209,50 +209,50 @@
    "as_of_date": "2026-11-18",
    "days": 6,
    "n": 8,
-   "avg_return_pct": -2.35,
-   "spy_return_pct": -1.08,
-   "beat_spy": false,
-   "winners": 2,
+   "avg_return_pct": -1.4,
+   "spy_return_pct": -1.56,
+   "beat_spy": true,
+   "winners": 4,
    "picks": [
     {
      "ticker": "CELH",
      "name": "Celsius Holdings, Inc.",
-     "return_pct": -12.12
+     "return_pct": -12.95
     },
     {
      "ticker": "LVS",
      "name": "Las Vegas Sands Corp.",
-     "return_pct": -0.33
+     "return_pct": 0.87
     },
     {
      "ticker": "ESAB",
      "name": "ESAB Corporation",
-     "return_pct": -0.27
+     "return_pct": -1.87
     },
     {
      "ticker": "LKQ",
      "name": "LKQ Corporation",
-     "return_pct": -0.05
+     "return_pct": -0.1
     },
     {
      "ticker": "PATK",
      "name": "Patrick Industries, Inc.",
-     "return_pct": 1.34
+     "return_pct": 2.08
     },
     {
      "ticker": "DECK",
      "name": "Deckers Outdoor Corporation",
-     "return_pct": -2.46
+     "return_pct": 0.83
     },
     {
      "ticker": "WYNN",
      "name": "Wynn Resorts, Limited",
-     "return_pct": 0.17
+     "return_pct": 1.09
     },
     {
      "ticker": "MZTI",
      "name": "The Marzetti Company",
-     "return_pct": -5.09
+     "return_pct": -1.11
     }
    ]
   },
@@ -260,50 +260,50 @@
    "as_of_date": "2026-11-17",
    "days": 7,
    "n": 8,
-   "avg_return_pct": -1.23,
-   "spy_return_pct": -1.39,
+   "avg_return_pct": -1.32,
+   "spy_return_pct": -1.86,
    "beat_spy": true,
-   "winners": 2,
+   "winners": 4,
    "picks": [
     {
      "ticker": "LVS",
      "name": "Las Vegas Sands Corp.",
-     "return_pct": -0.46
+     "return_pct": 0.74
     },
     {
      "ticker": "CELH",
      "name": "Celsius Holdings, Inc.",
-     "return_pct": -7.7
+     "return_pct": -8.56
     },
     {
      "ticker": "ESAB",
      "name": "ESAB Corporation",
-     "return_pct": -0.1
+     "return_pct": -1.71
     },
     {
      "ticker": "PATK",
      "name": "Patrick Industries, Inc.",
-     "return_pct": 4.02
+     "return_pct": 4.78
     },
     {
      "ticker": "RRX",
      "name": "Regal Rexnord Corporation",
-     "return_pct": -0.64
+     "return_pct": -4.15
     },
     {
      "ticker": "PLNT",
      "name": "Planet Fitness, Inc.",
-     "return_pct": -3.57
+     "return_pct": -5.22
     },
     {
      "ticker": "WYNN",
      "name": "Wynn Resorts, Limited",
-     "return_pct": 2.03
+     "return_pct": 2.98
     },
     {
      "ticker": "MZTI",
      "name": "The Marzetti Company",
-     "return_pct": -3.43
+     "return_pct": 0.62
     }
    ]
   },
@@ -311,50 +311,50 @@
    "as_of_date": "2026-11-16",
    "days": 8,
    "n": 8,
-   "avg_return_pct": -2.04,
-   "spy_return_pct": -2.39,
+   "avg_return_pct": -1.23,
+   "spy_return_pct": -2.86,
    "beat_spy": true,
-   "winners": 1,
+   "winners": 3,
    "picks": [
     {
      "ticker": "CELH",
      "name": "Celsius Holdings, Inc.",
-     "return_pct": -8.84
+     "return_pct": -9.69
     },
     {
      "ticker": "LVS",
      "name": "Las Vegas Sands Corp.",
-     "return_pct": -1.71
+     "return_pct": -0.53
     },
     {
      "ticker": "ESAB",
      "name": "ESAB Corporation",
-     "return_pct": -0.34
+     "return_pct": -1.95
     },
     {
      "ticker": "LKQ",
      "name": "LKQ Corporation",
-     "return_pct": -0.93
+     "return_pct": -0.99
     },
     {
      "ticker": "PATK",
      "name": "Patrick Industries, Inc.",
-     "return_pct": 2.03
+     "return_pct": 2.78
     },
     {
      "ticker": "DECK",
      "name": "Deckers Outdoor Corporation",
-     "return_pct": -2.3
+     "return_pct": 0.99
     },
     {
      "ticker": "WING",
      "name": "Wingstop Inc.",
-     "return_pct": -3.78
+     "return_pct": 2.03
     },
     {
      "ticker": "GPI",
      "name": "Group 1 Automotive, Inc.",
-     "return_pct": -0.47
+     "return_pct": -2.52
     }
    ]
   }
