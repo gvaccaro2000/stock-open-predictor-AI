@@ -5,49 +5,49 @@
    "rank": 1,
    "ticker": "ESAB",
    "name": "ESAB Corporation",
-   "price": 77.61
+   "price": 80.18
   },
   {
    "rank": 2,
    "ticker": "LVS",
    "name": "Las Vegas Sands Corp.",
-   "price": 39.61
+   "price": 39.76
   },
   {
    "rank": 3,
    "ticker": "APP",
    "name": "AppLovin Corporation",
-   "price": 381.11
+   "price": 378.95
   },
   {
    "rank": 4,
-   "ticker": "PLNT",
-   "name": "Planet Fitness, Inc.",
-   "price": 57.95
+   "ticker": "CALX",
+   "name": "Calix, Inc.",
+   "price": 33.84
   },
   {
    "rank": 5,
-   "ticker": "CALX",
-   "name": "Calix, Inc.",
-   "price": 33.21
+   "ticker": "PLNT",
+   "name": "Planet Fitness, Inc.",
+   "price": 58.01
   },
   {
    "rank": 6,
    "ticker": "AMTM",
    "name": "Amentum Holdings, Inc.",
-   "price": 24.8
+   "price": 24.86
   },
   {
    "rank": 7,
-   "ticker": "XYL",
-   "name": "Xylem Inc.",
-   "price": 95.18
+   "ticker": "AKAM",
+   "name": "Akamai Technologies, Inc.",
+   "price": 88.66
   },
   {
    "rank": 8,
-   "ticker": "AKAM",
-   "name": "Akamai Technologies, Inc.",
-   "price": 89.32
+   "ticker": "GNRC",
+   "name": "Generac Holdings Inc.",
+   "price": 203.99
   }
  ]
 }
