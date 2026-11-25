@@ -1,54 +1,54 @@
 {
- "updated_at": "2026-11-24T16:36-05:00",
+ "updated_at": "2026-11-24T23:18-05:00",
  "lists": [
   {
    "as_of_date": "2026-11-24",
    "days": 0,
    "n": 8,
-   "avg_return_pct": -2.46,
+   "avg_return_pct": 0.0,
    "spy_return_pct": 0.0,
    "beat_spy": false,
-   "winners": 3,
+   "winners": 0,
    "picks": [
-    {
-     "ticker": "DY",
-     "name": "Dycom Industries, Inc.",
-     "return_pct": -18.02
-    },
     {
      "ticker": "ESAB",
      "name": "ESAB Corporation",
-     "return_pct": -1.61
-    },
-    {
-     "ticker": "FIX",
-     "name": "Comfort Systems USA, Inc.",
-     "return_pct": -5.35
+     "return_pct": 0.0
     },
     {
      "ticker": "LVS",
      "name": "Las Vegas Sands Corp.",
-     "return_pct": 1.2
+     "return_pct": 0.0
     },
     {
      "ticker": "APP",
      "name": "AppLovin Corporation",
-     "return_pct": 1.92
-    },
-    {
-     "ticker": "CALX",
-     "name": "Calix, Inc.",
-     "return_pct": -4.18
-    },
-    {
-     "ticker": "CSGP",
-     "name": "CoStar Group, Inc.",
-     "return_pct": 8.08
+     "return_pct": -0.0
     },
     {
      "ticker": "PLNT",
      "name": "Planet Fitness, Inc.",
-     "return_pct": -1.71
+     "return_pct": 0.0
+    },
+    {
+     "ticker": "CALX",
+     "name": "Calix, Inc.",
+     "return_pct": -0.0
+    },
+    {
+     "ticker": "AMTM",
+     "name": "Amentum Holdings, Inc.",
+     "return_pct": -0.0
+    },
+    {
+     "ticker": "DECK",
+     "name": "Deckers Outdoor Corporation",
+     "return_pct": 0.0
+    },
+    {
+     "ticker": "AKAM",
+     "name": "Akamai Technologies, Inc.",
+     "return_pct": -0.0
     }
    ]
   },
