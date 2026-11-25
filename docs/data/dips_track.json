@@ -1,9 +1,9 @@
 {
- "updated_at": "2026-11-24T23:18-05:00",
+ "updated_at": "2026-11-25T00:08-05:00",
  "lists": [
   {
    "as_of_date": "2026-11-24",
-   "days": 0,
+   "days": 1,
    "n": 8,
    "avg_return_pct": 0.0,
    "spy_return_pct": 0.0,
@@ -41,8 +41,8 @@
      "return_pct": -0.0
     },
     {
-     "ticker": "DECK",
-     "name": "Deckers Outdoor Corporation",
+     "ticker": "XYL",
+     "name": "Xylem Inc.",
      "return_pct": 0.0
     },
     {
@@ -54,7 +54,7 @@
   },
   {
    "as_of_date": "2026-11-23",
-   "days": 1,
+   "days": 2,
    "n": 8,
    "avg_return_pct": -0.89,
    "spy_return_pct": -0.49,
@@ -105,7 +105,7 @@
   },
   {
    "as_of_date": "2026-11-21",
-   "days": 3,
+   "days": 4,
    "n": 8,
    "avg_return_pct": 3.28,
    "spy_return_pct": 4.2,
@@ -156,7 +156,7 @@
   },
   {
    "as_of_date": "2026-11-19",
-   "days": 5,
+   "days": 6,
    "n": 8,
    "avg_return_pct": -1.94,
    "spy_return_pct": 0.41,
@@ -207,7 +207,7 @@
   },
   {
    "as_of_date": "2026-11-18",
-   "days": 6,
+   "days": 7,
    "n": 8,
    "avg_return_pct": -1.4,
    "spy_return_pct": -1.56,
@@ -258,7 +258,7 @@
   },
   {
    "as_of_date": "2026-11-17",
-   "days": 7,
+   "days": 8,
    "n": 8,
    "avg_return_pct": -1.32,
    "spy_return_pct": -1.86,
@@ -309,7 +309,7 @@
   },
   {
    "as_of_date": "2026-11-16",
-   "days": 8,
+   "days": 9,
    "n": 8,
    "avg_return_pct": -1.23,
    "spy_return_pct": -2.86,
