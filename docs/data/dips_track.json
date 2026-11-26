@@ -1,54 +1,54 @@
 {
- "updated_at": "2026-11-25T16:37-05:00",
+ "updated_at": "2026-11-25T22:38-05:00",
  "lists": [
   {
    "as_of_date": "2026-11-25",
    "days": 0,
    "n": 8,
-   "avg_return_pct": 0.74,
+   "avg_return_pct": 0.0,
    "spy_return_pct": 0.0,
-   "beat_spy": true,
-   "winners": 6,
+   "beat_spy": false,
+   "winners": 0,
    "picks": [
     {
      "ticker": "ESAB",
      "name": "ESAB Corporation",
-     "return_pct": 3.31
+     "return_pct": 0.0
     },
     {
      "ticker": "LVS",
      "name": "Las Vegas Sands Corp.",
-     "return_pct": 0.38
+     "return_pct": -0.0
     },
     {
      "ticker": "APP",
      "name": "AppLovin Corporation",
-     "return_pct": -0.57
-    },
-    {
-     "ticker": "PLNT",
-     "name": "Planet Fitness, Inc.",
-     "return_pct": 0.1
+     "return_pct": 0.0
     },
     {
      "ticker": "CALX",
      "name": "Calix, Inc.",
-     "return_pct": 1.9
+     "return_pct": 0.0
+    },
+    {
+     "ticker": "PLNT",
+     "name": "Planet Fitness, Inc.",
+     "return_pct": -0.0
     },
     {
      "ticker": "AMTM",
      "name": "Amentum Holdings, Inc.",
-     "return_pct": 0.24
-    },
-    {
-     "ticker": "XYL",
-     "name": "Xylem Inc.",
-     "return_pct": 1.3
+     "return_pct": 0.0
     },
     {
      "ticker": "AKAM",
      "name": "Akamai Technologies, Inc.",
-     "return_pct": -0.74
+     "return_pct": 0.0
+    },
+    {
+     "ticker": "GNRC",
+     "name": "Generac Holdings Inc.",
+     "return_pct": 0.0
     }
    ]
   },

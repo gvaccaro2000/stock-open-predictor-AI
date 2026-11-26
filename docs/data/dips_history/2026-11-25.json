@@ -33,21 +33,21 @@
   },
   {
    "rank": 6,
+   "ticker": "PSN",
+   "name": "Parsons Corporation",
+   "price": 53.26
+  },
+  {
+   "rank": 7,
    "ticker": "AMTM",
    "name": "Amentum Holdings, Inc.",
    "price": 24.86
   },
   {
-   "rank": 7,
+   "rank": 8,
    "ticker": "AKAM",
    "name": "Akamai Technologies, Inc.",
    "price": 88.66
-  },
-  {
-   "rank": 8,
-   "ticker": "GNRC",
-   "name": "Generac Holdings Inc.",
-   "price": 203.99
   }
  ]
 }
