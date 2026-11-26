@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-25T22:38-05:00",
+ "updated_at": "2026-11-25T23:35-05:00",
  "lists": [
   {
    "as_of_date": "2026-11-25",
@@ -36,6 +36,11 @@
      "return_pct": -0.0
     },
     {
+     "ticker": "PSN",
+     "name": "Parsons Corporation",
+     "return_pct": -0.0
+    },
+    {
      "ticker": "AMTM",
      "name": "Amentum Holdings, Inc.",
      "return_pct": 0.0
@@ -43,11 +48,6 @@
     {
      "ticker": "AKAM",
      "name": "Akamai Technologies, Inc.",
-     "return_pct": 0.0
-    },
-    {
-     "ticker": "GNRC",
-     "name": "Generac Holdings Inc.",
      "return_pct": 0.0
     }
    ]
