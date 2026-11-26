@@ -1,0 +1,53 @@
+{
+ "as_of_date": "2026-11-26",
+ "picks": [
+  {
+   "rank": 1,
+   "ticker": "ESAB",
+   "name": "ESAB Corporation",
+   "price": 80.18
+  },
+  {
+   "rank": 2,
+   "ticker": "LVS",
+   "name": "Las Vegas Sands Corp.",
+   "price": 39.76
+  },
+  {
+   "rank": 3,
+   "ticker": "APP",
+   "name": "AppLovin Corporation",
+   "price": 378.95
+  },
+  {
+   "rank": 4,
+   "ticker": "CALX",
+   "name": "Calix, Inc.",
+   "price": 33.84
+  },
+  {
+   "rank": 5,
+   "ticker": "PLNT",
+   "name": "Planet Fitness, Inc.",
+   "price": 58.01
+  },
+  {
+   "rank": 6,
+   "ticker": "PSN",
+   "name": "Parsons Corporation",
+   "price": 53.26
+  },
+  {
+   "rank": 7,
+   "ticker": "AMTM",
+   "name": "Amentum Holdings, Inc.",
+   "price": 24.86
+  },
+  {
+   "rank": 8,
+   "ticker": "AKAM",
+   "name": "Akamai Technologies, Inc.",
+   "price": 88.66
+  }
+ ]
+}
