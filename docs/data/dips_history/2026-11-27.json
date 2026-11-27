@@ -1,4 +1,53 @@
 {
  "as_of_date": "2026-11-27",
- "picks": []
+ "picks": [
+  {
+   "rank": 1,
+   "ticker": "ESAB",
+   "name": "ESAB Corporation",
+   "price": 81.94
+  },
+  {
+   "rank": 2,
+   "ticker": "FIX",
+   "name": "Comfort Systems USA, Inc.",
+   "price": 1128.64
+  },
+  {
+   "rank": 3,
+   "ticker": "VC",
+   "name": "Visteon Corporation",
+   "price": 82.91
+  },
+  {
+   "rank": 4,
+   "ticker": "APP",
+   "name": "AppLovin Corporation",
+   "price": 399.21
+  },
+  {
+   "rank": 5,
+   "ticker": "PLNT",
+   "name": "Planet Fitness, Inc.",
+   "price": 58.48
+  },
+  {
+   "rank": 6,
+   "ticker": "CALX",
+   "name": "Calix, Inc.",
+   "price": 34.13
+  },
+  {
+   "rank": 7,
+   "ticker": "XYL",
+   "name": "Xylem Inc.",
+   "price": 95.86
+  },
+  {
+   "rank": 8,
+   "ticker": "DIOD",
+   "name": "Diodes Incorporated",
+   "price": 79.77
+  }
+ ]
 }
