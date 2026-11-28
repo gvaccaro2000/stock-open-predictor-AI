@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-27T22:21-05:00",
+ "updated_at": "2026-11-27T23:23-05:00",
  "lists": [
   {
    "as_of_date": "2026-11-27",
@@ -41,13 +41,13 @@
      "return_pct": 0.0
     },
     {
-     "ticker": "XYL",
-     "name": "Xylem Inc.",
-     "return_pct": 0.0
-    },
-    {
      "ticker": "DIOD",
      "name": "Diodes Incorporated",
+     "return_pct": -0.0
+    },
+    {
+     "ticker": "EME",
+     "name": "EMCOR Group, Inc.",
      "return_pct": -0.0
     }
    ]
