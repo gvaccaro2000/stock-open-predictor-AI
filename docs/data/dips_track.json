@@ -1,9 +1,9 @@
 {
- "updated_at": "2026-11-27T23:23-05:00",
+ "updated_at": "2026-11-28T03:58-05:00",
  "lists": [
   {
    "as_of_date": "2026-11-27",
-   "days": 0,
+   "days": 1,
    "n": 8,
    "avg_return_pct": 0.0,
    "spy_return_pct": 0.0,
@@ -41,20 +41,20 @@
      "return_pct": 0.0
     },
     {
-     "ticker": "DIOD",
-     "name": "Diodes Incorporated",
-     "return_pct": -0.0
+     "ticker": "XYL",
+     "name": "Xylem Inc.",
+     "return_pct": 0.0
     },
     {
-     "ticker": "EME",
-     "name": "EMCOR Group, Inc.",
+     "ticker": "DIOD",
+     "name": "Diodes Incorporated",
      "return_pct": -0.0
     }
    ]
   },
   {
    "as_of_date": "2026-11-26",
-   "days": 1,
+   "days": 2,
    "n": 8,
    "avg_return_pct": 1.71,
    "spy_return_pct": 1.62,
@@ -105,7 +105,7 @@
   },
   {
    "as_of_date": "2026-11-25",
-   "days": 2,
+   "days": 3,
    "n": 8,
    "avg_return_pct": 1.58,
    "spy_return_pct": 1.62,
@@ -156,7 +156,7 @@
   },
   {
    "as_of_date": "2026-11-24",
-   "days": 3,
+   "days": 4,
    "n": 8,
    "avg_return_pct": 2.46,
    "spy_return_pct": 1.33,
@@ -207,7 +207,7 @@
   },
   {
    "as_of_date": "2026-11-23",
-   "days": 4,
+   "days": 5,
    "n": 8,
    "avg_return_pct": 3.14,
    "spy_return_pct": 0.83,
@@ -258,7 +258,7 @@
   },
   {
    "as_of_date": "2026-11-21",
-   "days": 6,
+   "days": 7,
    "n": 8,
    "avg_return_pct": 7.63,
    "spy_return_pct": 5.58,
@@ -309,7 +309,7 @@
   },
   {
    "as_of_date": "2026-11-19",
-   "days": 8,
+   "days": 9,
    "n": 8,
    "avg_return_pct": 2.08,
    "spy_return_pct": 1.74,
@@ -360,7 +360,7 @@
   },
   {
    "as_of_date": "2026-11-18",
-   "days": 9,
+   "days": 10,
    "n": 8,
    "avg_return_pct": 3.17,
    "spy_return_pct": -0.26,
@@ -411,7 +411,7 @@
   },
   {
    "as_of_date": "2026-11-17",
-   "days": 10,
+   "days": 11,
    "n": 8,
    "avg_return_pct": 2.77,
    "spy_return_pct": -0.56,
@@ -462,7 +462,7 @@
   },
   {
    "as_of_date": "2026-11-16",
-   "days": 11,
+   "days": 12,
    "n": 8,
    "avg_return_pct": 2.65,
    "spy_return_pct": -1.57,
